@@ -14,7 +14,7 @@
     </filter>
   </defs>
   
-  <rect width="32" height="32" rx="8" fill="#000000"/>
+  <rect width="32" height="32" rx="8" fill="#202122"/>
   
   <!-- Stylized "A" for Agentes de Conversão -->
   <path d="M16 6L24 26H8L16 6Z" fill="url(#iconGradient)" filter="url(#glow)"/>
