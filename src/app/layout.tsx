@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen bg-background text-foreground">
         <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Carregando...</div>}>
           <ClerkProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
