@@ -7,17 +7,21 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#46B2E0",
-    "light": "#8A53D2",
-    "dark": "#0e0e10",
+    "primary": "#0EA5E9",
+    "light": "#10B981",
+    "dark": "#000000",
+    "background": {
+      "dark": "#000000",
+      "light": "#FFFFFF"
+    },
     "anchors": {
-      "from": "#46B2E0",
-      "to": "#E056A0"
+      "from": "#0EA5E9",
+      "to": "#8A53D2"
     }
   },
   "font": {
-    "family": "Open Sans",
-    "google": "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+    "family": "Inter",
+    "google": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
   },
   "project": "680983f4240b32f84439a383",
   "topbarLinks": [

@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="6" fill="#46B2E0"/>
-  <text x="8" y="24" font-family="Arial" font-size="20" font-weight="bold" fill="#FFFFFF">A</text>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#8A53D2" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="glow" height="300%" width="300%" x="-100%" y="-100%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="32" height="32" rx="8" fill="#000000"/>
+  
+  <!-- Stylized "A" for Agentes de Conversão -->
+  <path d="M16 6L24 26H8L16 6Z" fill="url(#iconGradient)" filter="url(#glow)"/>
+  
+  <!-- Connecting nodes -->
+  <circle cx="16" cy="6" r="2" fill="#FFFFFF" filter="url(#glow)"/>
+  <circle cx="8" cy="26" r="2" fill="#FFFFFF" filter="url(#glow)"/>
+  <circle cx="24" cy="26" r="2" fill="#FFFFFF" filter="url(#glow)"/>
+  
+  <!-- Connections -->
+  <line x1="16" y1="6" x2="8" y2="26" stroke="#FFFFFF" stroke-width="0.5" opacity="0.5"/>
+  <line x1="16" y1="6" x2="24" y2="26" stroke="#FFFFFF" stroke-width="0.5" opacity="0.5"/>
+  <line x1="8" y1="26" x2="24" y2="26" stroke="#FFFFFF" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Crossbar of "A" -->
+  <line x1="12" y1="18" x2="20" y2="18" stroke="#000000" stroke-width="2"/>
 </svg>
