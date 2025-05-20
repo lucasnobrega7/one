@@ -1,0 +1,201 @@
+---
+title: 'Componentes de UI'
+description: 'Exemplos de componentes para uso na documentação dos Agentes de Conversão'
+---
+
+# Componentes de UI
+
+Esta página demonstra os componentes de UI disponíveis para uso na documentação dos Agentes de Conversão.
+
+## Tabs
+
+<Tabs>
+  <Tab title="Agentes">
+    Os agentes são assistentes virtuais que podem ser configurados para automatizar conversas
+    e auxiliar usuários em tarefas específicas, como vendas, suporte ou atendimento.
+  </Tab>
+  <Tab title="Conversas">
+    As conversas representam interações entre usuários e agentes. Cada conversa possui
+    um histórico de mensagens e metadados associados.
+  </Tab>
+  <Tab title="Base de Conhecimento">
+    A base de conhecimento fornece informações que ajudam os agentes a responder perguntas
+    específicas do seu negócio ou domínio.
+  </Tab>
+  <Tab title="Analytics">
+    O módulo de analytics oferece insights sobre o desempenho dos seus agentes,
+    incluindo métricas de engajamento e conversão.
+  </Tab>
+</Tabs>
+
+## Cards
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="code" href="/api-reference/openapi">
+    Consulte a documentação completa da API REST para integrar os Agentes de Conversão
+    aos seus sistemas.
+  </Card>
+  <Card title="Integração WhatsApp" icon="whatsapp" href="/guides/whatsapp-integration">
+    Aprenda a conectar seus agentes ao WhatsApp para automatizar atendimentos.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks">
+    Configure webhooks para receber notificações em tempo real sobre eventos na plataforma.
+  </Card>
+  <Card title="Modelos de IA" icon="brain" href="/guides/ai-models">
+    Conheça os diferentes modelos de IA disponíveis e como escolher o melhor para seu caso.
+  </Card>
+</CardGroup>
+
+## Tables
+
+### Planos Disponíveis
+
+| Plano | Agentes | Mensagens/mês | Bases de Conhecimento | Preço |
+| ----- | ------- | ------------- | --------------------- | ----- |
+| Básico | 2 | 1.000 | 1 | R$99/mês |
+| Profissional | 5 | 5.000 | 3 | R$249/mês |
+| Empresarial | 15 | 20.000 | 10 | R$599/mês |
+| Customizado | Ilimitado | Sob demanda | Ilimitado | Consulte |
+
+## Alerts
+
+<Info>
+  Os modelos de IA são atualizados regularmente para melhorar seu desempenho e capacidades.
+</Info>
+
+<Warning>
+  Certifique-se de configurar corretamente suas chaves de API em variáveis de ambiente seguras.
+</Warning>
+
+<Note>
+  A integração com WhatsApp requer uma conta Z-API ativa e um número de telefone dedicado.
+</Note>
+
+<Tip>
+  Utilize a base de conhecimento para melhorar a precisão das respostas dos seus agentes.
+</Tip>
+
+## Code Blocks
+
+### Exemplo de autenticação
+
+```bash
+curl -X POST https://api.agentesdeconversao.com.br/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "seu-email@exemplo.com",
+    "password": "sua-senha"
+  }'
+```
+
+### Resposta da API
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "bearer",
+  "expires_in": 3600
+}
+```
+
+## Steps
+
+<Steps>
+  <Step title="Crie sua conta">
+    Acesse [app.agentesdeconversao.com.br](https://app.agentesdeconversao.com.br) e registre-se.
+  </Step>
+  <Step title="Configure seu primeiro agente">
+    No painel, clique em "Novo Agente" e preencha as informações básicas.
+  </Step>
+  <Step title="Personalize o comportamento">
+    Defina a personalidade, conhecimento e habilidades do seu agente.
+  </Step>
+  <Step title="Conecte aos canais">
+    Integre seu agente com WhatsApp, website ou outros canais disponíveis.
+  </Step>
+  <Step title="Monitore e aprimore">
+    Acompanhe o desempenho e faça ajustes conforme necessário.
+  </Step>
+</Steps>
+
+## Accordion
+
+<AccordionGroup>
+  <Accordion title="Como funciona a integração com WhatsApp?">
+    A integração com WhatsApp é feita através do Z-API, que serve como ponte entre a plataforma
+    Agentes de Conversão e o WhatsApp Business. Você precisa conectar sua conta Z-API, configurar
+    os webhooks necessários e definir as regras de encaminhamento de mensagens.
+  </Accordion>
+  <Accordion title="Posso personalizar as respostas do meu agente?">
+    Sim, você tem controle total sobre a personalidade e comportamento do seu agente. Isso inclui
+    o tom de voz, nível de formalidade, conhecimento especializado e fluxos de conversação.
+  </Accordion>
+  <Accordion title="Como adicionar uma base de conhecimento?">
+    Você pode adicionar documentos (PDF, Word, Excel), URLs de websites, ou inserir informações
+    diretamente na plataforma. O sistema processará essas informações e as tornará disponíveis
+    para consulta pelos seus agentes durante as conversas.
+  </Accordion>
+  <Accordion title="Quais relatórios de analytics estão disponíveis?">
+    A plataforma oferece relatórios detalhados sobre volume de mensagens, tempo de resposta,
+    satisfação do cliente, tópicos mais discutidos e taxas de conversão. Todos os relatórios
+    podem ser filtrados por período, agente ou canal.
+  </Accordion>
+</AccordionGroup>
+
+## API Method
+
+<ParamField path="phone" type="string" required>
+  Número de telefone no formato internacional (ex: 5511999999999)
+</ParamField>
+
+<ParamField path="message" type="string" required>
+  Texto da mensagem a ser enviada
+</ParamField>
+
+<ParamField path="media_url" type="string">
+  URL de mídia para enviar junto com a mensagem (opcional)
+</ParamField>
+
+<ParamField path="delay" type="number">
+  Tempo de espera em segundos antes de enviar a mensagem
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.agentesdeconversao.com.br/whatsapp/send \
+  -H "Authorization: Bearer {seu_token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "5511999999999",
+    "message": "Olá! Como posso ajudar hoje?",
+    "delay": 2
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "message_id": "msg_123456789",
+  "status": "queued",
+  "sent_at": "2023-06-15T14:30:45Z"
+}
+```
+</ResponseExample>
+
+## Características Adicionais
+
+### Badges
+
+<Badge>Novo</Badge> <Badge variant="outline">Beta</Badge> <Badge variant="secondary">Pro</Badge>
+
+### Callouts
+
+<Tip>
+  **Dica Pro**: Configure gatilhos automáticos para iniciar conversas quando usuários visitarem páginas específicas do seu site.
+</Tip>
+
+<Warning>
+  **Atenção**: Não compartilhe suas chaves de API ou tokens de acesso em códigos públicos ou repositórios não seguros.
+</Warning>

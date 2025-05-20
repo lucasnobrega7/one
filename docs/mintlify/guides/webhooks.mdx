@@ -1,0 +1,264 @@
+---
+title: 'Webhooks'
+description: 'Configure webhooks para receber notificações em tempo real sobre eventos da plataforma'
+---
+
+# Webhooks
+
+Os webhooks permitem que sua aplicação receba notificações em tempo real sobre eventos que ocorrem na plataforma Agentes de Conversão.
+
+<Info>
+  Seu endpoint de webhook deve responder com um código de status 200 em até 5 segundos, caso contrário, consideraremos a entrega como falha e tentaremos novamente.
+</Info>
+
+## Como funcionam os webhooks
+
+Os webhooks funcionam como "callbacks HTTP" que notificam seu sistema quando eventos específicos ocorrem na plataforma:
+
+1. Você configura uma URL em seu sistema que estará pronta para receber requisições HTTP POST
+2. Você registra essa URL na plataforma Agentes de Conversão, especificando quais eventos deseja monitorar
+3. Quando um evento selecionado ocorre, a plataforma envia automaticamente uma requisição HTTP POST para sua URL com detalhes do evento
+4. Seu sistema processa a requisição e responde com um código de status 200 para confirmar o recebimento
+
+## Configurando Webhooks
+
+Você pode configurar webhooks através do painel de controle ou da API.
+
+### Via Painel de Controle
+
+<Steps>
+  <Step title="Acesse o painel de controle">
+    Faça login no painel de administração da plataforma Agentes de Conversão
+  </Step>
+  <Step title="Navegue até Webhooks">
+    No menu lateral, vá para Configurações > Webhooks
+  </Step>
+  <Step title="Adicione um webhook">
+    Clique no botão "Adicionar Webhook"
+  </Step>
+  <Step title="Configure a URL e os eventos">
+    Preencha o formulário com:
+    - URL do seu endpoint
+    - Eventos que deseja monitorar
+    - Um segredo opcional para verificação de assinatura
+  </Step>
+  <Step title="Salve as configurações">
+    Clique em "Salvar" para ativar o webhook
+  </Step>
+</Steps>
+
+### Via API
+
+```bash
+curl -X POST https://api.agentesdeconversao.com.br/api/webhooks \
+  -H "Authorization: Bearer seu_token_aqui" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://seu-site.com/webhook",
+    "events": ["conversation.created", "message.received"],
+    "secret": "seu_segredo_aqui"
+  }'
+```
+
+## Eventos Disponíveis
+
+| Evento | Descrição |
+| ------ | --------- |
+| conversation.created | Uma nova conversa foi iniciada |
+| conversation.updated | Uma conversa existente foi atualizada |
+| conversation.closed | Uma conversa foi encerrada |
+| message.received | Uma mensagem foi recebida de um usuário |
+| message.sent | Uma mensagem foi enviada por um agente |
+| agent.created | Um novo agente foi criado |
+| agent.updated | Um agente existente foi atualizado |
+| agent.deleted | Um agente foi removido |
+| knowledge.document.uploaded | Um documento foi adicionado à base de conhecimento |
+| knowledge.document.processed | Um documento foi processado com sucesso |
+| knowledge.document.failed | Ocorreu um erro no processamento de um documento |
+
+## Formato da Carga
+
+As notificações são enviadas como requisições HTTP POST para a URL configurada. O corpo da requisição contém detalhes sobre o evento no formato JSON.
+
+<Tabs>
+  <Tab title="Evento de Conversa">
+    ```json
+    {
+      "event": "conversation.created",
+      "timestamp": "2023-06-15T12:30:45Z",
+      "data": {
+        "id": "conv_123",
+        "agent_id": "agent_456",
+        "user_id": "user_789",
+        "created_at": "2023-06-15T12:30:45Z",
+        "updated_at": "2023-06-15T12:30:45Z",
+        "metadata": {
+          "source": "website",
+          "page": "/pricing"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Evento de Mensagem">
+    ```json
+    {
+      "event": "message.received",
+      "timestamp": "2023-06-15T12:31:15Z",
+      "data": {
+        "id": "msg_123",
+        "conversation_id": "conv_123",
+        "content": "Olá, gostaria de saber mais sobre os planos",
+        "role": "user",
+        "created_at": "2023-06-15T12:31:15Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Evento de Agente">
+    ```json
+    {
+      "event": "agent.created",
+      "timestamp": "2023-06-15T12:00:00Z",
+      "data": {
+        "id": "agent_456",
+        "name": "Assistente de Vendas",
+        "description": "Agente especializado em vendas",
+        "created_at": "2023-06-15T12:00:00Z",
+        "updated_at": "2023-06-15T12:00:00Z"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Segurança
+
+Para garantir que as requisições de webhook são realmente da plataforma Agentes de Conversão, incluímos uma assinatura HMAC em cada requisição.
+
+### Cabeçalhos de Segurança
+
+| Cabeçalho | Descrição |
+| --------- | --------- |
+| X-Webhook-Signature | Assinatura HMAC-SHA256 do corpo da requisição |
+| X-Webhook-Timestamp | Timestamp da requisição (Unix timestamp) |
+
+### Verificando a Assinatura
+
+Para verificar a assinatura, você deve:
+
+1. Concatenar o timestamp e o corpo da requisição
+2. Calcular o HMAC-SHA256 usando seu segredo de webhook
+3. Comparar o resultado com o valor do cabeçalho X-Webhook-Signature
+
+<Tabs>
+  <Tab title="Node.js">
+    ```javascript
+    const crypto = require('crypto');
+
+    function verifyWebhookSignature(req, secret) {
+      const signature = req.headers['x-webhook-signature'];
+      const timestamp = req.headers['x-webhook-timestamp'];
+      const body = JSON.stringify(req.body);
+      
+      const expectedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(timestamp + body)
+        .digest('hex');
+        
+      return crypto.timingSafeEqual(
+        Buffer.from(signature),
+        Buffer.from(expectedSignature)
+      );
+    }
+    ```
+  </Tab>
+  <Tab title="PHP">
+    ```php
+    function verifyWebhookSignature($headers, $body, $secret) {
+      $signature = $headers['X-Webhook-Signature'];
+      $timestamp = $headers['X-Webhook-Timestamp'];
+      
+      $expectedSignature = hash_hmac(
+        'sha256',
+        $timestamp . $body,
+        $secret
+      );
+      
+      return hash_equals($expectedSignature, $signature);
+    }
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import hmac
+    import hashlib
+
+    def verify_webhook_signature(headers, body, secret):
+        signature = headers.get('X-Webhook-Signature')
+        timestamp = headers.get('X-Webhook-Timestamp')
+        
+        expected_signature = hmac.new(
+            secret.encode('utf-8'),
+            (timestamp + body).encode('utf-8'),
+            hashlib.sha256
+        ).hexdigest()
+        
+        return hmac.compare_digest(expected_signature, signature)
+    ```
+  </Tab>
+</Tabs>
+
+## Melhores Práticas
+
+<CardGroup cols={2}>
+  <Card title="Processamento Assíncrono" icon="clock">
+    Evite processar eventos de webhook de forma síncrona. Armazene o evento em uma fila e processe-o em segundo plano para garantir uma resposta rápida.
+  </Card>
+  <Card title="Verificação de Assinatura" icon="shield-check">
+    Sempre verifique a assinatura do webhook para garantir que a requisição é legítima e não foi adulterada.
+  </Card>
+  <Card title="Idempotência" icon="repeat">
+    Projete seu sistema para lidar com entregas duplicadas do mesmo evento. Use o ID do evento para evitar processamento duplicado.
+  </Card>
+  <Card title="Monitoramento" icon="chart-line">
+    Implemente logging e monitoramento para rastrear eventos recebidos e identificar problemas de entrega.
+  </Card>
+</CardGroup>
+
+## Solução de Problemas
+
+<AccordionGroup>
+  <Accordion title="Não estou recebendo eventos">
+    Verifique:
+    - Se a URL do webhook está correta e acessível publicamente
+    - Se os eventos selecionados são os corretos
+    - Se há algum firewall ou proxy bloqueando as requisições
+    - O painel de controle para ver se há erros de entrega
+  </Accordion>
+  <Accordion title="Recebo erro 400/401 nas requisições">
+    - Erro 400: O formato da sua URL pode estar incorreto ou o corpo da requisição está malformado
+    - Erro 401: Sua assinatura de webhook está inválida ou expirada
+  </Accordion>
+  <Accordion title="As requisições estão demorando muito">
+    - Otimize seu endpoint para responder rapidamente (menos de 5 segundos)
+    - Implemente processamento assíncrono e responda imediatamente
+    - Evite fazer operações pesadas durante o processamento inicial do webhook
+  </Accordion>
+  <Accordion title="Estou recebendo eventos duplicados">
+    - Isso pode acontecer devido a tentativas de reenvio após falhas
+    - Implemente mecanismos de idempotência usando os IDs dos eventos
+    - Armazene IDs de eventos processados para evitar processamento duplicado
+  </Accordion>
+</AccordionGroup>
+
+## Testes e Validação
+
+Você pode testar seus webhooks diretamente do painel de controle:
+
+1. Acesse a página de configuração do webhook
+2. Clique em "Testar Webhook"
+3. Selecione o tipo de evento que deseja testar
+4. Clique em "Enviar Evento de Teste"
+
+Isso enviará um evento de teste para seu endpoint, permitindo verificar se a configuração está correta.
