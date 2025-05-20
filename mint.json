@@ -1,0 +1,99 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Agentes de Conversão",
+  "logo": {
+    "dark": "/docs/mintlify/logo/dark.svg",
+    "light": "/docs/mintlify/logo/light.svg"
+  },
+  "favicon": "/docs/mintlify/favicon.svg",
+  "colors": {
+    "primary": "#0EA5E9",
+    "light": "#10B981",
+    "dark": "#202122",
+    "background": {
+      "dark": "#202122",
+      "light": "#FFFFFF"
+    },
+    "anchors": {
+      "from": "#0EA5E9",
+      "to": "#8A53D2"
+    }
+  },
+  "font": {
+    "family": "Inter",
+    "google": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+  },
+  "project": "680983f4240b32f84439a383",
+  "customDomain": "docs.agentesdeconversao.com.br",
+  "topbarLinks": [
+    {
+      "name": "Suporte",
+      "url": "mailto:suporte@agentesdeconversao.com.br"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.agentesdeconversao.com.br"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Documentação",
+      "icon": "book-open-cover",
+      "url": "https://docs.agentesdeconversao.com.br"
+    },
+    {
+      "name": "Comunidade",
+      "icon": "discord",
+      "url": "https://discord.gg/agentesdeconversao"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://agentesdeconversao.com.br/blog"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Introdução",
+      "pages": [
+        "docs/mintlify/introduction",
+        "docs/mintlify/quickstart"
+      ]
+    },
+    {
+      "group": "Guias",
+      "pages": [
+        "docs/mintlify/guides/whatsapp-integration",
+        "docs/mintlify/guides/ai-models",
+        "docs/mintlify/guides/http-tools",
+        "docs/mintlify/guides/webhooks"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "docs/mintlify/api-reference/authentication",
+        "docs/mintlify/api-reference/openapi",
+        "docs/mintlify/api-reference/custom-reference"
+      ]
+    },
+    {
+      "group": "Componentes e UI",
+      "pages": [
+        "docs/mintlify/components/ui-examples"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/agentesdeconv",
+    "github": "https://github.com/agentesdeconversao",
+    "linkedin": "https://www.linkedin.com/company/agentes-de-conversao"
+  },
+  "backgroundImage": "/docs/mintlify/background.svg"
+}
