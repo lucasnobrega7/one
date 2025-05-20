@@ -1,0 +1,5 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "_comment": "This is a root configuration file that points to the actual documentation",
+  "rootContentPath": "docs/mintlify"
+}
