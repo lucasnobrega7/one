@@ -5,55 +5,54 @@ import { ArrowRight, Bot, Database, MessageSquare, Shield, Zap } from "lucide-re
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="border-b">
+      <header className="border-b bg-black text-white">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <Bot className="h-6 w-6" />
-            <span>AgentForge</span>
+            <span>Agentes de Conversão</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4">
-              Features
+              Recursos
             </Link>
             <Link href="#pricing" className="text-sm font-medium hover:underline underline-offset-4">
-              Pricing
+              Preços
             </Link>
             <Link href="/docs" className="text-sm font-medium hover:underline underline-offset-4">
-              Documentation
+              Documentação
             </Link>
           </nav>
           <div className="flex gap-4">
             <Link href="/sign-in">
-              <Button variant="outline">Sign In</Button>
+              <Button variant="outline">Entrar</Button>
             </Link>
             <Link href="/sign-up">
-              <Button>Get Started</Button>
+              <Button>Começar</Button>
             </Link>
           </div>
         </div>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-                  Build, Deploy, and Scale AI Agents
+                  Construa, implemente e escale agentes de IA
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Create powerful AI agents with your data. Connect to any source, customize behavior, and deploy
-                  anywhere.
+                  Crie agentes inteligentes com seus dados e publique em qualquer canal de forma simples.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/sign-up">
                   <Button size="lg" className="gap-1">
-                    Start for Free <ArrowRight className="h-4 w-4" />
+                    Comece grátis <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/docs">
                   <Button size="lg" variant="outline">
-                    View Documentation
+                    Ver documentação
                   </Button>
                 </Link>
               </div>
