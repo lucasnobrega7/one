@@ -9,6 +9,8 @@ declare namespace NodeJS {
     CLERK_WEBHOOK_SECRET: string
     NEXT_PUBLIC_CLERK_BASE_URL: string
     NEXT_PUBLIC_APP_URL: string
+    NEXT_PUBLIC_API_URL: string
+    NEXT_PUBLIC_API_BASE_URL: string
     OPENAI_API_KEY: string
     NEXT_PUBLIC_ZAPI_URL: string
     ZAPI_TOKEN: string

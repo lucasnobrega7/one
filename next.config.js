@@ -18,10 +18,12 @@ const nextConfig = {
     unoptimized: true,
   },
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ||
+      "https://api.agentesdeconversao.com.br"
     return [
       {
         source: "/api/:path*",
-        destination: "https://api.agentesdeconversao.com.br/:path*",
+        destination: `${apiUrl}/:path*`,
       },
     ]
   },
