@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useDatasourcesApi } from "../hooks/use-datasources-api"
-import type { Datasource } from "@/src/types/api"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
+import type { Datasource } from "@/types/api"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlusIcon, SearchIcon, FileIcon, FileTextIcon, GlobeIcon } from "lucide-react"
-import { Input } from "@/src/components/ui/input"
+import { Input } from "@/components/ui/input"
 
 export function DatasourceList() {
   const [datasources, setDatasources] = useState<Datasource[]>([])

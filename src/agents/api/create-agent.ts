@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { agentService } from "../services/agent-service"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { getCurrentUser } from "@/lib/auth/get-current-user"
 import { z } from "zod"
 
 const createAgentSchema = z.object({

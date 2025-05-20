@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { getCurrentUser } from "@/lib/auth/get-current-user"
 import { agentService } from "../services/agent-service"
-import { queryService } from "@/src/conversations/services/query-service"
+import { queryService } from "@/conversations/services/query-service"
 import { z } from "zod"
 
 const queryAgentSchema = z.object({

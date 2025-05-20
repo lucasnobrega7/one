@@ -1,5 +1,5 @@
-import type { Tool } from "@/src/integrations/types/tool"
-import type { DatastoreType } from "@/src/datastores/types/datastore"
+import type { Tool } from "@/integrations/types/tool"
+import type { DatastoreType } from "@/datastores/types/datastore"
 
 export type AgentModelName =
   | "gpt-3.5-turbo"

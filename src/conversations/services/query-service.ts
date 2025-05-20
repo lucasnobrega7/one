@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/src/lib/supabase/client"
+import { supabaseClient } from "@/lib/supabase/client"
 import type { MessageSource } from "../types/message"
 
 interface QueryAgentParams {

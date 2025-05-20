@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { datasourcesApiService } from "../services/datasources-api-service"
-import type { Datasource, DatasourceCreate } from "@/src/types/api"
-import { useToast } from "@/src/hooks/use-toast"
+import type { Datasource, DatasourceCreate } from "@/types/api"
+import { useToast } from "@/hooks/use-toast"
 
 export function useDatasourcesApi() {
   const [isLoading, setIsLoading] = useState(false)

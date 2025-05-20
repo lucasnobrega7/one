@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card"
-import { Button } from "@/src/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import type { Agent } from "./types/agent"
 import { agentService } from "./services/agent-service"
-import { useToast } from "@/src/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { AgentForm } from "./components/agent-form"
-import { useCurrentUser } from "@/src/hooks/use-current-user"
+import { useCurrentUser } from "@/hooks/use-current-user"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,7 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/src/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog"
 import { TrashIcon } from "lucide-react"
 
 export default function AgentSettingsPage() {

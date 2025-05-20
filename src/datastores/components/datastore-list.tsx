@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useDatastoresApi } from "../hooks/use-datastores-api"
-import type { Datastore } from "@/src/types/api"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
+import type { Datastore } from "@/types/api"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlusIcon, SearchIcon } from "lucide-react"
-import { Input } from "@/src/components/ui/input"
+import { Input } from "@/components/ui/input"
 
 export function DatastoreList() {
   const [datastores, setDatastores] = useState<Datastore[]>([])

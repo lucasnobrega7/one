@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { agentsApiService } from "../services/agents-api-service"
-import type { Agent, AgentCreate, AgentQuery, AgentResponse } from "@/src/types/api"
-import { useToast } from "@/src/hooks/use-toast"
+import type { Agent, AgentCreate, AgentQuery, AgentResponse } from "@/types/api"
+import { useToast } from "@/hooks/use-toast"
 
 export function useAgentsApi() {
   const [isLoading, setIsLoading] = useState(false)

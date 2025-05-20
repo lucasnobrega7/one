@@ -1,7 +1,7 @@
 "use client"
 
 import { UserProfile as ClerkUserProfile, useUser } from "@clerk/nextjs"
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface UserProfileProps {
   path?: string

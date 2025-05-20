@@ -1,5 +1,5 @@
 import type { Agent, AgentModelName, AgentVisibility } from "../types/agent"
-import { supabaseClient } from "@/src/lib/supabase/client"
+import { supabaseClient } from "@/lib/supabase/client"
 
 export interface CreateAgentParams {
   name: string

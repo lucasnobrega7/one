@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useUser } from "@clerk/nextjs"
-import { supabaseClient } from "@/src/lib/supabase/client"
+import { supabaseClient } from "@/lib/supabase/client"
 
 interface UserData {
   id: string

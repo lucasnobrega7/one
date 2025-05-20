@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
-import { Input } from "@/src/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import type { Agent } from "./types/agent"
 import { agentService } from "./services/agent-service"
-import { useToast } from "@/src/hooks/use-toast"
-import { useCurrentUser } from "@/src/hooks/use-current-user"
+import { useToast } from "@/hooks/use-toast"
+import { useCurrentUser } from "@/hooks/use-current-user"
 import { PlusIcon, SearchIcon } from "lucide-react"
 
 export default function AgentListPage() {

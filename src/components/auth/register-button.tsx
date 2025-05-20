@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/src/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { useSignUp } from "@clerk/nextjs"
 
 interface RegisterButtonProps {

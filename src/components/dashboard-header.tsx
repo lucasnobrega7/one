@@ -2,9 +2,9 @@
 
 import { UserButton } from "@clerk/nextjs"
 import { Bell, Search } from "lucide-react"
-import { Button } from "@/src/components/ui/button"
-import { Input } from "@/src/components/ui/input"
-import { useCurrentUser } from "@/src/hooks/use-current-user"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useCurrentUser } from "@/hooks/use-current-user"
 
 export function DashboardHeader() {
   const { user } = useCurrentUser()

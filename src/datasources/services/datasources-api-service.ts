@@ -1,5 +1,5 @@
-import { authenticatedRequest } from "@/src/lib/api/api-client"
-import type { Datasource, DatasourceCreate } from "@/src/types/api"
+import { authenticatedRequest } from "@/lib/api/api-client"
+import type { Datasource, DatasourceCreate } from "@/types/api"
 
 export const datasourcesApiService = {
   /**

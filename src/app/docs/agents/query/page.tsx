@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import { ParamField } from "@/src/components/docs/param-field"
-import { ResponseField } from "@/src/components/docs/response-field"
-import { Expandable } from "@/src/components/docs/expandable"
-import { CodeGroup } from "@/src/components/docs/code-group"
+import { ParamField } from "@/components/docs/param-field"
+import { ResponseField } from "@/components/docs/response-field"
+import { Expandable } from "@/components/docs/expandable"
+import { CodeGroup } from "@/components/docs/code-group"
 
 export const metadata: Metadata = {
   title: "Consultar Agente | Documentação da API",

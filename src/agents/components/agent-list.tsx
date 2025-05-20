@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAgentsApi } from "../hooks/use-agents-api"
-import type { Agent } from "@/src/types/api"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
+import type { Agent } from "@/types/api"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlusIcon, SearchIcon } from "lucide-react"
-import { Input } from "@/src/components/ui/input"
+import { Input } from "@/components/ui/input"
 
 export function AgentList() {
   const [agents, setAgents] = useState<Agent[]>([])

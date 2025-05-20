@@ -1,4 +1,4 @@
-import { DatasourceList } from "@/src/datasources/components/datasource-list"
+import { DatasourceList } from "@/datasources/components/datasource-list"
 
 export default function DatasourcesPage() {
   return (

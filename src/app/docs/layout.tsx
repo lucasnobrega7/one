@@ -1,8 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Button } from "@/src/components/ui/button"
-import { ScrollArea } from "@/src/components/ui/scroll-area"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export const metadata: Metadata = {
   title: "Documentação da API | Agentes de Conversão",
