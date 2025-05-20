@@ -21,7 +21,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://api.agentesdeconversao.com.br/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_URL || "https://api.agentesdeconversao.com.br"}/:path*`,
       },
     ]
   },
