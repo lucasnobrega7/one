@@ -1,0 +1,105 @@
+---
+title: 'Integração com WhatsApp'
+description: 'Guia completo para integrar seus agentes com WhatsApp'
+---
+
+# Integração com WhatsApp
+
+Este guia explica como configurar e usar a integração de WhatsApp com os Agentes de Conversão.
+
+## Pré-requisitos
+
+Para configurar a integração com WhatsApp, você precisará:
+
+1. Uma conta Z-API válida
+2. Um número de telefone dedicado para WhatsApp Business
+3. Conta ativa na plataforma Agentes de Conversão
+
+## Configuração no Z-API
+
+Primeiro, configure sua instância no Z-API:
+
+<Steps>
+  <Step title="Crie uma conta no Z-API">
+    Acesse [z-api.io](https://z-api.io) e crie uma conta caso ainda não possua.
+  </Step>
+  <Step title="Crie uma nova instância">
+    No painel do Z-API, clique em "Nova Instância" e siga o processo de criação.
+  </Step>
+  <Step title="Conecte seu WhatsApp">
+    Escaneie o QR code com seu WhatsApp Business para conectar a instância.
+  </Step>
+  <Step title="Obtenha suas credenciais">
+    Anote o Instance ID e Token que serão utilizados na configuração da plataforma Agentes de Conversão.
+  </Step>
+</Steps>
+
+## Configuração nos Agentes de Conversão
+
+Em seguida, configure a integração na plataforma:
+
+1. Acesse a seção "Integrações" no painel do seu agente
+2. Selecione "WhatsApp" e clique em "Configurar"
+3. Insira o Instance ID e Token obtidos do Z-API
+4. Configure o Webhook URL do Z-API para apontar para: `https://api.agentesdeconversao.com.br/zapi/webhook`
+5. Teste a conexão para verificar se está funcionando corretamente
+
+## Funcionamento da Integração
+
+A integração com WhatsApp funciona da seguinte forma:
+
+1. **Recebimento de mensagens**: Mensagens enviadas para seu número de WhatsApp são recebidas pelo Z-API e encaminhadas para a API dos Agentes de Conversão
+2. **Processamento pelo agente**: O agente processa a mensagem e gera uma resposta
+3. **Envio de resposta**: A resposta é enviada de volta ao usuário via Z-API
+
+## Recursos Avançados
+
+### Envio de Mídias
+
+Você pode enviar diferentes tipos de mídia:
+
+```javascript
+// Exemplo de envio de imagem via API
+const response = await fetch("https://api.agentesdeconversao.com.br/zapi/send-media", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer seu-token"
+  },
+  body: JSON.stringify({
+    phone: "5511999999999",
+    type: "image",
+    url: "https://exemplo.com/imagem.jpg",
+    caption: "Descrição da imagem"
+  })
+});
+```
+
+### Respostas Programadas
+
+Configure respostas programadas para horários específicos:
+
+```javascript
+// Exemplo de agendamento de mensagem
+const response = await fetch("https://api.agentesdeconversao.com.br/zapi/schedule", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer seu-token"
+  },
+  body: JSON.stringify({
+    phone: "5511999999999",
+    message: "Mensagem programada",
+    scheduleTime: "2023-12-31T23:59:00Z"
+  })
+});
+```
+
+## Solução de Problemas
+
+Se encontrar problemas com a integração do WhatsApp, verifique:
+
+- Status da conexão Z-API
+- Configuração correta do webhook
+- Logs de erros no painel da plataforma
+- Permissões e status do número de WhatsApp Business

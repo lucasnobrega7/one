@@ -1,0 +1,333 @@
+---
+title: 'Referência de API Customizada'
+description: 'Documentação detalhada dos endpoints da API dos Agentes de Conversão'
+---
+
+# Referência de API Customizada
+
+Nossa API RESTful permite que você integre os recursos dos Agentes de Conversão diretamente em seus aplicativos.
+Abaixo você encontrará a documentação completa de todos os endpoints disponíveis.
+
+## Agentes
+
+### Listar Agentes
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    GET /api/agents
+    ```
+
+    **Parâmetros de Consulta**
+
+    | Parâmetro | Tipo | Descrição |
+    | --------- | ---- | --------- |
+    | limit | number | Número máximo de agentes a retornar (padrão: 10) |
+    | offset | number | Número de agentes a pular (padrão: 0) |
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "agents": [
+        {
+          "id": "agent_123",
+          "name": "Assistente de Vendas",
+          "description": "Agente especializado em vendas",
+          "created_at": "2023-01-01T00:00:00Z"
+        },
+        // outros agentes...
+      ],
+      "total": 42,
+      "limit": 10,
+      "offset": 0
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Criar Agente
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    POST /api/agents
+    ```
+
+    **Corpo da Requisição**
+
+    ```json
+    {
+      "name": "Novo Agente",
+      "description": "Descrição do novo agente",
+      "knowledge_base_ids": ["kb_123", "kb_456"],
+      "settings": {
+        "temperature": 0.7,
+        "max_tokens": 1000
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "id": "agent_789",
+      "name": "Novo Agente",
+      "description": "Descrição do novo agente",
+      "created_at": "2023-06-15T12:30:45Z",
+      "knowledge_base_ids": ["kb_123", "kb_456"],
+      "settings": {
+        "temperature": 0.7,
+        "max_tokens": 1000
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Conversas
+
+### Listar Conversas
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    GET /api/conversations
+    ```
+
+    **Parâmetros de Consulta**
+
+    | Parâmetro | Tipo | Descrição |
+    | --------- | ---- | --------- |
+    | agent_id | string | Filtrar por ID do agente |
+    | user_id | string | Filtrar por ID do usuário |
+    | limit | number | Número máximo de conversas a retornar (padrão: 10) |
+    | offset | number | Número de conversas a pular (padrão: 0) |
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "conversations": [
+        {
+          "id": "conv_123",
+          "agent_id": "agent_456",
+          "user_id": "user_789",
+          "created_at": "2023-06-15T12:30:45Z",
+          "updated_at": "2023-06-15T12:35:20Z",
+          "message_count": 5
+        },
+        // outras conversas...
+      ],
+      "total": 25,
+      "limit": 10,
+      "offset": 0
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Criar Mensagem
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    POST /api/conversations/{conversation_id}/messages
+    ```
+
+    **Corpo da Requisição**
+
+    ```json
+    {
+      "content": "Olá, gostaria de saber mais sobre os planos",
+      "role": "user",
+      "metadata": {
+        "source": "website",
+        "page": "/pricing"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "id": "msg_123",
+      "conversation_id": "conv_456",
+      "content": "Olá, gostaria de saber mais sobre os planos",
+      "role": "user",
+      "created_at": "2023-06-15T12:36:10Z",
+      "metadata": {
+        "source": "website",
+        "page": "/pricing"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Base de Conhecimento
+
+### Listar Documentos
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    GET /api/knowledge/documents
+    ```
+
+    **Parâmetros de Consulta**
+
+    | Parâmetro | Tipo | Descrição |
+    | --------- | ---- | --------- |
+    | knowledge_base_id | string | Filtrar por ID da base de conhecimento |
+    | limit | number | Número máximo de documentos a retornar (padrão: 10) |
+    | offset | number | Número de documentos a pular (padrão: 0) |
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "documents": [
+        {
+          "id": "doc_123",
+          "knowledge_base_id": "kb_456",
+          "title": "Manual do Produto",
+          "type": "pdf",
+          "created_at": "2023-06-10T10:15:30Z",
+          "size_bytes": 1250000
+        },
+        // outros documentos...
+      ],
+      "total": 15,
+      "limit": 10,
+      "offset": 0
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Carregar Documento
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    POST /api/knowledge/documents
+    ```
+
+    **Corpo da Requisição**
+
+    ```
+    Content-Type: multipart/form-data
+    
+    file: [arquivo binário]
+    knowledge_base_id: kb_456
+    title: Novo Manual do Produto
+    description: Versão atualizada do manual do produto
+    ```
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "id": "doc_789",
+      "knowledge_base_id": "kb_456",
+      "title": "Novo Manual do Produto",
+      "description": "Versão atualizada do manual do produto",
+      "type": "pdf",
+      "created_at": "2023-06-15T14:20:15Z",
+      "size_bytes": 1350000,
+      "status": "processing"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Analytics
+
+### Obter Estatísticas
+
+<Tabs>
+  <Tab title="Requisição">
+    **Endpoint**
+
+    ```
+    GET /api/analytics/stats
+    ```
+
+    **Parâmetros de Consulta**
+
+    | Parâmetro | Tipo | Descrição |
+    | --------- | ---- | --------- |
+    | agent_id | string | Filtrar por ID do agente (opcional) |
+    | start_date | string | Data de início (ISO 8601) |
+    | end_date | string | Data de término (ISO 8601) |
+  </Tab>
+  <Tab title="Resposta">
+    ```json
+    {
+      "total_conversations": 1250,
+      "total_messages": 8765,
+      "avg_messages_per_conversation": 7.01,
+      "avg_response_time_seconds": 2.3,
+      "completion_rate": 0.85,
+      "conversation_duration": {
+        "min": 10,
+        "max": 1800,
+        "avg": 240,
+        "p50": 180,
+        "p90": 600
+      },
+      "conversations_by_day": [
+        {"date": "2023-06-10", "count": 120},
+        {"date": "2023-06-11", "count": 135},
+        {"date": "2023-06-12", "count": 115}
+        // mais dias...
+      ]
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Autenticação
+
+Todas as requisições à API devem incluir sua chave de API no cabeçalho de autorização:
+
+```
+Authorization: Bearer sua_chave_api_aqui
+```
+
+Você pode obter sua chave de API no painel de controle, na seção de configurações da API.
+
+## Códigos de Status
+
+| Código | Descrição |
+| ------ | --------- |
+| 200 | Sucesso |
+| 400 | Requisição inválida |
+| 401 | Não autorizado |
+| 404 | Recurso não encontrado |
+| 429 | Limite de taxa excedido |
+| 500 | Erro interno do servidor |
+
+## Limites de Taxa
+
+A API tem os seguintes limites de taxa:
+
+| Plano | Requisições por minuto | Requisições por dia |
+| ----- | ---------------------- | ------------------- |
+| Básico | 60 | 10.000 |
+| Profissional | 300 | 50.000 |
+| Empresarial | 1.200 | 200.000 |
+| Customizado | Sob demanda | Sob demanda |
+
+<Note>
+  Ao exceder os limites de taxa, você receberá um erro 429 (Too Many Requests). O cabeçalho `Retry-After` indicará quantos segundos você deve aguardar antes de tentar novamente.
+</Note>

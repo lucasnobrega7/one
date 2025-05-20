@@ -1,0 +1,204 @@
+---
+title: 'HTTP Tools'
+description: 'Integre seus agentes com ferramentas externas via HTTP para expandir suas capacidades'
+---
+
+# HTTP Tools
+
+As HTTP Tools permitem que você integre seus agentes com serviços externos via requisições HTTP, expandindo suas capacidades e permitindo automações complexas.
+
+## O que são HTTP Tools?
+
+As HTTP Tools são conectores que permitem que seus agentes interajam com APIs externas durante uma conversa. Isso possibilita que os agentes:
+
+- Busquem informações em tempo real (clima, cotações, dados de produtos)
+- Executem ações em sistemas externos (criar tickets, agendar reuniões)
+- Processem dados usando serviços especializados (tradução, análise de sentimento)
+- Integrem-se com ferramentas empresariais (CRM, ERP, sistemas de e-commerce)
+
+## Configuração
+
+Para configurar uma ferramenta HTTP, você precisa definir:
+
+<CardGroup cols={2}>
+  <Card title="Nome" icon="tag">
+    Identificador único usado pelo agente para referenciar a ferramenta
+  </Card>
+  <Card title="URL" icon="link">
+    Endpoint da API externa que será chamado
+  </Card>
+  <Card title="Método HTTP" icon="code">
+    GET, POST, PUT ou DELETE
+  </Card>
+  <Card title="Cabeçalhos" icon="list">
+    Cabeçalhos HTTP necessários (autenticação, content-type)
+  </Card>
+  <Card title="Parâmetros" icon="sliders">
+    Parâmetros de query ou corpo para enviar com a requisição
+  </Card>
+  <Card title="Descrição" icon="file-text">
+    Explicação sobre quando e como usar a ferramenta
+  </Card>
+</CardGroup>
+
+## Exemplo de Configuração
+
+<Tabs>
+  <Tab title="Ferramenta de Clima">
+    ```json
+    {
+      "name": "weather-api",
+      "url": "https://api.weather.com/forecast",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Bearer {{env.WEATHER_API_KEY}}",
+        "Content-Type": "application/json"
+      },
+      "query_params": {
+        "location": "{{input.location}}",
+        "units": "metric"
+      },
+      "description": "Obter previsão do tempo para uma localização específica"
+    }
+    ```
+  </Tab>
+  <Tab title="Criação de Ticket">
+    ```json
+    {
+      "name": "create-ticket",
+      "url": "https://api.helpdesk.com/tickets",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Bearer {{env.HELPDESK_API_KEY}}",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "title": "{{input.title}}",
+        "description": "{{input.description}}",
+        "priority": "{{input.priority}}",
+        "customer_id": "{{context.user_id}}"
+      },
+      "description": "Criar um novo ticket no sistema de helpdesk"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Uso em Agentes
+
+Uma vez configurada, a ferramenta HTTP pode ser associada a um agente. O agente poderá então utilizar a ferramenta quando necessário, com base no contexto da conversa.
+
+Exemplo de fluxo:
+
+1. Usuário pergunta: "Como está o clima em São Paulo hoje?"
+2. Agente identifica a necessidade de informações sobre clima
+3. Agente chama a ferramenta `weather-api` com `location = "São Paulo"`
+4. API externa retorna dados de previsão do tempo
+5. Agente formata e apresenta as informações ao usuário
+
+## Variáveis
+
+Você pode usar variáveis na configuração da ferramenta:
+
+<AccordionGroup>
+  <Accordion title="Variáveis de Ambiente">
+    ```
+    {{env.VARIABLE_NAME}}
+    ```
+    
+    Variáveis de ambiente seguras, como chaves de API, tokens de acesso e credenciais. São armazenadas de forma segura e nunca expostas ao usuário final.
+    
+    **Exemplo:**
+    ```json
+    "headers": {
+      "Authorization": "Bearer {{env.API_KEY}}"
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Variáveis de Entrada">
+    ```
+    {{input.parameter}}
+    ```
+    
+    Parâmetros fornecidos pelo agente durante a execução, com base no contexto da conversa e na necessidade de informações.
+    
+    **Exemplo:**
+    ```json
+    "query_params": {
+      "location": "{{input.location}}",
+      "date": "{{input.date}}"
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Variáveis de Contexto">
+    ```
+    {{context.variable}}
+    ```
+    
+    Informações do contexto da conversa, como IDs de usuário, histórico de interações e metadados da sessão.
+    
+    **Exemplo:**
+    ```json
+    "body": {
+      "user_id": "{{context.user_id}}",
+      "conversation_id": "{{context.conversation_id}}"
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Tratamento de Respostas
+
+As respostas das HTTP Tools são processadas automaticamente pelo agente, que pode:
+
+1. Extrair informações relevantes
+2. Formatar os dados para apresentação ao usuário
+3. Utilizar os dados para tomar decisões sobre o fluxo da conversa
+4. Combinar com outras fontes de conhecimento para enriquecer a resposta
+
+<Note>
+  O agente é responsável por interpretar corretamente as respostas das ferramentas e integrá-las de forma natural na conversa.
+</Note>
+
+## Melhores Práticas
+
+<Steps>
+  <Step title="Use descrições claras">
+    Forneça descrições detalhadas sobre o propósito da ferramenta e quando ela deve ser usada.
+  </Step>
+  <Step title="Implemente autenticação segura">
+    Sempre armazene credenciais como variáveis de ambiente, nunca no corpo da configuração.
+  </Step>
+  <Step title="Valide entradas">
+    Certifique-se de que o agente valide as entradas antes de chamadas a APIs externas.
+  </Step>
+  <Step title="Trate erros graciosamente">
+    Configure seu agente para lidar com falhas nas chamadas de API de forma elegante.
+  </Step>
+  <Step title="Implemente tempos limite">
+    Defina timeouts apropriados para evitar que chamadas lentas degradem a experiência.
+  </Step>
+</Steps>
+
+## Exemplos de Uso
+
+<CardGroup cols={2}>
+  <Card title="Verificação de Estoque" icon="box">
+    Verifica a disponibilidade de produtos em tempo real durante conversas de vendas.
+  </Card>
+  <Card title="Agendamento" icon="calendar">
+    Permite que o agente verifique disponibilidade e agende compromissos em sistemas de calendário.
+  </Card>
+  <Card title="Tradução em Tempo Real" icon="language">
+    Traduz mensagens para outros idiomas usando serviços de tradução via API.
+  </Card>
+  <Card title="Consulta de CEP" icon="map-pin">
+    Busca informações de endereço a partir de um CEP fornecido pelo usuário.
+  </Card>
+</CardGroup>
+
+<Info>
+  Para implementar casos de uso mais avançados que exigem múltiplas chamadas de API ou lógica complexa, considere utilizar a integração com N8N ou criar um serviço intermediário personalizado.
+</Info>

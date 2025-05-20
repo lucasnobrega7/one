@@ -1,0 +1,52 @@
+---
+title: 'Autenticação'
+description: 'Aprenda como autenticar suas solicitações à API dos Agentes de Conversão'
+---
+
+# Autenticação
+
+A API dos Agentes de Conversão utiliza tokens Bearer para autenticação. Para acessar os endpoints protegidos, você precisa incluir um token de acesso válido no cabeçalho de suas solicitações.
+
+## Obtendo um token de acesso
+
+Você pode obter um token de acesso utilizando o endpoint de login:
+
+```bash
+curl -X POST https://api.agentesdeconversao.com.br/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "seu-email@exemplo.com",
+    "password": "sua-senha"
+  }'
+```
+
+A resposta incluirá um token de acesso:
+
+```json
+{
+  "access_token": "seu-token-de-acesso",
+  "token_type": "bearer"
+}
+```
+
+## Usando o token de acesso
+
+Para endpoints protegidos, inclua o token no cabeçalho `Authorization`:
+
+```bash
+curl -X GET https://api.agentesdeconversao.com.br/supabase/data \
+  -H "Authorization: Bearer seu-token-de-acesso"
+```
+
+## Renovação de token
+
+Os tokens têm validade limitada. Quando um token expirar, você precisará realizar o login novamente para obter um novo token.
+
+## Segurança
+
+Algumas práticas recomendadas de segurança:
+
+- Nunca compartilhe seu token de acesso
+- Armazene tokens de forma segura (variáveis de ambiente, gerenciadores de segredos)
+- Implemente rotação regular de tokens
+- Use HTTPS para todas as solicitações à API

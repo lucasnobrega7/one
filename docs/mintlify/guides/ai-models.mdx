@@ -1,0 +1,127 @@
+---
+title: 'Modelos de IA'
+description: 'Guia dos modelos de IA disponíveis na plataforma'
+---
+
+# Modelos de IA Disponíveis
+
+A plataforma Agentes de Conversão oferece suporte a diversos modelos de IA para atender diferentes necessidades e casos de uso.
+
+## OpenAI
+
+### GPT-4
+
+<AccordionGroup>
+  <Accordion title="GPT-4o">
+    Modelo mais recente e avançado da OpenAI, com capacidades melhoradas de compreensão contextual e geração de conteúdo.
+    
+    **Características:**
+    - Token máximo: 128.000 tokens
+    - Excelente em tarefas complexas
+    - Suporte multimodal (texto e imagens)
+    - Melhor compreensão de nuances
+    
+    **Recomendado para:**
+    - Agentes sofisticados que exigem raciocínio avançado
+    - Análise de documentos complexos
+    - Interações que exigem memória de contexto extensa
+  </Accordion>
+  
+  <Accordion title="GPT-4 Turbo">
+    Versão otimizada do GPT-4 com melhor desempenho e menor latência.
+    
+    **Características:**
+    - Token máximo: 128.000 tokens
+    - Respostas mais rápidas que o GPT-4 padrão
+    - Bom equilíbrio entre desempenho e custo
+    
+    **Recomendado para:**
+    - Aplicações em tempo real
+    - Agentes que precisam processar grandes volumes de informação
+  </Accordion>
+  
+  <Accordion title="GPT-3.5 Turbo">
+    Modelo equilibrado com bom custo-benefício.
+    
+    **Características:**
+    - Token máximo: 16.000 tokens
+    - Resposta rápida
+    - Custo significativamente menor
+    
+    **Recomendado para:**
+    - Casos de uso gerais
+    - Agentes de alto volume
+    - Aplicações com restrições orçamentárias
+  </Accordion>
+</AccordionGroup>
+
+## Anthropic
+
+<AccordionGroup>
+  <Accordion title="Claude 3 Opus">
+    O modelo mais capaz da Anthropic, com excelente raciocínio.
+    
+    **Características:**
+    - Token máximo: 200.000 tokens
+    - Excelente em tarefas complexas e raciocínio de várias etapas
+    - Capacidades multimodais avançadas
+    
+    **Recomendado para:**
+    - Tarefas extremamente complexas
+    - Análise detalhada de documentos extensos
+    - Casos de uso premium
+  </Accordion>
+  
+  <Accordion title="Claude 3 Sonnet">
+    Modelo equilibrado entre desempenho e custo.
+    
+    **Características:**
+    - Token máximo: 180.000 tokens
+    - Bom equilíbrio entre capacidade e desempenho
+    - Excelente para tarefas gerais
+    
+    **Recomendado para:**
+    - Maioria dos casos de uso empresariais
+    - Agentes conversacionais avançados
+  </Accordion>
+  
+  <Accordion title="Claude 3 Haiku">
+    Modelo mais rápido e leve da família Claude 3.
+    
+    **Características:**
+    - Token máximo: 150.000 tokens
+    - Respostas muito rápidas
+    - Custo-benefício excelente
+    
+    **Recomendado para:**
+    - Aplicações em tempo real
+    - Casos de uso de alto volume
+    - Quando a velocidade é prioritária
+  </Accordion>
+</AccordionGroup>
+
+## Escolhendo o Modelo Ideal
+
+Ao selecionar um modelo para seu agente, considere:
+
+1. **Complexidade da tarefa**: Para tarefas complexas, priorize GPT-4o ou Claude 3 Opus
+2. **Velocidade necessária**: Para respostas rápidas, considere GPT-3.5 Turbo ou Claude 3 Haiku
+3. **Orçamento disponível**: Os modelos mais avançados têm custo maior por token
+4. **Tamanho do contexto**: Se precisar processar documentos longos, priorize modelos com maior limite de tokens
+
+## Personalização de Prompts
+
+Para cada modelo, é possível personalizar os prompts do sistema para obter melhores resultados:
+
+```json
+{
+  "model": "gpt-4o",
+  "systemPrompt": "Você é um assistente especializado em vendas de produtos de tecnologia. Seja amigável, informativo e sempre sugira produtos relevantes com base nas necessidades do cliente.",
+  "temperature": 0.7,
+  "maxTokens": 1000
+}
+```
+
+## Teste de Modelos
+
+A plataforma Agentes de Conversão permite testar diferentes modelos antes de implantá-los em produção. Utilize o playground integrado para comparar respostas e determinar qual modelo melhor atende às suas necessidades.
