@@ -15,8 +15,9 @@ const nextConfig = {
       "res.cloudinary.com",
       "api.agentesdeconversao.com.br",
     ],
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
   },
+  // optimizeFonts: true, // Removing incompatible config
   async rewrites() {
     return [
       {
@@ -42,9 +43,30 @@ const nextConfig = {
             key: "X-XSS-Protection",
             value: "1; mode=block",
           },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, stale-while-revalidate=86400",
+          },
         ],
       },
     ]
+  },
+  // Optimizations for production build
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+  // Improve CSS/JS loading efficiency
+  poweredByHeader: false,
+  // Minimize bundle size
+  modularizeImports: {
+    'lucide-react': {
+      transform: 'lucide-react/dist/esm/icons/{{member}}',
+    },
+    'date-fns': {
+      transform: 'date-fns/{{member}}',
+    },
   },
   transpilePackages: ["@clerk/nextjs"],
 }
