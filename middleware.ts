@@ -1,4 +1,4 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
 const isPublicRoute = [
   "/",
@@ -13,7 +13,7 @@ const isPublicRoute = [
 
 const ignoredRoutes = ["/_next/(.*)", "/favicon.ico", "/static/(.*)"];
 
-export default authMiddleware({
+export default clerkMiddleware({
   publicRoutes: isPublicRoute,
   ignoredRoutes: ignoredRoutes,
   onError: (err, req) => {
