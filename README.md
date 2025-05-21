@@ -28,3 +28,30 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Environment Variables
+
+All required environment variables for both the Next.js frontend and the FastAPI
+backend are listed in `.env.example`. Copy this file to `.env` and provide the
+appropriate values before running the project.
+
+## Static Resource Loader
+
+The `StaticResourceLoader` component preloads scripts or images from the `/public` folder once mounted.
+
+```tsx
+import { StaticResourceLoader } from '@/src/components/StaticResourceLoader'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <>
+      <StaticResourceLoader resources={['/marketing-bot.png', '/my-script.js']} />
+      {children}
+    </>
+  )
+}
+```

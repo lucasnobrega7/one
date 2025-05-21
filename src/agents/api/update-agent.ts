@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { agentService } from "../services/agent-service"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { getCurrentUser } from "@/domains/auth/services/authService"
 import { z } from "zod"
+import { logError } from "@/src/utils/error-logging"
 
 const updateAgentSchema = z.object({
   name: z.string().min(1, "Name is required").optional(),
@@ -52,7 +53,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json(updatedAgent)
   } catch (error) {
-    console.error("Error updating agent:", error)
+    logError(error, { action: "update-agent" })
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to update agent" },
       { status: 500 },

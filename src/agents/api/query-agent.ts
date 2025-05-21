@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { getCurrentUser } from "@/domains/auth/services/authService"
 import { agentService } from "../services/agent-service"
 import { queryService } from "@/src/conversations/services/query-service"
 import { z } from "zod"
+import { logError } from "@/src/utils/error-logging"
 
 const queryAgentSchema = z.object({
   query: z.string().min(1, "Query is required"),
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     return NextResponse.json(response)
   } catch (error) {
-    console.error("Error querying agent:", error)
+    logError(error, { action: "query-agent" })
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to query agent" },
       { status: 500 },

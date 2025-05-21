@@ -1,7 +1,7 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { authMiddleware } from "@clerk/nextjs";
+import { logError } from "@/utils/error-logging";
 
-// Define as rotas públicas que não precisam de autenticação
-const isPublicRoute = createRouteMatcher([
+const isPublicRoute = [
   "/",
   "/sign-in(.*)",
   "/sign-up(.*)",
@@ -10,24 +10,23 @@ const isPublicRoute = createRouteMatcher([
   "/api/webhooks/clerk",
   "/api/public/(.*)",
   "/docs/(.*)",
-])
+];
 
-// Define as rotas que devem ser ignoradas completamente
-const ignoredRoutes = ["/_next/(.*)", "/favicon.ico", "/static/(.*)"]
+const ignoredRoutes = ["/_next/(.*)", "/favicon.ico", "/static/(.*)"];
 
-export default clerkMiddleware(
-  (auth, request) => {
-    if (!isPublicRoute(request)) {
-      auth().protect()
-    }
-  },
-  { ignoredRoutes },
-)
+export default authMiddleware({
+  publicRoutes: isPublicRoute,
+  ignoredRoutes: ignoredRoutes,
+  onError: (err, req) => {
+    logError(err, { location: "middleware" });
+    return new Response("Erro de autenticação", { status: 401 });
+  }
+});
 
 export const config = {
   matcher: [
-    // Rotas que devem passar pelo middleware
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!.*\\..*|_next).*)",
     "/",
+    "/(api|trpc)(.*)",
   ],
-}
+};

@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { agentService } from "../services/agent-service"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { logError } from "@/src/utils/error-logging"
+import { getCurrentUser } from "@/domains/auth/services/authService"
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,7 +15,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(agents)
   } catch (error) {
-    console.error("Error fetching agents:", error)
+    logError(error, { action: "get-agents" })
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to fetch agents" },
       { status: 500 },

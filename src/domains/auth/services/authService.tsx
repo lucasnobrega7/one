@@ -1,2 +1,2 @@
-// Re-export from authService.ts
-export { getCurrentUser, syncUserToSupabase } from "./authService"
+// Re-export all functions from authService.ts
+export * from "./authService"

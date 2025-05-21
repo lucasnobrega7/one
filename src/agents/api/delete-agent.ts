@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { agentService } from "../services/agent-service"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { logError } from "@/src/utils/error-logging"
+import { getCurrentUser } from "@/domains/auth/services/authService"
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -26,7 +27,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error deleting agent:", error)
+    logError(error, { action: "delete-agent" })
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to delete agent" },
       { status: 500 },

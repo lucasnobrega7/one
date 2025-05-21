@@ -1,26 +1,23 @@
 import { createClient } from "@supabase/supabase-js"
+export { supabaseClient } from "./supabase/client"
 
-// Check if environment variables are defined
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+if (!supabaseUrl) {
   throw new Error("Missing environment variable: NEXT_PUBLIC_SUPABASE_URL")
 }
 
-if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+if (!supabaseAnonKey) {
   throw new Error("Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY")
 }
-
-// Create Supabase client
-export const supabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-)
 
 /**
  * Creates a Supabase client with custom authentication
  * Useful for server-side operations that need to bypass RLS policies
  */
 export function createServiceClient(serviceRoleKey: string) {
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, serviceRoleKey, {
+  return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
@@ -33,7 +30,7 @@ export function createServiceClient(serviceRoleKey: string) {
  * Useful for client-side operations that need to respect RLS policies
  */
 export function createAuthClient(accessToken: string) {
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+  return createClient(supabaseUrl, supabaseAnonKey, {
     global: {
       headers: {
         Authorization: `Bearer ${accessToken}`,

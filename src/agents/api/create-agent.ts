@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { agentService } from "../services/agent-service"
-import { getCurrentUser } from "@/src/lib/auth/get-current-user"
+import { getCurrentUser } from "@/domains/auth/services/authService"
 import { z } from "zod"
+import { logError } from "@/src/utils/error-logging"
 
 const createAgentSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(agent)
   } catch (error) {
-    console.error("Error creating agent:", error)
+    logError(error, { action: "create-agent" })
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to create agent" },
       { status: 500 },
