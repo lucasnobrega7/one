@@ -18,6 +18,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,6 +54,13 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        h1: ['clamp(2.5rem,5vw,4rem)', { lineHeight: '1.1' }],
+        body: ['1rem', { lineHeight: '1.6' }],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -73,5 +82,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+  ],
 }
