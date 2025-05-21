@@ -1,0 +1,32 @@
+{
+  "llm": {
+    "provider": "anthropic",
+    "model": "claude-3-sonnet-20240229",
+    "apiKey": "${ANTHROPIC_API_KEY}"
+  },
+  "railway": {
+    "project": "api-oficial",
+    "token": "${RAILWAY_TOKEN}",
+    "environment": "production"
+  },
+  "services": {
+    "supabase": {
+      "url": "${NEXT_PUBLIC_SUPABASE_URL}",
+      "key": "${NEXT_PUBLIC_SUPABASE_ANON_KEY}",
+      "serviceKey": "${SUPABASE_SERVICE_KEY}"
+    },
+    "redis": {
+      "url": "${REDIS_URL}"
+    }
+  },
+  "endpoints": {
+    "clerk": {
+      "webhookUrl": "/api/webhooks/clerk",
+      "webhookSecret": "${CLERK_WEBHOOK_SECRET}"
+    },
+    "api": {
+      "baseUrl": "${NEXT_PUBLIC_API_URL}",
+      "allowedOrigins": "${ALLOWED_ORIGINS}"
+    }
+  }
+}
