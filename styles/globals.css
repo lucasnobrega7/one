@@ -37,6 +37,9 @@ body {
 
 @layer base {
   :root {
+    --color-primary: 17 17 17;
+    --color-surface: 255 255 255;
+    --elevation-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
     --background: 240 10% 99%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -135,11 +138,11 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[rgb(var(--color-surface))] text-[rgb(var(--color-primary))] font-sans;
   }
   
   h1 {
-    @apply text-2xl font-semibold;
+    @apply text-h1 font-bold tracking-tight;
   }
   h2 {
     @apply text-xl font-medium;
