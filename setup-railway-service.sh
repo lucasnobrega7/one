@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Script para configurar serviço no Railway interativamente
+
+echo "==== Configuração do Serviço Railway ===="
+echo ""
+echo "Execute este script em um terminal interativo para configurar seu serviço Railway."
+echo ""
+echo "Siga estas etapas:"
+echo ""
+echo "1. Selecione 'api' quando solicitado para escolher um serviço:"
+echo "   $ railway service"
+echo ""
+echo "2. Faça o deploy da aplicação:"
+echo "   $ railway up"
+echo ""
+echo "3. Configure as variáveis de ambiente necessárias:"
+echo "   $ railway variables set ANTHROPIC_API_KEY seu-api-key"
+echo "   $ railway variables set CLERK_WEBHOOK_SECRET seu-webhook-secret"
+echo "   $ railway variables set ALLOWED_ORIGINS http://localhost:3000,https://seu-dominio.com"
+echo ""
+echo "4. Obtenha a URL da aplicação:"
+echo "   $ railway domain"
+echo ""
+echo "Para mais detalhes, consulte o arquivo RAILWAY-MCP.md"
+echo ""
+echo "==== Fim das Instruções ===="
