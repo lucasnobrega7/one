@@ -1,5 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs";
-import { logError } from "@/utils/error-logging";
+// Using console error in middleware since it's outside the src directory
+// and can't use the utility functions directly
 
 const isPublicRoute = [
   "/",
@@ -18,7 +19,7 @@ export default authMiddleware({
   publicRoutes: isPublicRoute,
   ignoredRoutes: ignoredRoutes,
   onError: (err, req) => {
-    logError(err, { location: "middleware" });
+    console.error("Middleware authentication error:", err);
     return new Response("Erro de autenticação", { status: 401 });
   }
 });
