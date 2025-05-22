@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Iwata Souchou";
+  src: url("/fonts/IwataSouchouMedium.woff2") format("woff2"), url("/fonts/IwataSouchouMedium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Primus Light";
+  src: url("/fonts/PrimusLight.woff2") format("woff2"), url("/fonts/PrimusLight.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Primus";
+  src: url("/fonts/Primus.woff2") format("woff2"), url("/fonts/Primus.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Primus";
+  src: url("/fonts/PrimusBold.woff2") format("woff2"), url("/fonts/PrimusBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}

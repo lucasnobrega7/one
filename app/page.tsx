@@ -1,228 +1,100 @@
-"use client"
+import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Navigation } from "@/components/layout/navigation"
+import { HeroGeometric } from "@/components/hero-geometric"
+import { PricingPlans } from "@/components/onboarding/pricing-plans"
 
-import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { ContextContainer } from '@/src/components/ui/context-container'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Bot, MessageSquare, Share2, Code, Settings } from 'lucide-react'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+export const metadata: Metadata = {
+  title: "Agentes de Conversão | Crie agentes de IA conversacionais",
+  description:
+    "Plataforma para criar e gerenciar agentes de IA conversacionais personalizados com base de conhecimento.",
+}
 
-export default function LandingPage() {
+export default function HomePage() {
+  const handlePlanSelect = (planId: string) => {
+    // Redirecionar para signup com plano selecionado
+    window.location.href = `/signup?plan=${planId}`
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section - Immersive Context */}
-      <ContextContainer 
-        context="immersive" 
-        particleType="lines"
-        className="min-h-[80vh] flex items-center justify-center py-20"
-      >
-        <div className="container px-4 mx-auto text-center">
-          <Image 
-            src="/logo-agentesdeconversao-white.svg" 
-            alt="Agentes de Conversão" 
-            width={240} 
-            height={60}
-            className="mx-auto mb-8"
-          />
-          
-          <h1 className="text-4xl sm:text-5xl font-semibold mb-6 text-white max-w-3xl mx-auto animate-float">
-            Inteligência artificial personalizada para sua empresa
-          </h1>
-          
-          <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-10">
-            Crie agentes de conversação inteligentes que transformam o atendimento ao cliente, 
-            automação de processos e a geração de leads.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 rounded-full px-8">
-              <Link href="/sign-up">
-                Começar agora <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            
-            <Button asChild variant="outline" size="lg" className="text-white border-white/20 hover:bg-white/10 rounded-full px-8">
-              <Link href="/docs">
-                Documentação
-              </Link>
-            </Button>
+    <div className="min-h-screen bg-black text-white">
+      <Navigation />
+
+      {/* Hero Section */}
+      <HeroGeometric
+        badge="Agentes de Conversão"
+        title1="Criando agentes de IA seguros"
+        title2="que beneficiam a humanidade"
+      />
+
+      {/* Features Section */}
+      <section className="container mx-auto px-4 md:px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="border-t border-white/20 pt-6">
+            <h3 className="text-2xl font-normal mb-3">Crie agentes personalizados</h3>
+            <p className="text-white/70 mb-4">
+              Configure agentes de IA conversacionais adaptados às suas necessidades específicas com integração WhatsApp.
+            </p>
+            <Link href="/features" className="text-sm flex items-center hover:underline">
+              Saiba mais <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </div>
+          <div className="border-t border-white/20 pt-6">
+            <h3 className="text-2xl font-normal mb-3">Base de conhecimento</h3>
+            <p className="text-white/70 mb-4">
+              Alimente seus agentes com documentos e dados específicos do seu negócio para respostas mais precisas.
+            </p>
+            <Link href="/features#knowledge-base" className="text-sm flex items-center hover:underline">
+              Como funciona <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </div>
+          <div className="border-t border-white/20 pt-6">
+            <h3 className="text-2xl font-normal mb-3">Integração WhatsApp</h3>
+            <p className="text-white/70 mb-4">
+              Conecte seus agentes ao WhatsApp Business via Z-API e automatize seu atendimento.
+            </p>
+            <Link href="/docs/whatsapp" className="text-sm flex items-center hover:underline">
+              Ver guia de integração <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
           </div>
         </div>
-      </ContextContainer>
-      
-      {/* Features Section - Functional Context */}
-      <ContextContainer context="functional" className="py-20">
-        <div className="container px-4 mx-auto">
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-semibold mb-6">Recursos Poderosos</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Tudo o que você precisa para criar, configurar e implementar agentes de conversação inteligentes.
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Escolha o Plano Ideal para Você
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Comece grátis e escale conforme sua necessidade. Todos os planos incluem 14 dias de teste.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <Bot className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Agentes Personalizáveis</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Crie agentes com personalidades específicas, bases de conhecimento personalizadas e fluxos de conversa avançados.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Feature 2 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <MessageSquare className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Integrações Múltiplas</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Implante seus agentes em diversos canais: site, WhatsApp, Telegram, SMS e muito mais.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Feature 3 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <Share2 className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Compartilhamento Fácil</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Compartilhe seus agentes com sua equipe ou torne-os públicos com controle de acesso flexível.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Feature 4 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <Code className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Editor de Fluxos Visual</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Crie fluxos de conversa complexos sem código usando nossa interface de arrastar e soltar.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Feature 5 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <Settings className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>API Robusta</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Integre agentes de conversação em seus próprios produtos e aplicativos com nossa API completa.
-                </p>
-              </CardContent>
-            </Card>
-            
-            {/* Feature 6 */}
-            <Card className="hover-card-scale border-surface-stroke">
-              <CardHeader>
-                <Bot className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Treinamento Contínuo</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Melhore seus agentes constantemente com feedback de usuários e análise de conversas.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <PricingPlans onSelectPlan={handlePlanSelect} />
         </div>
-      </ContextContainer>
-      
-      {/* CTA Section - Immersive Context */}
-      <ContextContainer 
-        context="immersive" 
-        particleType="dots"
-        particleDensity="low"
-        className="py-20"
-      >
-        <div className="container px-4 mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-6 text-white">
-            Pronto para transformar sua interação com clientes?
-          </h2>
-          
-          <p className="text-lg text-white/80 max-w-2xl mx-auto mb-10">
-            Crie seu primeiro agente em minutos e veja o impacto imediato nos resultados.
+      </section>
+
+      {/* CTA Section */}
+      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-white/20">
+        <div className="flex flex-col items-center text-center">
+          <h2 className="text-4xl md:text-5xl font-normal mb-6">Comece a criar seu agente hoje</h2>
+          <p className="text-xl text-white/70 mb-10 max-w-2xl">
+            Configure seu primeiro agente em minutos e transforme a maneira como você interage com seus clientes via WhatsApp.
           </p>
-          
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-8">
-            <Link href="/sign-up">
-              Comece gratuitamente <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-      </ContextContainer>
-      
-      {/* Footer - Functional Context */}
-      <ContextContainer context="functional" className="py-10 border-t border-border">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0">
-              <Image 
-                src="/logo-agentesdeconversao-black.svg" 
-                alt="Agentes de Conversão" 
-                width={180} 
-                height={45}
-                className="dark:hidden"
-              />
-              <Image 
-                src="/logo-agentesdeconversao-white.svg" 
-                alt="Agentes de Conversão" 
-                width={180} 
-                height={45}
-                className="hidden dark:block"
-              />
-            </div>
-            
-            <div className="flex flex-wrap gap-8">
-              <div className="space-y-4">
-                <h3 className="font-medium text-sm text-muted-foreground">Produto</h3>
-                <ul className="space-y-2">
-                  <li><Link href="#" className="text-sm hover:text-primary">Recursos</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">Preços</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">Integrações</Link></li>
-                </ul>
-              </div>
-              
-              <div className="space-y-4">
-                <h3 className="font-medium text-sm text-muted-foreground">Empresa</h3>
-                <ul className="space-y-2">
-                  <li><Link href="#" className="text-sm hover:text-primary">Sobre nós</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">Blog</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">Carreiras</Link></li>
-                </ul>
-              </div>
-              
-              <div className="space-y-4">
-                <h3 className="font-medium text-sm text-muted-foreground">Suporte</h3>
-                <ul className="space-y-2">
-                  <li><Link href="#" className="text-sm hover:text-primary">Documentação</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">FAQ</Link></li>
-                  <li><Link href="#" className="text-sm hover:text-primary">Contato</Link></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-10 pt-6 border-t border-border text-center md:text-left text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Agentes de Conversão. Todos os direitos reservados.</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button asChild size="lg" className="bg-white text-black hover:bg-white/90">
+              <Link href="/signup">Criar conta gratuita</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/10">
+              <Link href="/docs">Ver documentação</Link>
+            </Button>
           </div>
         </div>
-      </ContextContainer>
+      </section>
     </div>
   )
 }
