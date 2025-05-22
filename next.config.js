@@ -69,16 +69,26 @@ const nextConfig = {
     },
   },
   transpilePackages: ["@clerk/nextjs"],
-  webpack: (config, { isServer }) => {
-    // Polyfill crypto for client-side
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
+  webpack: (config, { isServer, nextRuntime }) => {
+    // Add polyfills for all runtimes
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer'),
+      util: require.resolve('util'),
+      url: require.resolve('url'),
+      querystring: require.resolve('querystring-es3'),
+    }
+
+    // Add globals for Edge Runtime
+    if (nextRuntime === 'edge') {
+      config.resolve.alias = {
+        ...config.resolve.alias,
         crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
-        buffer: require.resolve('buffer'),
       }
     }
+
     return config
   },
 }
