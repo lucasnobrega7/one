@@ -1,4 +1,4 @@
-import { authMiddleware } from "@clerk/nextjs"
+import { clerkMiddleware } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
@@ -55,7 +55,7 @@ function domainMiddleware(request: NextRequest) {
 }
 
 // Middleware de autenticação do Clerk
-const clerkMiddleware = authMiddleware({
+const authHandler = clerkMiddleware({
   // Rotas que podem ser acessadas sem autenticação
   publicRoutes: [
     "/",
@@ -83,7 +83,7 @@ export default function middleware(request: NextRequest) {
   }
 
   // Caso contrário, aplicamos o middleware de autenticação
-  return clerkMiddleware(request)
+  return authHandler(request)
 }
 
 export const config = {
