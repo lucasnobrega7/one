@@ -6,6 +6,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
+import { createClient } from '@/utils/supabase/client'
 import { ArrowRight, Check, AlertCircle } from "lucide-react"
 
 export default function SignupPage() {
@@ -22,30 +23,55 @@ export default function SignupPage() {
     setError("")
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erro ao criar conta")
-      }
-
-      // Login automático após o cadastro
-      await signIn("credentials", {
-        redirect: false,
+      // Try Supabase auth first
+      const supabase = createClient()
+      const { data, error: supabaseError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            name: name,
+          }
+        }
       })
+
+      if (supabaseError) {
+        // Fallback to traditional registration
+        const response = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        })
+
+        const responseData = await response.json()
+
+        if (!response.ok) {
+          throw new Error(responseData.message || "Erro ao criar conta")
+        }
+
+        // Login automático após o cadastro
+        await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        })
+      } else {
+        // Supabase registration successful
+        console.log('User registered with Supabase:', data)
+        
+        // Check if email confirmation is needed
+        if (data.user && !data.session) {
+          setError("Verifique seu email para confirmar a conta.")
+          setLoading(false)
+          return
+        }
+      }
 
       router.push("/dashboard")
     } catch (error: any) {
@@ -198,7 +224,20 @@ export default function SignupPage() {
 
             <div className="mt-6 grid grid-cols-1 gap-4">
               <button
-                onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                onClick={async () => {
+                  const supabase = createClient()
+                  const { error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                      redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`
+                    }
+                  })
+                  
+                  if (error) {
+                    // Fallback to NextAuth
+                    signIn("google", { callbackUrl: "/dashboard" })
+                  }
+                }}
                 className="border border-white/20 py-2 px-4 hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

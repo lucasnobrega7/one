@@ -1,10 +1,42 @@
 import NextAuth from "next-auth"
 import type { NextAuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import { SupabaseAdapter } from "@auth/supabase-adapter"
 import GoogleProvider from "next-auth/providers/google"
+import CredentialsProvider from "next-auth/providers/credentials"
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import type { Database } from "@/types/supabase"
+import bcrypt from "bcryptjs"
+
+// Helper function to create Supabase client
+async function createSupabaseServerClient() {
+  const cookieStore = cookies()
+  
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: any) {
+          cookieStore.set({ name, value, ...options })
+        },
+        remove(name: string, options: any) {
+          cookieStore.set({ name, value: '', ...options })
+        },
+      },
+    }
+  )
+}
 
 // Create a more basic configuration first to ensure it works
 export const authOptions: NextAuthOptions = {
+  adapter: SupabaseAdapter({
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  }),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -22,16 +54,30 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          // Simplified user lookup for now
-          // Replace with your actual user lookup logic
-          const user = {
-            id: "1",
-            name: "Test User",
-            email: credentials.email,
-            roles: ["user"],
+          const supabase = await createSupabaseServerClient()
+          
+          // Look up user by email
+          const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', credentials.email)
+            .single()
+
+          if (error || !user) {
+            return null
           }
 
-          return user
+          // Verify password
+          if (user.password && await bcrypt.compare(credentials.password, user.password)) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              image: user.image,
+            }
+          }
+
+          return null
         } catch (error) {
           console.error("Authentication error:", error)
           return null
@@ -40,20 +86,26 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id
-        token.roles = user.roles || ["user"]
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.id as string
-        session.user.roles = token.roles as string[]
+    async session({ session, user }) {
+      if (user && session.user) {
+        session.user.id = user.id
+        
+        // Get user roles from database
+        try {
+          const supabase = await createSupabaseServerClient()
+          const { data: roles } = await supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', user.id)
+          
+          session.user.roles = roles?.map(r => r.role) || ['user']
+        } catch (error) {
+          console.error("Error fetching user roles:", error)
+          session.user.roles = ['user']
+        }
       }
       return session
     },

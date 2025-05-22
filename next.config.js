@@ -68,7 +68,7 @@ const nextConfig = {
       transform: 'date-fns/{{member}}',
     },
   },
-  transpilePackages: ["@clerk/nextjs"],
+  transpilePackages: ["@supabase/ssr"],
   webpack: (config, { isServer, nextRuntime }) => {
     // Add polyfills for all runtimes
     config.resolve.fallback = {

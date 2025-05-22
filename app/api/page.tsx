@@ -7,7 +7,7 @@ export default function ApiPage() {
     <MainLayout>
       <section className="container mx-auto px-4 md:px-6 py-20">
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal mb-8">Explore a API de Agentes de Conversão</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-normal mb-8">Explore a API de Agentes de Conversão</h1>
           <p className="text-xl mb-8">
             Construa aplicações avançadas com nossa API de IA. Acesse modelos de linguagem de última geração para chat,
             geração de texto, embeddings e muito mais.

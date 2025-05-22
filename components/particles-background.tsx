@@ -206,7 +206,7 @@ export default function ParticlesBackground({
           transition={{ duration: 0.8 }}
           className="text-center space-y-4"
         >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-sm">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-normal mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 drop-shadow-sm">
             {title} <br /> {subtitle}
           </h1>
           <Link

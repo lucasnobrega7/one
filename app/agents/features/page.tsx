@@ -7,7 +7,7 @@ export default function AgentsFeaturesPage() {
     <MainLayout>
       <section className="container mx-auto px-4 md:px-6 py-20">
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-normal mb-8">Recursos dos Agentes</h1>
+          <h1 className="text-4xl md:text-5xl font-normal mb-8">Recursos dos Agentes</h1>
           <p className="text-xl mb-8">
             Nossos agentes de IA são equipados com recursos avançados para fornecer experiências conversacionais
             excepcionais e impulsionar seus resultados de negócios.

@@ -7,7 +7,7 @@ export default function AboutPage() {
     <MainLayout>
       <section className="container mx-auto px-4 md:px-6 py-20">
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-normal mb-8">Sobre nós</h1>
+          <h1 className="text-4xl md:text-5xl font-normal mb-8">Sobre nós</h1>
           <p className="text-xl mb-8">
             A Agentes de Conversão é uma empresa de pesquisa e implantação de IA com a missão de garantir que a
             inteligência artificial beneficie toda a humanidade.
