@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/utils/supabase/server-safe'
 import { apiClient } from './api-client'
 import { AgentDataAdapter, ConversationDataAdapter } from './dto/agent.dto'
 import type { UnifiedAgent, UnifiedConversation } from './dto/agent.dto'

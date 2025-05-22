@@ -1,0 +1,14 @@
+[build]
+buildCommand = "npm install --legacy-peer-deps && npm run build"
+
+[deploy]
+startCommand = "npm start"
+
+[env]
+NODE_ENV = "production"
+PORT = { value = "3000" }
+
+# Build configuration
+[build.environment]
+NODE_VERSION = "18"
+NPM_CONFIG_LEGACY_PEER_DEPS = "true"

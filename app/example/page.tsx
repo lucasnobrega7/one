@@ -6,7 +6,7 @@ import { Hero } from "@/components/sections/hero"
 import { FeaturesGrid } from "@/components/sections/features-grid"
 import { CTA } from "@/components/sections/cta"
 import { Footer } from "@/components/sections/footer"
-import { ArrowRight, Zap, Shield, Gauge, Globe, Lightning, ArrowUpRight } from "lucide-react"
+import { ArrowRight, Zap, Shield, Gauge, Globe, Bolt as Lightning, ArrowUpRight } from "lucide-react"
 
 export default function ExamplePage() {
   // Sample features for the features grid section

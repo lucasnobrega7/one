@@ -1,9 +1,10 @@
 import { createServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
 import type { Database } from "@/types/supabase"
 
 // Safely create a server client with error handling
 export async function createClient() {
+  // Dynamic import to avoid SSR issues
+  const { cookies } = await import("next/headers")
   const cookieStore = cookies()
 
   // Validate environment variables
