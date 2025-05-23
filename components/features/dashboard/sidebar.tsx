@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { LayoutDashboard, MessageSquare, Database, BarChart2, Users, Settings, HelpCircle } from "lucide-react"
 import { Permission } from "@/lib/auth/permissions"
-import { PermissionGate } from "@/components/auth/permission-gate"
+import { PermissionGate } from "@/components/features/auth/permission-gate"
 
 interface SidebarItemProps {
   href: string

@@ -1,10 +1,10 @@
-import { ProtectedRoute } from "@/components/auth/protected-route"
+import { ProtectedRoute } from "@/components/features/auth/protected-route"
 import { Permission } from "@/lib/auth/permissions"
-import { AgentsList } from "@/components/dashboard/agents-list"
+import { AgentsList } from "@/components/features/dashboard/agents-list"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
-import { PermissionGate } from "@/components/auth/permission-gate"
+import { PermissionGate } from "@/components/features/auth/permission-gate"
 
 export default function AgentsPage() {
   return (

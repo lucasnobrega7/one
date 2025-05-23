@@ -6,7 +6,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/database/supabase-utils/client'
 import { ArrowRight, Check, AlertCircle } from "lucide-react"
 
 export default function SignupPage() {

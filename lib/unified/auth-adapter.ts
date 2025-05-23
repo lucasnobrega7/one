@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { auth } from '@/config/auth'
 import { getSession } from 'next-auth/react'
 
 export class UnifiedAuthAdapter {

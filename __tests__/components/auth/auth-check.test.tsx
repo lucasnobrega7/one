@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 
 // Mock the hooks
 const mockUseSession = useSession as jest.Mock

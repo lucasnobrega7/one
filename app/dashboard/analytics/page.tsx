@@ -1,6 +1,6 @@
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { AnalyticsDashboard } from "@/components/dashboard/analytics-dashboard"
+import { AnalyticsDashboard } from "@/components/features/dashboard/analytics-dashboard"
 
 export default function AnalyticsPage() {
   return (

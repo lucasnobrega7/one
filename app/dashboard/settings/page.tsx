@@ -1,6 +1,6 @@
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { SettingsForm } from "@/components/dashboard/settings-form"
+import { SettingsForm } from "@/components/features/dashboard/settings-form"
 
 export default function SettingsPage() {
   return (

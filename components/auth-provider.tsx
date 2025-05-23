@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { SessionProvider } from "next-auth/react"
-import { SupabaseSessionProvider } from "@/components/auth/supabase-session-provider"
+import { SupabaseSessionProvider } from "@/components/features/auth/supabase-session-provider"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { useState, useEffect } from "react"
 

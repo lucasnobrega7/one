@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/database/supabase-utils/client'
 import Link from "next/link"
 import { z } from "zod"
 import { useForm } from "react-hook-form"

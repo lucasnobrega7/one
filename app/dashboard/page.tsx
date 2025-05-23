@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { auth } from "@/auth"
+import { auth } from "@/config/auth"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Bot, MessageSquare, Brain, Settings, Plus, BarChart3 } from "lucide-react"

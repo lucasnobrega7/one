@@ -1,7 +1,7 @@
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { ProfileForm } from "@/components/dashboard/profile-form"
-import { auth } from "@/auth"
+import { ProfileForm } from "@/components/features/dashboard/profile-form"
+import { auth } from "@/config/auth"
 
 export default async function ProfilePage() {
   const session = await auth()
