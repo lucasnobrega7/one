@@ -7,7 +7,7 @@ export default function ResearchPage() {
     <MainLayout>
       <section className="container mx-auto px-4 md:px-6 py-20">
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-normal mb-8">Pesquisa</h1>
+          <h1 className="text-4xl md:text-5xl font-normal mb-8">Pesquisa</h1>
           <p className="text-xl mb-8">
             Nossa missão é garantir que a inteligência artificial beneficie toda a humanidade. Realizamos pesquisas
             fundamentais em IA e publicamos a maioria de nossos trabalhos.

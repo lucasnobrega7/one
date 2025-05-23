@@ -1,16 +1,13 @@
-import type { NextAuthOptions, Session } from "next-auth"
+import NextAuth from "next-auth"
+import type { NextAuthConfig } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 import { SupabaseAdapter } from "@auth/supabase-adapter"
-import { getServerSession as nextAuthGetServerSession } from "next-auth/next"
 import bcrypt from "bcryptjs"
 import { createClient } from "@/utils/supabase/server"
 import type { Role } from "@/lib/auth/permissions"
 
-// Export getServerSession
-export const getServerSession = () => nextAuthGetServerSession(authOptions)
-
-export const authOptions: NextAuthOptions = {
+export const authConfig: NextAuthConfig = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -202,3 +199,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
 }
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig)

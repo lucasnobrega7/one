@@ -1,6 +1,6 @@
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { KnowledgeBaseList } from "@/components/dashboard/knowledge-base-list"
+import { KnowledgeBaseList } from "@/components/features/dashboard/knowledge-base-list"
 
 export default function KnowledgeBasePage() {
   return (

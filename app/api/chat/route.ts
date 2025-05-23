@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server"
-import { getServerSession } from "@/lib/user-context"
-import { supabase } from "@/lib/db"
+import { auth } from "@/config/auth"
+import { createClient } from "@/lib/supabase/server"
 import { v4 as uuidv4 } from "uuid"
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession()
+    const session = await auth()
     if (!session || !session.user) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 })
     }
 
+    const supabase = createClient()
     const { message, conversationId, agentId } = await req.json()
 
     if (!message) {
@@ -25,7 +26,11 @@ export async function POST(req: Request) {
       }
 
       // Verificar se o agente existe
-      const { data: agent, error: agentError } = await supabase.from("agents").select().eq("id", agentId).single()
+      const { data: agent, error: agentError } = await supabase
+        .from("agents")
+        .select("*")
+        .eq("id", agentId)
+        .single()
 
       if (agentError || !agent) {
         return NextResponse.json({ error: "Agente não encontrado" }, { status: 404 })
@@ -38,6 +43,7 @@ export async function POST(req: Request) {
           id: uuidv4(),
           agent_id: agentId,
           user_id: session.user.id,
+          title: `Conversa com ${agent.name}`,
         })
         .select()
         .single()
@@ -52,7 +58,7 @@ export async function POST(req: Request) {
       // Buscar conversa existente
       const { data: existingConversation, error: convError } = await supabase
         .from("conversations")
-        .select()
+        .select("*")
         .eq("id", conversationId)
         .single()
 
@@ -81,10 +87,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Erro ao salvar mensagem" }, { status: 500 })
     }
 
-    // Aqui você pode adicionar a lógica para gerar a resposta do agente
-    // usando OpenAI, Cohere, ou outro serviço de IA
-
-    // Por enquanto, vamos simular uma resposta
+    // TODO: Integrar com LLM real (OpenAI/Anthropic)
+    // Por enquanto, resposta simulada
     const aiResponse = `Esta é uma resposta simulada para: "${message}"`
 
     // Salvar resposta do agente
@@ -106,6 +110,40 @@ export async function POST(req: Request) {
     })
   } catch (error: any) {
     console.error("Erro no processamento do chat:", error)
+    return NextResponse.json({ error: error.message || "Erro interno do servidor" }, { status: 500 })
+  }
+}
+
+export async function GET(req: Request) {
+  try {
+    const session = await auth()
+    if (!session || !session.user) {
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 })
+    }
+
+    const supabase = createClient()
+    const { searchParams } = new URL(req.url)
+    const conversationId = searchParams.get('conversationId')
+
+    if (!conversationId) {
+      return NextResponse.json({ error: "ID da conversa não fornecido" }, { status: 400 })
+    }
+
+    // Buscar mensagens da conversa
+    const { data: messages, error } = await supabase
+      .from("messages")
+      .select("*")
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: true })
+
+    if (error) {
+      console.error("Erro ao buscar mensagens:", error)
+      return NextResponse.json({ error: "Erro ao buscar mensagens" }, { status: 500 })
+    }
+
+    return NextResponse.json(messages)
+  } catch (error: any) {
+    console.error("Erro ao buscar mensagens:", error)
     return NextResponse.json({ error: error.message || "Erro interno do servidor" }, { status: 500 })
   }
 }

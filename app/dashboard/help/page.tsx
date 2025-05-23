@@ -1,6 +1,6 @@
-import { AuthCheck } from "@/components/auth/auth-check"
+import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { HelpCenter } from "@/components/dashboard/help-center"
+import { HelpCenter } from "@/components/features/dashboard/help-center"
 
 export default function HelpPage() {
   return (

@@ -2,112 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 10%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 10%;
-    --ring: 0 0% 100%;
-    --radius: 0;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
+  :root {
+    /* Dark theme by default - Agentes de Conversão style */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.75rem;
+    
+    /* Custom colors for Agentes de Conversão */
+    --blue-400: 59 130 246;
+    --purple-400: 168 85 247;
+    --pink-400: 244 114 182;
+  }
+
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-background text-foreground;
-    font-family: "Primus Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Iwata Souchou", serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+  html {
+    @apply antialiased;
   }
+}
 
-  h1 {
-    @apply text-5xl sm:text-6xl md:text-7xl;
-    letter-spacing: -0.04em;
+@layer components {
+  /* Custom gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent;
   }
+  
+  /* Custom button styles */
+  .btn-primary {
+    @apply bg-white text-black hover:bg-gray-200 transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border-white text-white hover:bg-white hover:text-black transition-colors;
+  }
+}
 
-  h2 {
-    @apply text-3xl sm:text-4xl;
-  }
-
-  h3 {
-    @apply text-2xl sm:text-3xl;
-  }
-
-  .openai-gradient-fade {
-    background: linear-gradient(180deg, #000000 50%, #ffffff 50%);
-  }
-
-  .openai-gradient-lines {
-    background: linear-gradient(to bottom, #000 0%, #fff 100%);
-    background-size: 100% 23px;
-    background-repeat: repeat-y;
-    background-image: linear-gradient(to right, #000, #000 100%, transparent 100%);
-  }
-
-  /* Buttons */
-  button,
-  .button {
-    @apply transition-colors duration-200;
-  }
-
-  /* Links */
-  a {
-    @apply transition-colors duration-200;
-  }
-
-  /* Form elements */
-  input,
-  textarea,
-  select {
-    @apply transition-colors duration-200;
-  }
-
-  /* Sections */
-  section {
-    @apply py-12 md:py-20;
-  }
-
-  /* Container */
-  .container {
-    @apply px-4 md:px-6 mx-auto;
-  }
-
-  .font-primary {
-    font-family: "Iwata Souchou", serif;
-  }
-
-  .font-secondary {
-    font-family: "Primus Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }

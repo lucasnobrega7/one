@@ -1,26 +1,51 @@
-import { NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
+import { createServerClient } from '@supabase/ssr'
+import { NextRequest, NextResponse } from 'next/server'
+import type { Database } from '@/types/supabase'
 
-export async function GET(request: Request) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get("code")
+export async function GET(request: NextRequest) {
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  const next = searchParams.get('next') ?? '/dashboard'
 
   if (code) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    let response = NextResponse.redirect(`${origin}${next}`)
 
-    try {
-      await supabase.auth.exchangeCodeForSession(code)
-    } catch (error) {
+    const supabase = createServerClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return request.cookies.get(name)?.value
+          },
+          set(name: string, value: string, options: any) {
+            response.cookies.set({
+              name,
+              value,
+              ...options,
+            })
+          },
+          remove(name: string, options: any) {
+            response.cookies.set({
+              name,
+              value: '',
+              ...options,
+            })
+          },
+        },
+      }
+    )
+
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (error) {
       console.error("Erro ao trocar código por sessão:", error)
-      return NextResponse.redirect(`${requestUrl.origin}/auth/error?error=OAuthCallback`)
+      return NextResponse.redirect(`${origin}/auth/error?error=OAuthCallback`)
     }
 
-    // Redirecionar para o dashboard após autenticação bem-sucedida
-    return NextResponse.redirect(`${requestUrl.origin}/dashboard`)
+    return response
   }
 
   // Se não houver código, redirecionar para a página de erro
-  return NextResponse.redirect(`${requestUrl.origin}/auth/error?error=Callback`)
+  return NextResponse.redirect(`${origin}/auth/error?error=Callback`)
 }

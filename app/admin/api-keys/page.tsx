@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import ApiKeyManager from "@/components/admin/api-key-manager"
+import ApiKeyManager from "@/components/features/admin/api-key-manager"
 
 export const metadata: Metadata = {
   title: "Gerenciamento de API Keys | Agentes de Conversão",

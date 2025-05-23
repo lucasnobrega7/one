@@ -1,4 +1,4 @@
-import { getServerSession } from '@/lib/auth'
+import { auth } from '@/config/auth'
 import { getSession } from 'next-auth/react'
 
 export class UnifiedAuthAdapter {
@@ -8,7 +8,7 @@ export class UnifiedAuthAdapter {
   async getSessionToken(): Promise<string | null> {
     // Try server-side first
     if (typeof window === 'undefined') {
-      const session = await getServerSession()
+      const session = await auth()
       return session?.user?.accessToken || null
     }
     

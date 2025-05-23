@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, integer, json, uuid } from "drizzle-orm/pg-core"
+import { pgTable, text, timestamp, boolean, integer, json, uuid, real } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
 // Users table
@@ -19,7 +19,7 @@ export const userRoles = pgTable("user_roles", {
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  role: text("role").notNull(),
+  role: text("role").notNull(), // admin, user, premium
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
 })
 
@@ -33,6 +33,13 @@ export const userSettings = pgTable("user_settings", {
   language: text("language").default("pt-BR"),
   notificationsEnabled: boolean("notifications_enabled").default(true),
   onboardingCompleted: boolean("onboarding_completed").default(false),
+  openaiApiKey: text("openai_api_key"),
+  anthropicApiKey: text("anthropic_api_key"),
+  cohereApiKey: text("cohere_api_key"),
+  zapiToken: text("zapi_token"),
+  zapiInstanceId: text("zapi_instance_id"),
+  evolutionApiUrl: text("evolution_api_url"),
+  evolutionApiKey: text("evolution_api_key"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 })
@@ -107,6 +114,7 @@ export const documents = pgTable("documents", {
   name: text("name").notNull(),
   content: text("content").notNull(),
   metadata: json("metadata"),
+  vectorized: boolean("vectorized").default(false),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 })
@@ -117,12 +125,16 @@ export const agents = pgTable("agents", {
   name: text("name").notNull(),
   description: text("description"),
   systemPrompt: text("system_prompt"),
-  modelId: text("model_id").notNull(),
-  temperature: integer("temperature"),
+  modelId: text("model_id").notNull().default("gpt-3.5-turbo"),
+  temperature: real("temperature").default(0.7),
+  maxTokens: integer("max_tokens").default(1000),
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   knowledgeBaseId: uuid("knowledge_base_id").references(() => knowledgeBases.id),
+  isActive: boolean("is_active").default(true),
+  whatsappConnected: boolean("whatsapp_connected").default(false),
+  whatsappNumber: text("whatsapp_number"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 })
@@ -135,6 +147,9 @@ export const conversations = pgTable("conversations", {
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  whatsappChatId: text("whatsapp_chat_id"),
+  platform: text("platform").default("web"), // web, whatsapp, telegram, etc
+  isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 })
@@ -143,23 +158,59 @@ export const conversations = pgTable("conversations", {
 export const messages = pgTable("messages", {
   id: uuid("id").primaryKey().defaultRandom(),
   content: text("content").notNull(),
-  role: text("role").notNull(),
+  role: text("role").notNull(), // user, assistant, system
   conversationId: uuid("conversation_id")
     .notNull()
     .references(() => conversations.id, { onDelete: "cascade" }),
+  metadata: json("metadata"), // tokens used, processing time, etc
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+})
+
+// WhatsApp integrations table
+export const whatsappIntegrations = pgTable("whatsapp_integrations", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  agentId: uuid("agent_id")
+    .notNull()
+    .references(() => agents.id, { onDelete: "cascade" }),
+  phoneNumber: text("phone_number").notNull(),
+  provider: text("provider").notNull(), // zapi, evolution, official
+  apiUrl: text("api_url"),
+  apiKey: text("api_key"),
+  instanceId: text("instance_id"),
+  isConnected: boolean("is_connected").default(false),
+  lastStatusCheck: timestamp("last_status_check", { mode: "date" }),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
+})
+
+// Analytics table
+export const analytics = pgTable("analytics", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  agentId: uuid("agent_id").references(() => agents.id, { onDelete: "cascade" }),
+  eventType: text("event_type").notNull(), // message_sent, message_received, agent_created, etc
+  eventData: json("event_data"),
+  platform: text("platform").default("web"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
 })
 
 // Define relations
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
   userRoles: many(userRoles),
-  userSettings: many(userSettings),
+  userSettings: one(userSettings),
   apiKeys: many(apiKeys),
   agents: many(agents),
   knowledgeBases: many(knowledgeBases),
   conversations: many(conversations),
+  whatsappIntegrations: many(whatsappIntegrations),
+  analytics: many(analytics),
 }))
 
 export const userRolesRelations = relations(userRoles, ({ one }) => ({
@@ -223,6 +274,8 @@ export const agentsRelations = relations(agents, ({ one, many }) => ({
     references: [knowledgeBases.id],
   }),
   conversations: many(conversations),
+  whatsappIntegrations: many(whatsappIntegrations),
+  analytics: many(analytics),
 }))
 
 export const conversationsRelations = relations(conversations, ({ one, many }) => ({
@@ -241,5 +294,27 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   conversation: one(conversations, {
     fields: [messages.conversationId],
     references: [conversations.id],
+  }),
+}))
+
+export const whatsappIntegrationsRelations = relations(whatsappIntegrations, ({ one }) => ({
+  user: one(users, {
+    fields: [whatsappIntegrations.userId],
+    references: [users.id],
+  }),
+  agent: one(agents, {
+    fields: [whatsappIntegrations.agentId],
+    references: [agents.id],
+  }),
+}))
+
+export const analyticsRelations = relations(analytics, ({ one }) => ({
+  user: one(users, {
+    fields: [analytics.userId],
+    references: [users.id],
+  }),
+  agent: one(agents, {
+    fields: [analytics.agentId],
+    references: [agents.id],
   }),
 }))

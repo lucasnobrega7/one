@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
+import { createClient } from '@/lib/database/supabase-utils/client'
 import Link from "next/link"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
@@ -41,16 +42,26 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
+      // Try Supabase auth first
+      const supabase = createClient()
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       })
 
-      if (result?.error) {
-        setError(result.error)
-        setIsLoading(false)
-        return
+      if (authError) {
+        // Fallback to NextAuth credentials
+        const result = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        })
+
+        if (result?.error) {
+          setError("Email ou senha incorretos")
+          setIsLoading(false)
+          return
+        }
       }
 
       // Successful login
@@ -67,7 +78,19 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      await signIn("google", { callbackUrl })
+      // Try Supabase OAuth first
+      const supabase = createClient()
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${callbackUrl}`
+        }
+      })
+
+      if (error) {
+        // Fallback to NextAuth
+        await signIn("google", { callbackUrl })
+      }
     } catch (error) {
       setError("Ocorreu um erro ao fazer login com Google. Tente novamente.")
       setIsLoading(false)
