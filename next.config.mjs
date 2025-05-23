@@ -66,9 +66,7 @@ const nextConfig = {
   },
 
   // Configuração para external packages (Supabase)
-  experimental: {
-    serverComponentsExternalPackages: ['@supabase/supabase-js'],
-  },
+  serverExternalPackages: ['@supabase/supabase-js'],
 
   // ❌ REMOVIDO: transpilePackages com @clerk/nextjs (não está sendo usado)
   
