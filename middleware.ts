@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { getToken } from "next-auth/jwt"
+import { validateCSRFMiddleware } from "@/lib/security/csrf"
 
 // Define public routes that don't require authentication
 const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/reset-password", "/auth/error"]
@@ -17,6 +18,20 @@ export async function middleware(request: NextRequest) {
     pathname.match(/\.(ico|png|jpg|jpeg|svg|css|js)$/)
   ) {
     return NextResponse.next()
+  }
+
+  // Validate CSRF token for mutation requests
+  if (["POST", "PUT", "DELETE", "PATCH"].includes(request.method)) {
+    const valid = await validateCSRFMiddleware(request)
+    if (!valid) {
+      return new NextResponse(
+        JSON.stringify({ error: "Invalid CSRF token" }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
   }
 
   // Check if the path is a public route
