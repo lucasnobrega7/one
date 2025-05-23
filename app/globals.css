@@ -44,7 +44,7 @@
   }
 
   html {
-    @apply dark;
+    @apply antialiased;
   }
 }
 
