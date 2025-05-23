@@ -1,0 +1,22 @@
+[providers]
+node = "18"
+
+[build]
+# Comando para instalar dependências
+cmd = "npm ci"
+
+[start]
+# Comando para iniciar o servidor
+cmd = "npm run start"
+
+[variables]
+# Porta será definida automaticamente pelo Railway
+PORT = "3000"
+
+[phases.build]
+# Build do Next.js
+cmds = ["npm run build"]
+
+[phases.install]
+# Cache do npm para builds mais rápidos
+cmds = ["npm ci --cache .npm --prefer-offline"]
