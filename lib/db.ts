@@ -21,11 +21,11 @@ export const supabaseAdmin = supabaseServiceKey ? createClient<Database>(supabas
 
 // Configuração do PostgreSQL para conexão direta
 const pgConfig = {
-  host: process.env.POSTGRES_HOST || "db.cdttnoomvugputkweazg.supabase.co",
-  port: Number.parseInt(process.env.POSTGRES_PORT || "5432"),
-  database: process.env.POSTGRES_DATABASE || "postgres",
-  username: process.env.POSTGRES_USER || "postgres",
-  password: process.env.POSTGRES_PASSWORD || "6dTntKYfZ6tnilXb",
+  host: process.env.POSTGRES_HOST!,
+  port: Number(process.env.POSTGRES_PORT),
+  database: process.env.POSTGRES_DATABASE!,
+  username: process.env.POSTGRES_USER!,
+  password: process.env.POSTGRES_PASSWORD!,
 }
 
 // String de conexão para o PostgreSQL
