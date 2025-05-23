@@ -28,3 +28,11 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## CSRF Protection
+
+State changing requests to the API are protected using CSRF tokens. A token is
+stored in an `httpOnly` cookie and must be sent back in the `X-CSRF-Token`
+header or as a `csrf_token` form field when performing `POST`, `PUT`, `DELETE`
+or `PATCH` requests. The middleware validates this token and responds with `403`
+if the check fails.
