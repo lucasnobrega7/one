@@ -4,8 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/auth-provider"
 import { Inter } from "next/font/google"
 import Link from "next/link"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/auth"
+import { auth } from "@/auth"
 import "./globals.css"
 
 const defaultUrl = process.env.VERCEL_URL
@@ -28,7 +27,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
 
   return (
     <html lang="pt-BR" className={`${inter.className} dark`} suppressHydrationWarning>
