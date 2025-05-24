@@ -1,14 +1,14 @@
-[build]
+# Multi-service deployment configuration
+[[services]]
+name = "frontend"
+source = "."
 buildCommand = "npm install --legacy-peer-deps && npm run build"
-
-[deploy]
 startCommand = "npm start"
+variables = { NODE_ENV = "production", PORT = "3000" }
 
-[env]
-NODE_ENV = "production"
-PORT = { value = "3000" }
-
-# Build configuration
-[build.environment]
-NODE_VERSION = "18"
-NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+[[services]]
+name = "backend"
+source = "./backend"
+buildCommand = "pip install -r requirements.txt"
+startCommand = "uvicorn main:app --host 0.0.0.0 --port 8000"
+variables = { PORT = "8000", PYTHONPATH = "/app" }

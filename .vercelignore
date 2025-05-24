@@ -1,1 +1,13 @@
 backend/
+__tests__/
+tests/
+*.py
+requirements.txt
+main.py
+railway.toml
+Dockerfile
+.env.local
+.env.development
+prisma/
+scripts/
+docs/
