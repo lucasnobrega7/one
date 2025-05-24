@@ -7,7 +7,9 @@ import Link from "next/link"
 import { auth } from "@/config/auth"
 import "./globals.css"
 
-const defaultUrl = process.env.VERCEL_URL
+const defaultUrl = process.env.RAILWAY_STATIC_URL
+  ? `https://${process.env.RAILWAY_STATIC_URL}`
+  : process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 

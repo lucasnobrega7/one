@@ -2,6 +2,8 @@ import { type NextRequest, NextResponse } from "next/server"
 import { auth } from "@/config/auth"
 import { createClient } from "@/lib/supabase/server"
 import { v4 as uuidv4 } from "uuid"
+import { AgentCreateSchema, AgentUpdateSchema, UUIDSchema } from "@/lib/schemas"
+import { z } from "zod"
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,19 +12,46 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 })
     }
 
+    const rawData = await req.json()
+    
+    // Validate request data
+    try {
+      const validatedData = AgentCreateSchema.parse({
+        name: rawData.name,
+        description: rawData.description,
+        system_prompt: rawData.systemPrompt,
+        model_id: rawData.modelId || 'gpt-3.5-turbo',
+        temperature: rawData.temperature || 0.7,
+        user_id: session.user.id,
+        knowledge_base_id: rawData.knowledgeBaseId,
+      })
+      
+      var data = validatedData
+    } catch (validationError) {
+      if (validationError instanceof z.ZodError) {
+        return NextResponse.json({ 
+          error: "Dados inválidos", 
+          details: validationError.errors 
+        }, { status: 400 })
+      }
+      throw validationError
+    }
+
     const supabase = createClient()
-    const data = await req.json()
     const {
       name,
       description,
-      systemPrompt,
-      modelId,
+      system_prompt: systemPrompt,
+      model_id: modelId,
       temperature,
+      knowledge_base_id: knowledgeBaseId,
+    } = data
+    
+    const {
       useKnowledgeBase,
-      knowledgeBaseId,
       newKbName,
       newKbDescription,
-    } = data
+    } = rawData
 
     let knowledgeBase = null
 
@@ -77,9 +106,9 @@ export async function POST(req: NextRequest) {
         description,
         system_prompt: systemPrompt,
         model_id: modelId,
-        temperature: Number.parseFloat(temperature.toString()),
+        temperature,
         user_id: session.user.id,
-        knowledge_base_id: knowledgeBase?.id,
+        knowledge_base_id: knowledgeBase?.id || knowledgeBaseId,
       })
       .select()
       .single()
@@ -132,13 +161,45 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 })
     }
 
-    const supabase = createClient()
-    const data = await req.json()
-    const { id, name, description, systemPrompt, modelId, temperature } = data
-
-    if (!id) {
-      return NextResponse.json({ error: "ID do agente não fornecido" }, { status: 400 })
+    const rawData = await req.json()
+    
+    // Validate ID
+    try {
+      UUIDSchema.parse(rawData.id)
+    } catch {
+      return NextResponse.json({ error: "ID inválido" }, { status: 400 })
     }
+    
+    // Validate update data
+    try {
+      const validatedData = AgentUpdateSchema.parse({
+        name: rawData.name,
+        description: rawData.description,
+        system_prompt: rawData.systemPrompt,
+        model_id: rawData.modelId,
+        temperature: rawData.temperature,
+      })
+      
+      var data = validatedData
+    } catch (validationError) {
+      if (validationError instanceof z.ZodError) {
+        return NextResponse.json({ 
+          error: "Dados inválidos", 
+          details: validationError.errors 
+        }, { status: 400 })
+      }
+      throw validationError
+    }
+
+    const supabase = createClient()
+    const { 
+      name, 
+      description, 
+      system_prompt: systemPrompt, 
+      model_id: modelId, 
+      temperature 
+    } = data
+    const id = rawData.id
 
     // Verificar se o agente pertence ao usuário
     const { data: existingAgent, error: checkError } = await supabase
@@ -160,7 +221,7 @@ export async function PUT(req: NextRequest) {
         description,
         system_prompt: systemPrompt,
         model_id: modelId,
-        temperature: Number.parseFloat(temperature.toString()),
+        temperature,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id)
@@ -193,6 +254,13 @@ export async function DELETE(req: NextRequest) {
 
     if (!id) {
       return NextResponse.json({ error: "ID do agente não fornecido" }, { status: 400 })
+    }
+
+    // Validate ID
+    try {
+      UUIDSchema.parse(id)
+    } catch {
+      return NextResponse.json({ error: "ID inválido" }, { status: 400 })
     }
 
     // Verificar se o agente pertence ao usuário

@@ -1,7 +1,6 @@
+import { auth } from "@/config/auth"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { createServerClient } from '@supabase/ssr'
-import type { Database } from "@/types/supabase"
 
 // Define public routes that don't require authentication
 const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/reset-password", "/auth/error"]
@@ -11,82 +10,30 @@ const skipMiddlewareRoutes = ["/api/auth", "/api/debug-session", "/api/health", 
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
 
   // Skip middleware for NextAuth routes and static assets
   if (
     skipMiddlewareRoutes.some((route) => pathname.startsWith(route)) ||
     pathname.match(/\.(ico|png|jpg|jpeg|svg|css|js)$/)
   ) {
-    return response
+    return NextResponse.next()
   }
-
-  // Create Supabase client for middleware
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value
-        },
-        set(name: string, value: string, options: any) {
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-        },
-        remove(name: string, options: any) {
-          request.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-        },
-      },
-    }
-  )
 
   // Check if the path is a public route
   const isPublicRoute = publicRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`))
 
   if (isPublicRoute) {
-    return response
+    return NextResponse.next()
   }
+
+  // Get session using NextAuth
+  const session = await auth()
 
   // Check if the path is an API route
   const isApiRoute = pathname.startsWith("/api/")
 
-  // Get user from Supabase
-  const { data: { user }, error } = await supabase.auth.getUser()
-
   // If not authenticated and trying to access protected route or API
-  if (!user || error) {
+  if (!session?.user) {
     // For API routes, return 401 Unauthorized
     if (isApiRoute) {
       return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
@@ -101,7 +48,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  return response
+  return NextResponse.next()
 }
 
 // Configure the matcher for the middleware

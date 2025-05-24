@@ -26,19 +26,16 @@ jest.mock("next/navigation", () => ({
   },
 }))
 
-// Mock next-auth
-jest.mock("next-auth/react", () => {
-  const originalModule = jest.requireActual("next-auth/react")
-  return {
-    __esModule: true,
-    ...originalModule,
-    useSession: jest.fn(() => {
-      return { data: null, status: "unauthenticated" }
-    }),
+// Mock next-auth (conditional)
+try {
+  jest.mock("next-auth/react", () => ({
+    useSession: jest.fn(() => ({ data: null, status: "unauthenticated" })),
     signIn: jest.fn(),
     signOut: jest.fn(),
-  }
-})
+  }))
+} catch {
+  // NextAuth may not be available in all test contexts
+}
 
 // Mock Supabase
 jest.mock("@supabase/supabase-js", () => {
