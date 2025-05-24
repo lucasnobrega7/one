@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { auth } from "@/config/auth"
 import { createClient } from "@/lib/supabase/server"
 import { v4 as uuidv4 } from "uuid"
-import { openai } from "@/lib/ai-client"
+import { getOpenAIClient } from "@/lib/ai-client"
 
 // Tipos customizados para nossa API
 interface ChatMessage {
@@ -222,7 +222,8 @@ Instruções importantes:
 
     if (streaming) {
       // Implementar streaming response
-      const stream = await openai.chat.completions.create({
+      const openaiClient = getOpenAIClient()
+      const stream = await openaiClient.chat.completions.create({
         ...aiConfig,
         messages: messages.map(m => ({
           role: m.role,
@@ -307,7 +308,8 @@ Instruções importantes:
 
     } else {
       // Resposta normal (não streaming)
-      const completion = await openai.chat.completions.create({
+      const openaiClient = getOpenAIClient()
+      const completion = await openaiClient.chat.completions.create({
         ...aiConfig,
         messages: messages.map(m => ({
           role: m.role,
