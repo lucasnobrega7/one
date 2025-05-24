@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { createClient } from '@/lib/database/supabase-utils/client'
+import { getSupabaseClient } from '@/lib/supabase/client'
 import Link from "next/link"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
@@ -43,7 +43,7 @@ export default function LoginPage() {
 
     try {
       // Try Supabase auth first
-      const supabase = createClient()
+      const supabase = getSupabaseClient()
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -79,7 +79,7 @@ export default function LoginPage() {
 
     try {
       // Try Supabase OAuth first
-      const supabase = createClient()
+      const supabase = getSupabaseClient()
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
