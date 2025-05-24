@@ -4,9 +4,15 @@
   "installCommand": "npm install --legacy-peer-deps",
   "framework": "nextjs",
   "regions": ["gru1"],
+  "nodejs": 18,
   "functions": {
     "app/api/auth/[...nextauth]/route.ts": {
       "maxDuration": 30
+    }
+  },
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--experimental-vm-modules --experimental-fetch"
     }
   }
 }

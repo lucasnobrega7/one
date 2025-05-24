@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useAppContext } from "@/contexts/app-context"
-import { createBrowserSupabaseClient } from "@/lib/supabase/client"
+import { getSupabaseClient } from "@/lib/supabase/client"
 import { apiClient } from "@/lib/unified/api-client"
 import { unifiedConfig, shouldUseCache } from "@/lib/unified/config"
 import { AgentDataAdapter, type UnifiedAgent } from "@/lib/unified/dto/agent.dto"
