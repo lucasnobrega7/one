@@ -1,12 +1,20 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm install && npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["gru1"],
   "functions": {
-    "app/api/auth/[...nextauth]/route.ts": {
+    "app/api/**/*.ts": {
       "maxDuration": 30
+    }
+  },
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=2048"
+  },
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=2048"
     }
   }
 }
