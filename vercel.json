@@ -1,6 +1,5 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm install --legacy-peer-deps",
   "buildCommand": "npm run build",
   "functions": {
     "app/api/auth/[...nextauth]/route.ts": {
