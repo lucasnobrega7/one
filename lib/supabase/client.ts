@@ -131,3 +131,6 @@ export async function updateUserRoles(userId: string, roles: string[]) {
 
   return { data: null, error: null }
 }
+
+// Export createClient for legacy compatibility
+export { createClient } from "@supabase/supabase-js"

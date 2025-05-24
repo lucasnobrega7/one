@@ -23,7 +23,7 @@ export default function HomePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/auth/signup">
+            <Link href="/onboarding">
               <Button size="lg" className="btn-primary-langflow px-8 py-4 text-lg">
                 Começar Agora
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -31,7 +31,7 @@ export default function HomePage() {
             </Link>
             <Link href="/dashboard">
               <Button size="lg" variant="outline" className="btn-outline-langflow px-8 py-4 text-lg">
-                Ver Demo
+                Ver Dashboard
               </Button>
             </Link>
           </div>
@@ -66,7 +66,7 @@ export default function HomePage() {
               <Zap className="h-12 w-12 text-yellow-400 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Integração Simples</h3>
               <p className="text-gray-400">
-                APIs RESTful para integrar facilmente em qualquer plataforma
+                WhatsApp Z-API, webhooks e APIs RESTful para qualquer plataforma
               </p>
             </Card>
             
@@ -90,7 +90,7 @@ export default function HomePage() {
           <p className="text-xl text-gray-300 mb-8">
             Crie seu primeiro agente em menos de 5 minutos
           </p>
-          <Link href="/auth/signup">
+          <Link href="/onboarding">
             <Button size="lg" className="btn-primary-langflow px-8 py-4 text-lg">
               Criar Conta Gratuita
               <ArrowRight className="ml-2 h-5 w-5" />
