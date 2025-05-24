@@ -78,3 +78,6 @@ export async function createCohereEmbedding(text: string) {
 
   return response.embeddings[0]
 }
+
+// Export da instância OpenAI para compatibilidade
+export const openai = getOpenAIClient

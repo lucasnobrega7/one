@@ -2,36 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Dark theme by default - Agentes de Conversão style */
-    --background: 0 0% 0%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 98%;
+    /* Langflow-inspired dark theme - Agentes de Conversão style */
+    --background: 14 14 16; /* #0e0e10 - surface.base */
+    --foreground: 0 0% 90%; /* tipografia branca 90% */
+    --card: 26 26 29; /* #1a1a1d - surface.raised */
+    --card-foreground: 0 0% 90%;
+    --popover: 26 26 29;
+    --popover-foreground: 0 0% 90%;
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
+    --secondary: 39 39 42; /* #27272a - surface.stroke */
+    --secondary-foreground: 0 0% 90%;
+    --muted: 39 39 42;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 39 39 42;
+    --accent-foreground: 0 0% 90%;
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 14.9%;
+    --border: 39 39 42; /* #27272a - borda sutil */
+    --input: 26 26 29;
     --ring: 0 0% 83.1%;
-    --radius: 0.75rem;
+    --radius: 0.75rem; /* 12px border radius */
     
-    /* Custom colors for Agentes de Conversão */
-    --blue-400: 59 130 246;
-    --purple-400: 168 85 247;
-    --pink-400: 244 114 182;
+    /* Gradiente de accent - Agentes de Conversão */
+    --gradient-start: 197 60% 60%; /* #46B2E0 */
+    --gradient-mid: 257 45% 60%; /* #8A53D2 */
+    --gradient-end: 325 65% 60%; /* #E056A0 */
+    
+    /* Navbar específico */
+    --navbar-bg: 14 14 16; /* #0e0e10 */
+    --navbar-height: 48px;
   }
 
   * {
@@ -40,7 +44,7 @@
   
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   html {
@@ -49,18 +53,100 @@
 }
 
 @layer components {
-  /* Custom gradient text */
-  .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent;
+  /* Langflow-inspired Layout Components */
+  
+  /* Navbar fixa - estilo Langflow */
+  .navbar-langflow {
+    @apply fixed top-0 left-0 right-0 z-50;
+    background-color: hsl(var(--navbar-bg));
+    height: var(--navbar-height);
+    border-bottom: 1px solid hsl(var(--border));
+    @apply flex items-center justify-between px-4;
   }
   
-  /* Custom button styles */
-  .btn-primary {
-    @apply bg-white text-black hover:bg-gray-200 transition-colors;
+  /* Hero Card - borda e raio específicos */
+  .hero-card-langflow {
+    border: 1px solid hsl(var(--border)); /* #27272a */
+    border-radius: 12px;
+    background-color: hsl(var(--card));
+    @apply p-6 transition-all duration-300;
   }
   
-  .btn-outline {
-    @apply border-white text-white hover:bg-white hover:text-black transition-colors;
+  .hero-card-langflow:hover {
+    @apply shadow-lg transform scale-[1.02];
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Gradiente de accent - Agentes de Conversão */
+  .gradient-text-langflow {
+    background: linear-gradient(135deg, 
+      hsl(var(--gradient-start)) 0%, 
+      hsl(var(--gradient-mid)) 50%, 
+      hsl(var(--gradient-end)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Snippet com syntax highlight soft-neon */
+  .code-snippet-langflow {
+    @apply bg-card border rounded-lg p-4;
+    border: 1px solid hsl(var(--border));
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  
+  .code-snippet-langflow .token.keyword {
+    color: #8dd3c7; /* cyan soft-neon */
+  }
+  
+  .code-snippet-langflow .token.string {
+    color: #bebada; /* purple soft-neon */
+  }
+  
+  /* Buttons com feedback tátil */
+  .btn-langflow {
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-200;
+    font-weight: 500;
+    border-radius: 4px;
+  }
+  
+  .btn-langflow:hover {
+    @apply transform scale-105 shadow-md;
+  }
+  
+  .btn-primary-langflow {
+    @apply btn-langflow bg-white text-black;
+  }
+  
+  .btn-primary-langflow:hover {
+    @apply bg-gray-200;
+  }
+  
+  .btn-outline-langflow {
+    @apply btn-langflow border border-white text-white;
+  }
+  
+  .btn-outline-langflow:hover {
+    @apply bg-white text-black;
+  }
+  
+  /* Sidebar estilo Langflow */
+  .sidebar-langflow {
+    width: 260px;
+    background-color: hsl(var(--card));
+    border-right: 1px solid hsl(var(--border));
+    @apply h-screen fixed left-0 top-0 pt-12 overflow-y-auto;
+  }
+  
+  /* Logo section */
+  .logo-section-langflow {
+    @apply flex items-center space-x-3;
+  }
+  
+  .logo-section-langflow svg,
+  .logo-section-langflow img {
+    width: 150px;
+    height: auto;
   }
 }
 
