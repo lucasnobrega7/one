@@ -1,18 +1,10 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install --legacy-peer-deps",
   "framework": "nextjs",
-  "regions": ["gru1"],
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
   "functions": {
     "app/api/auth/[...nextauth]/route.ts": {
       "maxDuration": 30
-    }
-  },
-  "build": {
-    "env": {
-      "NODE_OPTIONS": "--experimental-vm-modules --experimental-fetch",
-      "NODE_VERSION": "18"
     }
   }
 }
