@@ -1,42 +1,9 @@
 {
-  "public": true,
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
   "framework": "nextjs",
-  "rewrites": [
-    {
-      "source": "/design-system",
-      "destination": "/design-system"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    }
-  ],
+  "buildCommand": "npm run build",
   "functions": {
-    "app/**/*.tsx": {
-      "maxDuration": 30
-    },
     "app/api/**/*.ts": {
-      "maxDuration": 30
+      "maxDuration": 10
     }
-  },
-  "trailingSlash": false,
-  "cleanUrls": true
+  }
 }
