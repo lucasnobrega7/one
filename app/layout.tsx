@@ -68,7 +68,7 @@ export default async function RootLayout({
                       </div>
                     ) : (
                       <div className="flex items-center space-x-4">
-                        <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
+                        <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">
                           Login
                         </Link>
                         <Link href="/signup" className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">

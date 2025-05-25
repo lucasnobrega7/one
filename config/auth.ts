@@ -101,7 +101,7 @@ export const config: NextAuthConfig = {
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
     error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,

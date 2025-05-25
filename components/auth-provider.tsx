@@ -12,12 +12,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Check environment variables on mount
   useEffect(() => {
-    // Check for required environment variables
+    // Check for required environment variables (only client-side accessible vars)
     const requiredVars = [
       { name: "NEXT_PUBLIC_SUPABASE_URL", value: process.env.NEXT_PUBLIC_SUPABASE_URL },
       { name: "NEXT_PUBLIC_SUPABASE_ANON_KEY", value: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY },
-      { name: "NEXTAUTH_URL", value: process.env.NEXTAUTH_URL },
-      { name: "NEXTAUTH_SECRET", value: process.env.NEXTAUTH_SECRET },
     ]
 
     const missingVars = requiredVars
