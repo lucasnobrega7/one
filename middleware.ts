@@ -4,7 +4,7 @@ import { createServerClient } from '@supabase/ssr'
 import type { Database } from "@/types/supabase"
 
 // Define public routes that don't require authentication
-const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/reset-password", "/auth/error"]
+const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/reset-password", "/auth/error", "/unauthorized"]
 
 // Define routes that should be completely skipped by middleware
 const skipMiddlewareRoutes = ["/api/auth", "/api/debug-session", "/api/health", "/_next", "/favicon.ico"]

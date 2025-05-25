@@ -1,43 +1,38 @@
 "use client"
 
 import { useSession } from "next-auth/react"
-import { type Permission, Role } from "@/lib/auth/permissions"
+import { hasPermission, getAllPermissions } from "@/lib/auth/permissions"
+import type { Role, Permission } from "@/lib/auth/permissions"
 
 export function usePermissions() {
   const { data: session } = useSession()
+  
+  const userRole = (session?.user as any)?.role as Role || 'viewer'
+  const permissions = getAllPermissions(userRole)
 
-  const userPermissions = session?.user?.permissions || []
-  const userRoles = session?.user?.roles || []
-
-  const hasPermission = (permission: Permission | Permission[]): boolean => {
-    if (!session) return false
-
-    if (Array.isArray(permission)) {
-      return permission.every((p) => userPermissions.includes(p))
-    }
-
-    return userPermissions.includes(permission)
+  const checkPermission = (permission: Permission): boolean => {
+    return hasPermission(userRole, permission)
   }
 
-  const hasRole = (role: Role | Role[]): boolean => {
-    if (!session) return false
-
-    if (Array.isArray(role)) {
-      return role.some((r) => userRoles.includes(r))
-    }
-
-    return userRoles.includes(role)
+  const hasRole = (role: Role): boolean => {
+    return userRole === role
   }
 
   const isAdmin = (): boolean => {
-    return hasRole(Role.Admin)
+    return userRole === 'admin'
+  }
+
+  const isManager = (): boolean => {
+    return userRole === 'manager' || userRole === 'admin'
   }
 
   return {
-    permissions: userPermissions,
-    roles: userRoles,
-    hasPermission,
+    role: userRole,
+    permissions,
+    hasPermission: checkPermission,
     hasRole,
     isAdmin,
+    isManager,
+    isAuthenticated: !!session,
   }
 }
