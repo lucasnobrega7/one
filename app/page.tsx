@@ -1,7 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Sparkles, Brain, MessageSquare, BarChart3 } from "lucide-react"
+import { ArrowRight, Sparkles, Brain, MessageSquare, BarChart3, Play, CheckCircle, Zap } from "lucide-react"
+import { OpenAIButton } from "@/components/ui/openai-button"
+import { OpenAICard } from "@/components/ui/openai-card"
 
 export default function HomePage() {
   return (
@@ -49,54 +51,87 @@ export default function HomePage() {
           
           <div className="relative pt-32 pb-20 px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 openai-card-elevated px-4 py-2 rounded-full text-sm font-medium mb-8">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
+              <div className="inline-flex items-center gap-2 openai-card-elevated px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
+                <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
                 Integrado com WhatsApp, Website e APIs
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <h1 className="openai-heading text-5xl md:text-7xl mb-8 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent animate-slide-up">
                 Crie Agentes de IA em minutos
               </h1>
 
-              <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+              <p className="openai-body text-xl md:text-2xl mb-12 max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>
                 Transforme visitantes em clientes com agentes conversacionais inteligentes.<br />
-                Sem código, sem complicação. Apenas resultados.
+                <span className="text-emerald-400 font-medium">Sem código, sem complicação. Apenas resultados.</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
-                <Link 
-                  href="/auth/signup"
-                  className="btn-openai-primary px-8 py-4 text-lg flex items-center justify-center"
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20 animate-fade-in" style={{animationDelay: '0.4s'}}>
+                <OpenAIButton 
+                  variant="primary" 
+                  size="lg"
+                  className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
+                  asChild
                 >
-                  Começar Gratuitamente
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-                <Link 
-                  href="/api"
-                  className="btn-openai-secondary px-8 py-4 text-lg"
+                  <Link href="/auth/signup">
+                    Começar Gratuitamente
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </OpenAIButton>
+                <OpenAIButton 
+                  variant="secondary" 
+                  size="lg"
+                  className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
+                  asChild
                 >
-                  Ver Documentação
-                </Link>
+                  <Link href="/demo">
+                    <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Ver Demo Ao Vivo
+                  </Link>
+                </OpenAIButton>
               </div>
 
-              {/* Stats grid estilo OpenAI */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center" role="group" aria-label="Estatísticas de performance dos agentes">
-                <div className="openai-card p-6" role="article">
-                  <div className="openai-heading text-3xl mb-2" aria-label="45% de aumento na conversão">45%+</div>
+              {/* Stats grid com micro-interações */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center animate-fade-in" style={{animationDelay: '0.6s'}} role="group" aria-label="Estatísticas de performance dos agentes">
+                <OpenAICard variant="elevated" className="p-6 group hover:scale-105 transition-all duration-300" role="article">
+                  <div className="flex items-center justify-center mb-3">
+                    <CheckCircle className="w-6 h-6 text-emerald-400 mr-2" />
+                    <div className="openai-heading text-3xl" aria-label="45% de aumento na conversão">45%+</div>
+                  </div>
                   <div className="openai-caption">Aumento em conversões</div>
-                </div>
-                <div className="openai-card p-6" role="article">
-                  <div className="openai-heading text-3xl mb-2" aria-label="Disponível 24 horas por dia, 7 dias por semana">24/7</div>
+                  <div className="h-1 bg-emerald-400/20 rounded-full mt-3 overflow-hidden">
+                    <div className="h-full bg-emerald-400 rounded-full w-[45%] group-hover:w-[60%] transition-all duration-500"></div>
+                  </div>
+                </OpenAICard>
+                <OpenAICard variant="elevated" className="p-6 group hover:scale-105 transition-all duration-300" role="article">
+                  <div className="flex items-center justify-center mb-3">
+                    <Zap className="w-6 h-6 text-blue-400 mr-2" />
+                    <div className="openai-heading text-3xl" aria-label="Disponível 24 horas por dia, 7 dias por semana">24/7</div>
+                  </div>
                   <div className="openai-caption">Sempre disponível</div>
-                </div>
-                <div className="openai-card p-6" role="article">
-                  <div className="openai-heading text-3xl mb-2" aria-label="99.9% de tempo de funcionamento">99.9%</div>
+                  <div className="h-1 bg-blue-400/20 rounded-full mt-3 overflow-hidden">
+                    <div className="h-full bg-blue-400 rounded-full w-full group-hover:animate-pulse"></div>
+                  </div>
+                </OpenAICard>
+                <OpenAICard variant="elevated" className="p-6 group hover:scale-105 transition-all duration-300" role="article">
+                  <div className="flex items-center justify-center mb-3">
+                    <CheckCircle className="w-6 h-6 text-purple-400 mr-2" />
+                    <div className="openai-heading text-3xl" aria-label="99.9% de tempo de funcionamento">99.9%</div>
+                  </div>
                   <div className="openai-caption">Disponibilidade</div>
-                </div>
-                <div className="openai-card p-6" role="article">
-                  <div className="openai-heading text-3xl mb-2" aria-label="Tempo de resposta de 1.2 segundos">1.2s</div>
+                  <div className="h-1 bg-purple-400/20 rounded-full mt-3 overflow-hidden">
+                    <div className="h-full bg-purple-400 rounded-full w-[99%] group-hover:w-full transition-all duration-500"></div>
+                  </div>
+                </OpenAICard>
+                <OpenAICard variant="elevated" className="p-6 group hover:scale-105 transition-all duration-300" role="article">
+                  <div className="flex items-center justify-center mb-3">
+                    <Zap className="w-6 h-6 text-orange-400 mr-2" />
+                    <div className="openai-heading text-3xl" aria-label="Tempo de resposta de 1.2 segundos">1.2s</div>
+                  </div>
                   <div className="openai-caption">Tempo de resposta</div>
-                </div>
+                  <div className="h-1 bg-orange-400/20 rounded-full mt-3 overflow-hidden">
+                    <div className="h-full bg-orange-400 rounded-full w-[85%] group-hover:w-[95%] transition-all duration-500"></div>
+                  </div>
+                </OpenAICard>
               </div>
             </div>
           </div>
@@ -111,35 +146,47 @@ export default function HomePage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="openai-card-interactive p-8 group">
-                <div className="w-12 h-12 elevation-1 rounded-xl flex items-center justify-center mb-6">
-                  <MessageSquare className="w-6 h-6 text-blue-400" />
+              <OpenAICard variant="interactive" className="p-8 group animate-fade-in hover:scale-[1.02] transition-all duration-300" style={{animationDelay: '0.1s'}}>
+                <div className="w-16 h-16 elevation-2 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300">
+                  <MessageSquare className="w-8 h-8 text-blue-400 group-hover:text-blue-300" />
                 </div>
                 <h3 className="openai-heading text-xl mb-4 group-hover:text-blue-300 transition-openai">Conversas inteligentes</h3>
-                <p className="openai-body">
+                <p className="openai-body mb-4">
                   Compreenda a intenção do cliente, lide com objeções naturalmente e guie prospects através do seu funil de vendas com IA conversacional.
                 </p>
-              </div>
+                <div className="flex items-center text-blue-400 text-sm font-medium group-hover:text-blue-300">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Processamento de linguagem natural
+                </div>
+              </OpenAICard>
 
-              <div className="openai-card-interactive p-8 group">
-                <div className="w-12 h-12 elevation-1 rounded-xl flex items-center justify-center mb-6">
-                  <Brain className="w-6 h-6 text-emerald-400" />
+              <OpenAICard variant="interactive" className="p-8 group animate-fade-in hover:scale-[1.02] transition-all duration-300" style={{animationDelay: '0.2s'}}>
+                <div className="w-16 h-16 elevation-2 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300">
+                  <Brain className="w-8 h-8 text-emerald-400 group-hover:text-emerald-300" />
                 </div>
                 <h3 className="openai-heading text-xl mb-4 group-hover:text-emerald-300 transition-openai">Aprendizado contínuo</h3>
-                <p className="openai-body">
+                <p className="openai-body mb-4">
                   Os agentes aprendem com cada interação, melhorando continuamente suas respostas e estratégias de conversão.
                 </p>
-              </div>
+                <div className="flex items-center text-emerald-400 text-sm font-medium group-hover:text-emerald-300">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Machine learning adaptativo
+                </div>
+              </OpenAICard>
 
-              <div className="openai-card-interactive p-8 group">
-                <div className="w-12 h-12 elevation-1 rounded-xl flex items-center justify-center mb-6">
-                  <BarChart3 className="w-6 h-6 text-purple-400" />
+              <OpenAICard variant="interactive" className="p-8 group animate-fade-in hover:scale-[1.02] transition-all duration-300" style={{animationDelay: '0.3s'}}>
+                <div className="w-16 h-16 elevation-2 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300">
+                  <BarChart3 className="w-8 h-8 text-purple-400 group-hover:text-purple-300" />
                 </div>
                 <h3 className="openai-heading text-xl mb-4 group-hover:text-purple-300 transition-openai">Insights de performance</h3>
-                <p className="openai-body">
+                <p className="openai-body mb-4">
                   Acompanhe métricas de conversão, identifique gargalos e otimize seu processo de vendas com análises detalhadas.
                 </p>
-              </div>
+                <div className="flex items-center text-purple-400 text-sm font-medium group-hover:text-purple-300">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Analytics em tempo real
+                </div>
+              </OpenAICard>
             </div>
           </div>
         </section>
@@ -154,19 +201,29 @@ export default function HomePage() {
               Junte-se a milhares de empresas que já usam agentes conversacionais com IA para aumentar suas taxas de conversão.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/auth/signup"
-                className="btn-openai-primary px-8 py-4 text-lg"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+              <OpenAIButton 
+                variant="primary" 
+                size="lg"
+                className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
+                asChild
               >
-                Comece Gratuitamente
-              </Link>
-              <Link 
-                href="/demo"
-                className="btn-openai-secondary px-8 py-4 text-lg"
+                <Link href="/auth/signup">
+                  Comece Gratuitamente
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </OpenAIButton>
+              <OpenAIButton 
+                variant="ghost" 
+                size="lg"
+                className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
+                asChild
               >
-                Agendar Demo
-              </Link>
+                <Link href="/demo">
+                  <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                  Agendar Demo
+                </Link>
+              </OpenAIButton>
             </div>
           </div>
         </section>

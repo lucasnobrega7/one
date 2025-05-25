@@ -104,8 +104,10 @@ const config: Config = {
         'mesh-pulse': 'mesh-pulse 4s infinite ease-in-out',
         'wave-flow': 'wave-flow 6s infinite ease-in-out',
         'shimmer': 'shimmer 2s infinite',
-        'fade-in': 'fade-in 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-        'slide-up': 'slide-up 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'fade-in': 'fade-in 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        'slide-up': 'slide-up 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        'bounce-in': 'bounce-in 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        'glow': 'glow 2s ease-in-out infinite alternate',
       },
       keyframes: {
         'fade-in': {
