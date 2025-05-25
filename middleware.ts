@@ -17,6 +17,11 @@ export async function middleware(request: NextRequest) {
     },
   })
 
+  // Temporarily disable middleware for troubleshooting
+  if (process.env.NODE_ENV === "production") {
+    return response
+  }
+
   // Skip middleware for NextAuth routes and static assets
   if (
     skipMiddlewareRoutes.some((route) => pathname.startsWith(route)) ||
