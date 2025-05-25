@@ -3,13 +3,15 @@ export interface UnifiedAgent {
   id: string           // UUID padrão para todos os sistemas
   name: string
   description?: string
-  instructions: string // Padronizar nome do campo
-  modelId: string      // Unified field name
-  temperature: number
+  instructions?: string // Padronizar nome do campo
+  systemPrompt?: string // Alias para instructions
+  modelId?: string      // Unified field name
+  temperature?: number
   isPublic: boolean    // Padronizar naming convention
   userId: string
   createdAt: Date
   updatedAt: Date
+  tools?: string[]     // Tools/functions available
   
   // Campos adicionais para sincronização
   externalId?: string  // ID na API externa

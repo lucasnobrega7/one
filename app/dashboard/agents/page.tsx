@@ -2,6 +2,7 @@ import { RoleGuard } from "@/components/auth/role-guard"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
+import { AgentsList } from "@/components/agents/agents-list"
 
 export default function AgentsPage() {
   return (
@@ -20,9 +21,7 @@ export default function AgentsPage() {
           </RoleGuard>
         </div>
 
-        <div className="grid gap-4">
-          <p className="text-muted-foreground">Lista de agentes em desenvolvimento...</p>
-        </div>
+        <AgentsList />
       </div>
     </RoleGuard>
   )
