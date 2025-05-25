@@ -39,7 +39,6 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     
     if (error) {
-      console.error("Erro ao trocar código por sessão:", error)
       return NextResponse.redirect(`${origin}/auth/error?error=OAuthCallback`)
     }
 

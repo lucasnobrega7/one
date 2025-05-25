@@ -44,7 +44,6 @@ export class UnifiedAuthAdapter {
       })
       
       if (!response.ok) {
-        console.error('External API authentication failed:', response.status)
         return null
       }
       
@@ -54,7 +53,6 @@ export class UnifiedAuthAdapter {
         user: data.user
       }
     } catch (error) {
-      console.error('Error authenticating with external API:', error)
       return null
     }
   }
@@ -77,7 +75,6 @@ export class UnifiedAuthAdapter {
       const data = await response.json()
       return data.access_token || data.token
     } catch (error) {
-      console.error('Error refreshing external token:', error)
       return null
     }
   }
@@ -94,7 +91,6 @@ export class UnifiedAuthAdapter {
       
       return response.ok
     } catch (error) {
-      console.error('Error validating token:', error)
       return false
     }
   }

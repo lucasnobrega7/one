@@ -29,7 +29,7 @@ export default function ApiStatus() {
 
         setStatuses(apiStatuses)
       } catch (error) {
-        console.error("Erro ao verificar status das APIs:", error)
+        // Error checking API status
       } finally {
         setLoading(false)
       }

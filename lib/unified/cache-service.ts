@@ -53,7 +53,6 @@ export class CacheService {
       
       return data as T
     } catch (error) {
-      console.error('Cache database error:', error)
       return null
     }
   }

@@ -68,7 +68,6 @@ export async function rateLimitMiddleware(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error("Rate limiting error:", error)
     // If Redis fails, allow the request to proceed
     return NextResponse.next()
   }

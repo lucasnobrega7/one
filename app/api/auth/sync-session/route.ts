@@ -19,7 +19,6 @@ export async function POST(request: Request) {
 
     // Validate environment variables
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      console.error("Missing required environment variables for Supabase")
       return NextResponse.json({ error: "Configuration error" }, { status: 500 })
     }
 
@@ -36,7 +35,6 @@ export async function POST(request: Request) {
 
     if (userError && userError.code !== "PGRST116") {
       // PGRST116 is "no rows returned"
-      console.error("Error checking user:", userError)
       return NextResponse.json({ error: "Database query error" }, { status: 500 })
     }
 
@@ -49,7 +47,6 @@ export async function POST(request: Request) {
         .single()
 
       if (emailError && emailError.code !== "PGRST116") {
-        console.error("Error checking user by email:", emailError)
         return NextResponse.json({ error: "Database query error" }, { status: 500 })
       }
 
@@ -61,7 +58,6 @@ export async function POST(request: Request) {
         })
 
         if (insertError) {
-          console.error("Error creating user:", insertError)
           return NextResponse.json({ error: "Failed to create user" }, { status: 500 })
         }
 
@@ -72,26 +68,23 @@ export async function POST(request: Request) {
         })
 
         if (roleError) {
-          console.error("Error adding user role:", roleError)
           // Don't fail the whole process if role assignment fails
         }
       }
     }
 
-    // Create a session in Supabase for the user
-    const { data, error } = await supabase.auth.admin.createSession({
-      userId: userId,
-      expiresIn: 60 * 60 * 24 * 30, // 30 dias
+    // Generate a session for the user
+    const { data, error } = await supabase.auth.admin.generateLink({
+      type: 'magiclink',
+      email: email,
     })
 
     if (error) {
-      console.error("Error creating session:", error)
       return NextResponse.json({ error: "Failed to create session" }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, session: data })
   } catch (error) {
-    console.error("Unhandled error in sync-session:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

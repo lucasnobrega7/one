@@ -1,12 +1,42 @@
 {
+  "public": true,
+  "installCommand": "npm install",
   "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install --legacy-peer-deps",
   "framework": "nextjs",
-  "regions": ["gru1"],
+  "rewrites": [
+    {
+      "source": "/design-system",
+      "destination": "/design-system"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
   "functions": {
-    "app/api/auth/[...nextauth]/route.ts": {
+    "app/**/*.tsx": {
+      "maxDuration": 30
+    },
+    "app/api/**/*.ts": {
       "maxDuration": 30
     }
-  }
+  },
+  "trailingSlash": false,
+  "cleanUrls": true
 }

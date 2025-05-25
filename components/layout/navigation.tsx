@@ -37,7 +37,7 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-black/90 backdrop-blur-sm shadow-md" : "bg-transparent"}`}
+      className={`openai-nav fixed w-full z-50 ${scrolled ? "scrolled" : ""}`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between py-4">
@@ -79,12 +79,12 @@ export function Navigation() {
               </Button>
             ) : (
               <>
-                <Button asChild variant="ghost" className="text-white hover:bg-white/10">
-                  <Link href="/login">Entrar</Link>
-                </Button>
-                <Button asChild className="bg-white text-black hover:bg-white/90">
-                  <Link href="/signup">Criar conta</Link>
-                </Button>
+                <Link href="/login" className="btn-openai-ghost">
+                  Entrar
+                </Link>
+                <Link href="/signup" className="btn-openai-primary">
+                  Criar conta
+                </Link>
               </>
             )}
           </div>
@@ -118,12 +118,12 @@ export function Navigation() {
                   </Button>
                 ) : (
                   <>
-                    <Button asChild variant="outline" className="w-full justify-start">
-                      <Link href="/login">Entrar</Link>
-                    </Button>
-                    <Button asChild className="w-full justify-start bg-white text-black hover:bg-white/90">
-                      <Link href="/signup">Criar conta</Link>
-                    </Button>
+                    <Link href="/login" className="btn-openai-ghost w-full text-left">
+                      Entrar
+                    </Link>
+                    <Link href="/signup" className="btn-openai-primary w-full text-left">
+                      Criar conta
+                    </Link>
                   </>
                 )}
               </div>

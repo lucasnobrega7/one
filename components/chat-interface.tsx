@@ -67,8 +67,6 @@ export function ChatInterface() {
 
       setMessages((prev) => [...prev, assistantMessage])
     } catch (error: any) {
-      console.error("Erro:", error)
-
       toast({
         title: "Erro na comunicação",
         description: error.message || "Ocorreu um erro ao processar sua mensagem",

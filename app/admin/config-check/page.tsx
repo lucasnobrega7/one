@@ -95,7 +95,7 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
     navigator.clipboard
       .writeText(template)
       .then(() => alert("Template copied to clipboard!"))
-      .catch((err) => console.error("Failed to copy template:", err))
+      .catch((err) => alert("Failed to copy template to clipboard"))
   }
 
   return (

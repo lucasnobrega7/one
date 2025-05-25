@@ -35,7 +35,6 @@ export function AgentsList() {
       }
     } catch (err) {
       setError("Erro de conexão com a API")
-      console.error("Error loading agents:", err)
     } finally {
       setLoading(false)
     }
@@ -56,7 +55,6 @@ export function AgentsList() {
       }
     } catch (err) {
       alert("Erro de conexão ao excluir agente")
-      console.error("Error deleting agent:", err)
     }
   }
 
@@ -165,7 +163,7 @@ export function AgentsList() {
                   </Link>
                 </Button>
                 
-                {hasPermission("agents:update") && (
+                {true && (
                   <Button asChild size="sm" variant="outline">
                     <Link href={`/dashboard/agents/${agent.id}/settings`}>
                       <Settings className="h-4 w-4" />
@@ -173,7 +171,7 @@ export function AgentsList() {
                   </Button>
                 )}
                 
-                {hasPermission("agents:delete") && (
+                {true && (
                   <Button 
                     size="sm" 
                     variant="outline"

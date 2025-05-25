@@ -29,7 +29,6 @@ export async function GET() {
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
-    console.error("Auth health check error:", error)
     return NextResponse.json(
       {
         status: "error",

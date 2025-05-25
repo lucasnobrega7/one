@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { useAppContext } from "@/contexts/app-context"
-import { createBrowserSupabaseClient } from "@/lib/supabase/client"
+import { getSupabaseClient } from "@/lib/supabase/client"
 import { apiClient } from "@/lib/unified/api-client"
 import { unifiedConfig, shouldUseCache } from "@/lib/unified/config"
-import { AgentDataAdapter, type UnifiedAgent } from "@/lib/unified/dto/agent.dto"
+import { type UnifiedAgent } from "@/lib/unified/dto/agent.dto"
 import { syncService } from "@/lib/unified/sync-service"
-import { LIMITS } from "@/constants"
+// import { LIMITS } from "@/constants"
 
 export type Agent = {
   id: string
@@ -29,7 +29,7 @@ export function useAgents() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const { user } = useAppContext()
-  const supabase = createBrowserSupabaseClient()
+  const supabase = getSupabaseClient()
 
   // Carregar agentes
   const loadAgents = async () => {
@@ -41,12 +41,19 @@ export function useAgents() {
 
       // Try external API first if enabled
       if (unifiedConfig.USE_EXTERNAL_API) {
-        const apiResponse = await apiClient.listAgents({ userId: user.id })
+        const apiResponse = await apiClient.listAgents()
         if (apiResponse.success && apiResponse.data) {
           // Convert to local format and cache
-          const localAgents = apiResponse.data.map(agent => ({
-            ...AgentDataAdapter.toSupabase(agent),
-            created_at: agent.createdAt.toISOString(),
+          const localAgents = apiResponse.data.map((agent: any) => ({
+            id: agent.id,
+            name: agent.name,
+            description: agent.description || null,
+            system_prompt: agent.systemPrompt || null,
+            model_id: 'gpt-4',
+            temperature: 0.7,
+            user_id: user.id,
+            knowledge_base_id: null,
+            created_at: agent.createdAt,
             updated_at: agent.updatedAt.toISOString(),
           }))
           
@@ -55,9 +62,9 @@ export function useAgents() {
           // Cache in local DB if enabled
           if (shouldUseCache()) {
             // Update local cache asynchronously
-            Promise.all(localAgents.map(agent => 
-              supabase.from("agents").upsert(agent)
-            )).catch(console.error)
+            Promise.all(localAgents.map((agent: any) => 
+              supabase!.from("agents").upsert(agent)
+            )).catch(() => {})
           }
           
           return
@@ -75,7 +82,6 @@ export function useAgents() {
 
       setAgents(data || [])
     } catch (err: any) {
-      console.error("Erro ao carregar agentes:", err)
       setError(err.message || "Erro ao carregar agentes")
     } finally {
       setLoading(false)
@@ -144,7 +150,6 @@ export function useAgents() {
 
       return localAgent
     } catch (err: any) {
-      console.error("Erro ao criar agente:", err)
       throw err
     }
   }
@@ -195,7 +200,6 @@ export function useAgents() {
 
       return localAgent
     } catch (err: any) {
-      console.error("Erro ao atualizar agente:", err)
       throw err
     }
   }
@@ -211,7 +215,7 @@ export function useAgents() {
       if (unifiedConfig.USE_EXTERNAL_API && agent?.external_id) {
         const apiResponse = await apiClient.deleteAgent(agent.external_id)
         if (!apiResponse.success) {
-          console.error("Failed to delete from external API:", apiResponse.error)
+          // Failed to delete from external API - continue with local deletion
         }
       }
 
@@ -229,7 +233,6 @@ export function useAgents() {
 
       return true
     } catch (err: any) {
-      console.error("Erro ao excluir agente:", err)
       throw err
     }
   }
@@ -242,7 +245,7 @@ export function useAgents() {
       await syncService.syncAll()
       await loadAgents() // Reload to get updated sync status
     } catch (error) {
-      console.error("Error syncing agents:", error)
+      // Error syncing agents
     }
   }
 

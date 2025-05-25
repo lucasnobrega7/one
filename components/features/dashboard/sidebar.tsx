@@ -49,31 +49,28 @@ export function DashboardSidebar() {
       </div>
 
       <nav className="space-y-1">
-        <SidebarItem href="/dashboard" icon={LayoutDashboard} label="Dashboard" permission={Permission.ViewDashboard} />
+        <SidebarItem href="/dashboard" icon={LayoutDashboard} label="Dashboard" />
 
-        <SidebarItem href="/dashboard/agents" icon={MessageSquare} label="Agentes" permission={Permission.ViewAgents} />
+        <SidebarItem href="/dashboard/agents" icon={MessageSquare} label="Agentes" />
 
         <SidebarItem
           href="/dashboard/knowledge"
           icon={Database}
           label="Bases de Conhecimento"
-          permission={Permission.ViewKnowledgeBases}
         />
 
         <SidebarItem
           href="/dashboard/analytics"
           icon={BarChart2}
           label="Analytics"
-          permission={Permission.ViewAnalytics}
         />
 
-        <SidebarItem href="/dashboard/users" icon={Users} label="Usuários" permission={Permission.ViewUsers} />
+        <SidebarItem href="/dashboard/users" icon={Users} label="Usuários" />
 
         <SidebarItem
           href="/dashboard/settings"
           icon={Settings}
           label="Configurações"
-          permission={Permission.ManageSettings}
         />
 
         <SidebarItem href="/dashboard/help" icon={HelpCircle} label="Ajuda" />

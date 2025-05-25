@@ -18,7 +18,12 @@ export default function ApiDashboard() {
     neon: "loading",
   })
 
-  const [testResults, setTestResults] = useState({
+  const [testResults, setTestResults] = useState<{
+    openai: any,
+    cohere: any,
+    pinecone: any,
+    neon: any,
+  }>({
     openai: null,
     cohere: null,
     pinecone: null,
@@ -53,7 +58,7 @@ export default function ApiDashboard() {
           neon: data.NEON_DATABASE_URL || data.NEON_NEON_DATABASE_URL ? "online" : "offline",
         })
       } catch (error) {
-        console.error("Erro ao verificar status das APIs:", error)
+        // Error checking API status
       }
     }
 
@@ -75,7 +80,6 @@ export default function ApiDashboard() {
       const data = await response.json()
       setTestResults((prev) => ({ ...prev, openai: data }))
     } catch (error) {
-      console.error("Erro ao testar OpenAI:", error)
       setTestResults((prev) => ({ ...prev, openai: { error: "Falha ao conectar com a API" } }))
     } finally {
       setLoading((prev) => ({ ...prev, openai: false }))
@@ -97,7 +101,6 @@ export default function ApiDashboard() {
       const data = await response.json()
       setTestResults((prev) => ({ ...prev, cohere: data }))
     } catch (error) {
-      console.error("Erro ao testar Cohere:", error)
       setTestResults((prev) => ({ ...prev, cohere: { error: "Falha ao conectar com a API" } }))
     } finally {
       setLoading((prev) => ({ ...prev, cohere: false }))
@@ -119,7 +122,6 @@ export default function ApiDashboard() {
       const data = await response.json()
       setTestResults((prev) => ({ ...prev, pinecone: data }))
     } catch (error) {
-      console.error("Erro ao testar Pinecone:", error)
       setTestResults((prev) => ({ ...prev, pinecone: { error: "Falha ao conectar com a API" } }))
     } finally {
       setLoading((prev) => ({ ...prev, pinecone: false }))
@@ -141,7 +143,6 @@ export default function ApiDashboard() {
       const data = await response.json()
       setTestResults((prev) => ({ ...prev, neon: data }))
     } catch (error) {
-      console.error("Erro ao testar Neon:", error)
       setTestResults((prev) => ({ ...prev, neon: { error: "Falha ao conectar com a API" } }))
     } finally {
       setLoading((prev) => ({ ...prev, neon: false }))
@@ -149,7 +150,7 @@ export default function ApiDashboard() {
   }
 
   // Renderizar status da API
-  const renderStatus = (status) => {
+  const renderStatus = (status: string) => {
     if (status === "loading") {
       return (
         <Badge variant="outline" className="bg-yellow-50 text-yellow-700">
@@ -368,7 +369,7 @@ export default function ApiDashboard() {
                         <p>Encontrados {testResults.pinecone.matches?.length || 0} resultados</p>
                         {testResults.pinecone.matches?.length > 0 && (
                           <div className="mt-2 space-y-2">
-                            {testResults.pinecone.matches.slice(0, 3).map((match, index) => (
+                            {testResults.pinecone.matches.slice(0, 3).map((match: any, index: number) => (
                               <div key={index} className="text-sm p-2 bg-white rounded border">
                                 <p className="font-medium">Resultado {index + 1}</p>
                                 <p className="text-xs mt-1 line-clamp-2">{match.metadata?.text || "Sem texto"}</p>

@@ -150,7 +150,7 @@ export default function ApiKeyManager() {
     },
   ])
 
-  const [testResults, setTestResults] = useState<Record<string, { status: "success" | "error"; message: string }>>({})
+  const [testResults, setTestResults] = useState<Record<string, { status: "success" | "error" | "loading"; message: string }>>({})
 
   const toggleShowSecret = (key: string) => {
     setShowSecrets((prev) => ({
@@ -195,7 +195,6 @@ export default function ApiKeyManager() {
         })
       }
     } catch (error) {
-      console.error("Erro ao carregar chaves de API:", error)
       toast({
         variant: "destructive",
         title: "Erro ao carregar chaves",
@@ -242,7 +241,6 @@ export default function ApiKeyManager() {
         })
       }
     } catch (error) {
-      console.error("Erro ao salvar chaves de API:", error)
       toast({
         variant: "destructive",
         title: "Erro ao salvar chaves",
@@ -271,7 +269,6 @@ export default function ApiKeyManager() {
         },
       }))
     } catch (error) {
-      console.error(`Erro ao testar chave ${key}:`, error)
       setTestResults((prev) => ({
         ...prev,
         [key]: {

@@ -48,7 +48,6 @@ export const authConfig: NextAuthConfig = {
           const { data: user, error } = await supabase.from("users").select("*").eq("email", credentials.email).single()
 
           if (error || !user) {
-            console.error("Error fetching user:", error)
             return null // Return null instead of throwing
           }
 
@@ -70,7 +69,6 @@ export const authConfig: NextAuthConfig = {
             .eq("user_id", user.id)
 
           if (rolesError) {
-            console.error("Error fetching roles:", rolesError)
             // Don't fail login if roles can't be fetched
           }
 
@@ -84,7 +82,6 @@ export const authConfig: NextAuthConfig = {
             roles: roles,
           }
         } catch (error) {
-          console.error("Authentication error:", error)
           return null // Return null instead of throwing
         }
       },
@@ -113,7 +110,6 @@ export const authConfig: NextAuthConfig = {
         }
         return token
       } catch (error) {
-        console.error("JWT callback error:", error)
         return token // Return the token as is in case of error
       }
     },
@@ -126,7 +122,6 @@ export const authConfig: NextAuthConfig = {
         }
         return session
       } catch (error) {
-        console.error("Session callback error:", error)
         return session // Return the session as is in case of error
       }
     },
@@ -156,13 +151,11 @@ export const authConfig: NextAuthConfig = {
               })
             }
           } catch (error) {
-            console.error("Error syncing user with Supabase:", error)
             // Don't fail login if sync fails
           }
         }
         return true
       } catch (error) {
-        console.error("SignIn callback error:", error)
         return false // Return false in case of error
       }
     },
@@ -174,7 +167,6 @@ export const authConfig: NextAuthConfig = {
         else if (new URL(url).origin === baseUrl) return url
         return baseUrl
       } catch (error) {
-        console.error("Redirect callback error:", error)
         return baseUrl // Return baseUrl in case of error
       }
     },
@@ -187,15 +179,13 @@ export const authConfig: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
   logger: {
     error(code, metadata) {
-      console.error(`[Auth] Error: ${code}`, metadata)
+      // Auth error logging disabled in production
     },
     warn(code) {
-      console.warn(`[Auth] Warning: ${code}`)
+      // Auth warning logging disabled in production
     },
     debug(code, metadata) {
-      if (process.env.NODE_ENV === "development") {
-        console.debug(`[Auth] Debug: ${code}`, metadata)
-      }
+      // Auth debug logging disabled in production
     },
   },
 }

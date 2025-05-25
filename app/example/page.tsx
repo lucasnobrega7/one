@@ -105,7 +105,7 @@ export default function ExamplePage() {
                 Card Variants
               </Heading>
               
-              <Card variant="default" className="mb-4">
+              <Card className="mb-4">
                 <CardHeader>
                   <CardTitle>Default Card</CardTitle>
                   <CardDescription>With subtle shadow and border</CardDescription>
@@ -115,7 +115,7 @@ export default function ExamplePage() {
                 </CardContent>
               </Card>
               
-              <Card variant="elevated" className="mb-4">
+              <Card className="mb-4 shadow-lg">
                 <CardHeader>
                   <CardTitle>Elevated Card</CardTitle>
                   <CardDescription>With pronounced shadow</CardDescription>
@@ -125,7 +125,7 @@ export default function ExamplePage() {
                 </CardContent>
               </Card>
               
-              <Card variant="outline" className="mb-4">
+              <Card className="mb-4 border border-gray-300 bg-transparent">
                 <CardHeader>
                   <CardTitle>Outline Card</CardTitle>
                   <CardDescription>Just a border, no background</CardDescription>
@@ -135,7 +135,7 @@ export default function ExamplePage() {
                 </CardContent>
               </Card>
               
-              <Card variant="gradient">
+              <Card className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                 <CardHeader>
                   <CardTitle>Gradient Card</CardTitle>
                   <CardDescription className="text-white/90">With accent gradient background</CardDescription>
@@ -163,7 +163,7 @@ export default function ExamplePage() {
                 <div className="flex flex-wrap gap-4">
                   <Button variant="destructive">Destructive</Button>
                   <Button variant="link">Link Button</Button>
-                  <Button variant="gradient">Gradient</Button>
+                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">Gradient</Button>
                 </div>
                 
                 <Heading as="h4" size="h4" className="mt-8 mb-4">

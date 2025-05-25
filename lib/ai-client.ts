@@ -36,9 +36,8 @@ export async function generateResponse(prompt: string, modelId = "gpt-4o", optio
     try {
       // This would need to be implemented in the external API
       // For now, we'll fall back to local
-      console.log('External AI service not yet implemented, falling back to local')
     } catch (error) {
-      console.error('Error using external AI service:', error)
+      // Error using external AI service - fallback to local
     }
   }
   

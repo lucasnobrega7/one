@@ -56,7 +56,7 @@ export function Hero({
           {action && (
             <Button 
               asChild 
-              variant={action.variant || "default"} 
+              variant={action.variant === "gradient" ? "default" : (action.variant as any) || "default"} 
               size="lg"
             >
               <a href={action.href}>{action.text}</a>

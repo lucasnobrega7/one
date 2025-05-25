@@ -19,7 +19,6 @@ export async function POST() {
 
     return NextResponse.json({ success: true, message: "Sessão resetada com sucesso" })
   } catch (error) {
-    console.error("Erro ao resetar sessão:", error)
     return NextResponse.json({ error: "Erro ao resetar sessão" }, { status: 500 })
   }
 }

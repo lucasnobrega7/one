@@ -40,18 +40,18 @@ export function CTA({
   }
 
   // Adjust button variant based on CTA variant
-  const getActionVariant = () => {
+  const getActionVariant = (): "link" | "secondary" | "default" | "destructive" | "outline" | "ghost" => {
     if (variant === "gradient" || variant === "dark") {
-      return action.variant || "outline"
+      return "outline"
     }
-    return action.variant || "default"
+    return "default"
   }
 
-  const getSecondaryActionVariant = () => {
+  const getSecondaryActionVariant = (): "link" | "secondary" | "default" | "destructive" | "outline" | "ghost" => {
     if (variant === "gradient" || variant === "dark") {
-      return secondaryAction?.variant || "secondary"
+      return "secondary"
     }
-    return secondaryAction?.variant || "outline"
+    return "outline"
   }
 
   return (

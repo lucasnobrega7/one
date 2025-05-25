@@ -32,7 +32,7 @@ export default function KnowledgeBasePage() {
           }
         }
       } catch (error) {
-        console.error("Erro ao carregar bases de conhecimento:", error)
+        // Error loading knowledge bases
       } finally {
         setLoading(false)
       }

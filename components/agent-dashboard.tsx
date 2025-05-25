@@ -30,10 +30,10 @@ export function AgentDashboard() {
           const data = await response.json()
           setAgents(data)
         } else {
-          console.error("Erro ao carregar agentes")
+          // Error loading agents
         }
       } catch (error) {
-        console.error("Erro ao carregar agentes:", error)
+        // Error loading agents
       } finally {
         setLoading(false)
       }

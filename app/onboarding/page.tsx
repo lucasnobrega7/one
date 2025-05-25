@@ -54,14 +54,14 @@ export default function OnboardingPage() {
   const checkOnboardingStatus = async () => {
     try {
       // Verificar na API se onboarding já foi concluído
-      const response = await apiClient.listAgents({ userId: session?.user?.id })
+      const response = await apiClient.listAgents()
       
       if (response.success && response.data && response.data.length > 0) {
         // Usuário já tem agentes, redirecionar para dashboard
         router.push("/dashboard")
       }
     } catch (error) {
-      console.error("Erro ao verificar status de onboarding:", error)
+      // Error checking onboarding status
     }
   }
 
@@ -95,8 +95,8 @@ export default function OnboardingPage() {
         billingInfo: formData
       }
 
-      // Aqui você integraria com seu sistema de pagamento
-      console.log("Processando pagamento:", subscriptionData)
+      // Integrate with your payment system here
+      // Process payment with subscriptionData
 
       toast({
         title: "Pagamento processado!",
@@ -105,7 +105,6 @@ export default function OnboardingPage() {
 
       setCurrentStep("welcome")
     } catch (error) {
-      console.error("Erro no pagamento:", error)
       toast({
         title: "Erro no pagamento",
         description: "Tente novamente ou entre em contato com o suporte.",
@@ -131,7 +130,7 @@ export default function OnboardingPage() {
         }
       }
 
-      console.log("Criando organização:", orgData)
+      // Create organization with orgData
 
       // Criar primeiro agente de boas-vindas
       const welcomeAgent = {
@@ -155,7 +154,6 @@ export default function OnboardingPage() {
 
       setCurrentStep("complete")
     } catch (error) {
-      console.error("Erro ao finalizar onboarding:", error)
       toast({
         title: "Erro na configuração",
         description: "Houve um problema. Tente novamente.",

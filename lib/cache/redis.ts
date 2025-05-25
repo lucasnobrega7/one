@@ -18,7 +18,7 @@ export function getRedisClient(): Redis {
 
     // Configurar handlers de erro
     redisClient.on("error", (err) => {
-      console.error("Erro na conexão Redis:", err)
+      // Redis connection error handled silently
     })
   }
 
@@ -51,7 +51,6 @@ export async function getCache<T>(key: string): Promise<T | null> {
   try {
     return JSON.parse(value) as T
   } catch (error) {
-    console.error("Erro ao fazer parse do valor do cache:", error)
     return null
   }
 }

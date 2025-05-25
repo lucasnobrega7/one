@@ -42,7 +42,7 @@ export class FallbackService {
           return response.data
         }
       } catch (error) {
-        console.error('API error, falling back to local:', error)
+        // API error, falling back to local
       }
     }
     
@@ -88,7 +88,7 @@ export class FallbackService {
           return response.data
         }
       } catch (error) {
-        console.error('API error, falling back to local:', error)
+        // API error, falling back to local
       }
     }
     
@@ -224,7 +224,7 @@ export class FallbackService {
         
         return responseMessage
       } catch (error) {
-        console.error('Local AI error:', error)
+        // Local AI error
       }
     }
     
@@ -243,7 +243,7 @@ export class FallbackService {
         yield* apiClient.invokeAgentStream(agentId, message, conversationId)
         return
       } catch (error) {
-        console.error('Streaming API error:', error)
+        // Streaming API error
       }
     }
     
@@ -268,7 +268,6 @@ export class FallbackService {
         return await operation()
       } catch (error) {
         lastError = error as Error
-        console.error(`Attempt ${i + 1} failed:`, error)
         
         if (i < retries - 1) {
           // Exponential backoff
@@ -278,7 +277,6 @@ export class FallbackService {
       }
     }
     
-    console.error('All retry attempts failed:', lastError)
     return null
   }
 }

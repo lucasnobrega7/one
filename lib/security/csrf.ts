@@ -36,7 +36,6 @@ export async function validateCSRFToken(token: string): Promise<boolean> {
       Buffer.from(token, 'hex')
     )
   } catch (error) {
-    console.error('CSRF validation error:', error)
     return false
   }
 }
@@ -46,7 +45,6 @@ export async function getCSRFToken(): Promise<string | null> {
     const cookieStore = cookies()
     return cookieStore.get('csrf-token')?.value || null
   } catch (error) {
-    console.error('Error getting CSRF token:', error)
     return null
   }
 }
@@ -56,7 +54,7 @@ export function clearCSRFToken(): void {
     const cookieStore = cookies()
     cookieStore.delete('csrf-token')
   } catch (error) {
-    console.error('Error clearing CSRF token:', error)
+    // Error clearing CSRF token
   }
 }
 

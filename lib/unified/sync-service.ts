@@ -28,13 +28,10 @@ export class SyncService {
       this.isApiHealthy = await apiClient.checkHealth()
       this.lastHealthCheck = now
       
-      if (!this.isApiHealthy) {
-        console.warn('External API is not healthy, sync operations will be skipped')
-      }
+      // External API health status updated
       
       return this.isApiHealthy
     } catch (error) {
-      console.error('Health check failed:', error)
       this.isApiHealthy = false
       this.lastHealthCheck = now
       return false
@@ -62,13 +59,11 @@ export class SyncService {
         
         if (attempt < maxRetries) {
           const delay = this.retryDelay * Math.pow(2, attempt - 1)
-          console.warn(`${context} failed (attempt ${attempt}/${maxRetries}), retrying in ${delay}ms:`, error)
           await new Promise(resolve => setTimeout(resolve, delay))
         }
       }
     }
     
-    console.error(`${context} failed after ${maxRetries} attempts:`, lastError)
     throw lastError
   }
 
@@ -173,7 +168,6 @@ export class SyncService {
       return { success: true, syncDirection: direction }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown sync error'
-      console.error('Error syncing agent:', error)
       await this.updateSyncStatus(agentId, 'error', errorMessage)
       return { success: false, error: errorMessage, syncDirection: direction }
     }
@@ -220,7 +214,6 @@ export class SyncService {
         
       if (error || !pendingAgents) {
         const errorMsg = `Error fetching pending agents: ${error?.message}`
-        console.error(errorMsg)
         return {
           success: false,
           syncedCount: 0,
@@ -229,7 +222,7 @@ export class SyncService {
         }
       }
       
-      console.log(`Found ${pendingAgents.length} agents to sync`)
+      // Processing agents for sync
       
       // Sync each agent with rate limiting
       for (const agent of pendingAgents) {
@@ -276,7 +269,6 @@ export class SyncService {
         .single()
         
       if (error || !localConv) {
-        console.error('Error fetching local conversation:', error)
         return false
       }
       
@@ -300,7 +292,6 @@ export class SyncService {
       
       return false
     } catch (error) {
-      console.error('Error syncing conversation:', error)
       return false
     }
   }
@@ -330,23 +321,22 @@ export class SyncService {
       .eq('id', entityId)
       
     if (error) {
-      console.error(`Failed to update sync status for ${entityId}:`, error)
+      // Failed to update sync status
     }
   }
   
   // Start automatic sync
   startAutoSync(): void {
     if (!unifiedConfig.ENABLE_AUTO_SYNC) {
-      console.log('Auto sync is disabled')
       return
     }
     
-    console.log(`Starting auto sync with interval: ${this.syncInterval}ms`)
+    // Starting auto sync
     
     // Initial sync after a short delay
     setTimeout(() => {
       this.syncPendingAgents().then(result => {
-        console.log('Initial sync completed:', result)
+        // Initial sync completed
       })
     }, 5000)
     
@@ -354,13 +344,9 @@ export class SyncService {
     setInterval(async () => {
       try {
         const result = await this.syncPendingAgents()
-        if (result.failedCount > 0) {
-          console.warn(`Sync completed with ${result.failedCount} failures:`, result.errors)
-        } else if (result.syncedCount > 0) {
-          console.log(`Sync completed successfully: ${result.syncedCount} agents synced`)
-        }
+        // Sync completed
       } catch (error) {
-        console.error('Auto sync failed:', error)
+        // Auto sync failed
       }
     }, this.syncInterval)
   }

@@ -1,7 +1,10 @@
 import type React from "react"
 import { ThemeProvider } from "@/components/common/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { Toaster as SonnerToaster } from "sonner"
 import { AuthProvider } from "@/components/auth-provider"
+import { GlobalErrorHandler } from "@/components/error-handler-global"
+import { ErrorBoundary } from "@/components/ui/error-boundary"
 import { Inter } from "next/font/google"
 import Link from "next/link"
 import { auth } from "@/config/auth"
@@ -32,58 +35,14 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.className} dark`} suppressHydrationWarning>
       <body className="bg-black text-white min-h-screen">
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-            <nav className="w-full border-b border-gray-800 bg-black/90 backdrop-blur-sm sticky top-0 z-50">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                  <div className="flex items-center">
-                    <Link href="/" className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg"></div>
-                      <span className="text-xl font-semibold">Agentes de Conversão</span>
-                    </Link>
-                    
-                    <div className="hidden md:flex ml-10 space-x-8">
-                      {session && (
-                        <Link href="/dashboard" className="text-gray-300 hover:text-white transition-colors">
-                          Dashboard
-                        </Link>
-                      )}
-                      <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
-                        Recursos
-                      </Link>
-                      <Link href="#pricing" className="text-gray-300 hover:text-white transition-colors">
-                        Preços
-                      </Link>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    {session ? (
-                      <div className="flex items-center space-x-4">
-                        <span className="text-gray-300">{session.user?.email}</span>
-                        <Link href="/api/auth/signout" className="text-gray-300 hover:text-white transition-colors">
-                          Sair
-                        </Link>
-                      </div>
-                    ) : (
-                      <div className="flex items-center space-x-4">
-                        <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">
-                          Login
-                        </Link>
-                        <Link href="/signup" className="bg-white text-black px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">
-                          Cadastrar
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </nav>
-
-            <main className="flex-1">
-              {children}
-            </main>
+        <ErrorBoundary>
+          <AuthProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+              <GlobalErrorHandler>
+                <main className="flex-1">
+                  {children}
+                </main>
+              </GlobalErrorHandler>
 
             <footer className="border-t border-gray-800 bg-black">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -144,9 +103,16 @@ export default async function RootLayout({
                 </div>
               </div>
             </footer>
-            <Toaster />
-          </ThemeProvider>
-        </AuthProvider>
+              <Toaster />
+              <SonnerToaster 
+                theme="dark"
+                position="top-right"
+                richColors
+                closeButton
+              />
+            </ThemeProvider>
+          </AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

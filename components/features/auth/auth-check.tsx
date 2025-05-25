@@ -29,8 +29,8 @@ export function AuthCheck({ children, redirectTo = "/login", requiredRole }: Aut
 
       // Check if user has the required role(s)
       const hasRequiredRole = Array.isArray(requiredRole)
-        ? requiredRole.some((role) => userRoles.includes(role))
-        : userRoles.includes(requiredRole)
+        ? requiredRole.some((role) => userRoles.includes(role as any))
+        : userRoles.includes(requiredRole as any)
 
       if (!hasRequiredRole) {
         router.push("/auth/access-denied")
@@ -58,8 +58,8 @@ export function AuthCheck({ children, redirectTo = "/login", requiredRole }: Aut
 
     const userRoles = session?.user.roles || []
     const hasRequiredRole = Array.isArray(requiredRole)
-      ? requiredRole.some((role) => userRoles.includes(role))
-      : userRoles.includes(requiredRole)
+      ? requiredRole.some((role) => userRoles.includes(role as any))
+      : userRoles.includes(requiredRole as any)
 
     if (hasRequiredRole) {
       return <>{children}</>

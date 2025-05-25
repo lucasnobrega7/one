@@ -174,14 +174,14 @@ export function IntegrationSetup({ onComplete }: IntegrationSetupProps) {
           <div className="w-16 h-0.5 bg-zinc-700"></div>
           
           <div className={`flex items-center space-x-2 ${
-            currentStep === 'openai' ? 'text-blue-500' : 
-            currentStep === 'complete' ? 'text-green-500' : 'text-gray-400'
+            (currentStep as string) === 'openai' ? 'text-blue-500' : 
+            (currentStep as string) === 'complete' ? 'text-green-500' : 'text-gray-400'
           }`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              currentStep === 'openai' ? 'bg-blue-600' : 
-              currentStep === 'complete' ? 'bg-green-600' : 'bg-zinc-700'
+              (currentStep as string) === 'openai' ? 'bg-blue-600' : 
+              (currentStep as string) === 'complete' ? 'bg-green-600' : 'bg-zinc-700'
             }`}>
-              {currentStep === 'complete' ? <CheckCircle className="w-5 h-5" /> : '2'}
+              {(currentStep as string) === 'complete' ? <CheckCircle className="w-5 h-5" /> : '2'}
             </div>
             <span className="font-medium">OpenAI</span>
           </div>

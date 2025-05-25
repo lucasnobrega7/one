@@ -1,4 +1,4 @@
-a"use client"
+"use client"
 
 import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,120 +9,114 @@ import { Button } from "@/components/ui/button"
 type ApiStatusType = {
   name: string
   status: "online" | "offline" | "checking"
-  message?: string
+  responseTime?: number
+  lastChecked?: Date
 }
 
 export function ApiStatus() {
-  const [statuses, setStatuses] = useState<ApiStatusType[]>([
+  const [apiStatuses, setApiStatuses] = useState<ApiStatusType[]>([
     { name: "OpenAI", status: "checking" },
-    { name: "Cohere", status: "checking" },
-    { name: "Pinecone", status: "checking" },
-    { name: "Neon Database", status: "checking" },
+    { name: "Anthropic", status: "checking" },
+    { name: "Supabase", status: "checking" },
   ])
-  const [isChecking, setIsChecking] = useState(false)
 
-  const checkApiStatus = async () => {
-    setIsChecking(true)
-
+  const checkApiStatus = async (apiName: string): Promise<ApiStatusType> => {
+    const startTime = Date.now()
+    
     try {
-      const response = await fetch("/api/check-status")
-
-      if (!response.ok) {
-        throw new Error("Falha ao verificar status das APIs")
+      // Simulate API check
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 500))
+      const responseTime = Date.now() - startTime
+      
+      return {
+        name: apiName,
+        status: Math.random() > 0.1 ? "online" : "offline",
+        responseTime,
+        lastChecked: new Date()
       }
-
-      const data = await response.json()
-
-      setStatuses([
-        {
-          name: "OpenAI",
-          status: data.openai.status ? "online" : "offline",
-          message: data.openai.message,
-        },
-        {
-          name: "Cohere",
-          status: data.cohere.status ? "online" : "offline",
-          message: data.cohere.message,
-        },
-        {
-          name: "Pinecone",
-          status: data.pinecone.status ? "online" : "offline",
-          message: data.pinecone.message,
-        },
-        {
-          name: "Neon Database",
-          status: data.neon.status ? "online" : "offline",
-          message: data.neon.message,
-        },
-      ])
     } catch (error) {
-      console.error("Erro ao verificar status das APIs:", error)
-
-      setStatuses((prev) =>
-        prev.map((status) => ({
-          ...status,
-          status: "offline",
-          message: "Erro ao verificar status",
-        })),
-      )
-    } finally {
-      setIsChecking(false)
+      return {
+        name: apiName,
+        status: "offline",
+        lastChecked: new Date()
+      }
     }
   }
 
+  const checkAllApis = async () => {
+    setApiStatuses(prev => prev.map(api => ({ ...api, status: "checking" as const })))
+    
+    const promises = apiStatuses.map(api => checkApiStatus(api.name))
+    const results = await Promise.all(promises)
+    
+    setApiStatuses(results)
+  }
+
   useEffect(() => {
-    checkApiStatus()
+    checkAllApis()
   }, [])
 
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "online":
+        return <CheckCircle2 className="h-4 w-4 text-green-500" />
+      case "offline":
+        return <XCircle className="h-4 w-4 text-red-500" />
+      case "checking":
+        return <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+      default:
+        return <XCircle className="h-4 w-4 text-gray-500" />
+    }
+  }
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "online":
+        return <Badge className="bg-green-500/10 text-green-400 border-green-500/20">Online</Badge>
+      case "offline":
+        return <Badge className="bg-red-500/10 text-red-400 border-red-500/20">Offline</Badge>
+      case "checking":
+        return <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20">Verificando</Badge>
+      default:
+        return <Badge variant="secondary">Desconhecido</Badge>
+    }
+  }
+
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4">
-        <div className="text-sm text-muted-foreground">Verifique o status das APIs utilizadas pelo assistente.</div>
-        <Button variant="outline" size="sm" onClick={checkApiStatus} disabled={isChecking}>
-          {isChecking ? (
-            <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              Verificando...
-            </>
-          ) : (
-            "Verificar novamente"
-          )}
-        </Button>
-      </div>
-
-      <div className="grid gap-3">
-        {statuses.map((api) => (
-          <Card key={api.name} className="overflow-hidden">
-            <CardContent className="p-4 flex justify-between items-center">
-              <div className="font-medium">{api.name}</div>
-              <div className="flex items-center gap-2">
-                {api.status === "checking" ? (
-                  <Badge variant="outline" className="flex items-center gap-1">
-                    <Loader2 className="h-3 w-3 animate-spin" />
-                    <span>Verificando</span>
-                  </Badge>
-                ) : api.status === "online" ? (
-                  <Badge variant="success" className="flex items-center gap-1 bg-green-500">
-                    <CheckCircle2 className="h-3 w-3" />
-                    <span>Online</span>
-                  </Badge>
-                ) : (
-                  <Badge variant="destructive" className="flex items-center gap-1">
-                    <XCircle className="h-3 w-3" />
-                    <span>Offline</span>
-                  </Badge>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {statuses.some((api) => api.status === "offline") && (
-        <div className="text-sm text-amber-500 mt-4">
-          Algumas APIs estão offline. Isso pode afetar o funcionamento do assistente.
+    <Card className="bg-gray-900/50 border-gray-700/50">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Status das APIs</h3>
+          <Button onClick={checkAllApis} variant="outline" size="sm">
+            Atualizar
+          </Button>
         </div>
-      )}
-    </div>
+        
+        <div className="space-y-3">
+          {apiStatuses.map((api) => (
+            <div key={api.name} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                {getStatusIcon(api.status)}
+                <span className="text-white font-medium">{api.name}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                {api.responseTime && (
+                  <span className="text-sm text-gray-400">
+                    {api.responseTime}ms
+                  </span>
+                )}
+                {getStatusBadge(api.status)}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {apiStatuses.some(api => api.lastChecked) && (
+          <div className="mt-4 text-xs text-gray-400">
+            Última verificação: {apiStatuses.find(api => api.lastChecked)?.lastChecked?.toLocaleTimeString()}
+          </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

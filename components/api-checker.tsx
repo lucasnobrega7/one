@@ -66,7 +66,6 @@ export function ApiChecker() {
       ])
     } catch (err: any) {
       setError(err.message || "Erro ao verificar status das APIs")
-      console.error("Erro ao verificar APIs:", err)
     } finally {
       setLoading(false)
     }

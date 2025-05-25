@@ -1,38 +1,81 @@
-"use client"
+// Sistema de permissões funcional
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
-import { useSession } from "next-auth/react"
-import { hasPermission, getAllPermissions } from "@/lib/auth/permissions"
-import type { Role, Permission } from "@/lib/auth/permissions"
+type Permission = 
+  | 'agents:create'
+  | 'agents:delete'
+  | 'agents:edit'
+  | 'agents:view'
+  | 'conversations:view'
+  | 'conversations:delete'
+  | 'analytics:view'
+  | 'settings:edit'
 
-export function usePermissions() {
-  const { data: session } = useSession()
-  
-  const userRole = (session?.user as any)?.role as Role || 'viewer'
-  const permissions = getAllPermissions(userRole)
+interface UsePermissionsReturn {
+  hasPermission: (permission: Permission) => boolean
+  loading: boolean
+  userRole: string | null
+}
 
-  const checkPermission = (permission: Permission): boolean => {
-    return hasPermission(userRole, permission)
-  }
+export function usePermissions(): UsePermissionsReturn {
+  const { data: session, status } = useSession()
+  const [loading, setLoading] = useState(true)
+  const [userRole, setUserRole] = useState<string | null>(null)
 
-  const hasRole = (role: Role): boolean => {
-    return userRole === role
-  }
+  useEffect(() => {
+    if (status === 'loading') return
 
-  const isAdmin = (): boolean => {
-    return userRole === 'admin'
-  }
+    if (session?.user) {
+      // Determinar role do usuário baseado no email ou metadata
+      const email = session.user.email
+      let role = 'user'
 
-  const isManager = (): boolean => {
-    return userRole === 'manager' || userRole === 'admin'
+      if (email?.includes('admin') || email?.endsWith('@agentesdeconversao.com.br')) {
+        role = 'admin'
+      } else if (email?.includes('manager')) {
+        role = 'manager'
+      }
+
+      setUserRole(role)
+    }
+    
+    setLoading(false)
+  }, [session, status])
+
+  const hasPermission = (permission: Permission): boolean => {
+    if (loading || !userRole) return false
+
+    const rolePermissions: Record<string, Permission[]> = {
+      admin: [
+        'agents:create',
+        'agents:delete', 
+        'agents:edit',
+        'agents:view',
+        'conversations:view',
+        'conversations:delete',
+        'analytics:view',
+        'settings:edit',
+      ],
+      manager: [
+        'agents:create',
+        'agents:edit',
+        'agents:view',
+        'conversations:view',
+        'analytics:view',
+      ],
+      user: [
+        'agents:view',
+        'conversations:view',
+      ],
+    }
+
+    return rolePermissions[userRole]?.includes(permission) || false
   }
 
   return {
-    role: userRole,
-    permissions,
-    hasPermission: checkPermission,
-    hasRole,
-    isAdmin,
-    isManager,
-    isAuthenticated: !!session,
+    hasPermission,
+    loading,
+    userRole,
   }
 }

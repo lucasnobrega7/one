@@ -23,7 +23,6 @@ export class AnalyticsService {
 
       return response.json()
     } catch (error) {
-      console.error("Error fetching analytics:", error)
       // Return mock data for development
       return this.getMockAnalyticsData()
     }
@@ -45,7 +44,6 @@ export class AnalyticsService {
 
       return response.json()
     } catch (error) {
-      console.error("Error fetching conversation metrics:", error)
       return this.getMockConversationMetrics()
     }
   }
@@ -66,7 +64,6 @@ export class AnalyticsService {
 
       return response.json()
     } catch (error) {
-      console.error("Error fetching agent performance:", error)
       return this.getMockAgentPerformance()
     }
   }

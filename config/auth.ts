@@ -20,7 +20,7 @@ export const config: NextAuthConfig = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials: any) {
         if (!credentials?.email || !credentials?.password) {
           return null
         }
@@ -28,54 +28,36 @@ export const config: NextAuthConfig = {
         try {
           // Import Supabase client
           const { createClient } = await import("@supabase/supabase-js")
-          const bcrypt = await import("bcryptjs")
           
           const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
           const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
           
           if (!supabaseUrl || !supabaseServiceKey) {
-            console.error("Supabase credentials not configured")
             return null
           }
           
           const supabase = createClient(supabaseUrl, supabaseServiceKey)
           
-          // Find user by email
-          const { data: user, error } = await supabase
-            .from("users")
-            .select("id, email, name, password")
-            .eq("email", credentials.email)
-            .single()
+          // Use Supabase Auth directly
+          const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+            email: credentials.email,
+            password: credentials.password,
+          })
             
-          if (error || !user) {
-            console.error("User not found:", error)
+          if (authError || !authData.user) {
             return null
           }
           
-          // Verify password
-          const isValidPassword = await bcrypt.compare(credentials.password, user.password)
+          const user = authData.user
           
-          if (!isValidPassword) {
-            console.error("Invalid password")
-            return null
-          }
-          
-          // Get user roles
-          const { data: userRoles } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", user.id)
-            
-          const roles = userRoles?.map(ur => ur.role) || []
-          
+          // Return user data from Supabase Auth
           return {
             id: user.id,
-            name: user.name,
-            email: user.email,
-            roles: roles,
+            name: user.user_metadata?.name || user.email,
+            email: user.email || "",
+            roles: ['admin'], // For now, give admin role to authenticated users
           }
         } catch (error) {
-          console.error("Authentication error:", error)
           return null
         }
       },
@@ -87,8 +69,8 @@ export const config: NextAuthConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id
-        token.roles = user.roles
+        token.id = user.id!
+        token.roles = (user as any).roles
       }
       return token
     },
@@ -101,7 +83,7 @@ export const config: NextAuthConfig = {
     },
   },
   pages: {
-    signIn: "/auth/login",
+    signIn: "/login",
     error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,

@@ -50,8 +50,6 @@ export function KnowledgeUploader() {
 
       setUploadStatus("success")
     } catch (error) {
-      console.error("Erro no upload:", error)
-
       toast({
         title: "Erro no upload",
         description: "Não foi possível adicionar o documento à base de conhecimento.",

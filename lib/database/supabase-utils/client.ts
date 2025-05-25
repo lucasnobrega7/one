@@ -18,7 +18,6 @@ export function safeGetSupabaseClient() {
   try {
     return { client: createClient(), error: null }
   } catch (e) {
-    console.error("Error getting Supabase client:", e)
     return { client: null, error: e instanceof Error ? e.message : String(e) }
   }
 }

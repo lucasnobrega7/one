@@ -4,7 +4,7 @@ import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import type { Session } from "@supabase/supabase-js"
-import { createBrowserSupabaseClient } from "@/lib/supabase/client"
+import { getSupabaseClient } from "@/lib/supabase/client"
 
 // Tipos
 type AppContextType = {
@@ -35,7 +35,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
   const [user, setUser] = useState<any | null>(null)
   const [userSettings, setUserSettings] = useState<any | null>(null)
   const router = useRouter()
-  const supabase = createBrowserSupabaseClient()
+  const supabase = getSupabaseClient()
 
   // Carregar sessão inicial
   useEffect(() => {
@@ -46,7 +46,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         // Obter sessão atual
         const {
           data: { session: currentSession },
-        } = await supabase.auth.getSession()
+        } = await supabase!.auth.getSession()
         setSession(currentSession)
 
         if (currentSession?.user) {
@@ -54,7 +54,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
           await refreshUserSettings()
         }
       } catch (error) {
-        console.error("Erro ao carregar sessão:", error)
+        // Error loading session
       } finally {
         setLoading(false)
       }
@@ -65,7 +65,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     // Configurar listener para mudanças na autenticação
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+    } = supabase!.auth.onAuthStateChange(async (event, newSession) => {
       setSession(newSession)
       setUser(newSession?.user || null)
 
@@ -94,11 +94,11 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     try {
       const {
         data: { session: currentSession },
-      } = await supabase.auth.getSession()
+      } = await supabase!.auth.getSession()
       setSession(currentSession)
       setUser(currentSession?.user || null)
     } catch (error) {
-      console.error("Erro ao atualizar sessão:", error)
+      // Error refreshing session
     }
   }
 
@@ -107,12 +107,12 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     if (!user?.id) return
 
     try {
-      const { data, error } = await supabase.from("user_settings").select("*").eq("user_id", user.id).single()
+      const { data, error } = await supabase!.from("user_settings").select("*").eq("user_id", user.id).single()
 
       if (error) throw error
       setUserSettings(data)
     } catch (error) {
-      console.error("Erro ao carregar configurações do usuário:", error)
+      // Error loading user settings
     }
   }
 

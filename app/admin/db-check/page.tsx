@@ -46,12 +46,11 @@ export default function DbCheckPage() {
         })
       }
     } catch (error: any) {
-      console.error("Erro ao verificar banco de dados:", error)
       setStatus({
         loading: false,
         success: false,
         error: error.message || "Erro ao conectar à API",
-        details: "Verifique o console para mais detalhes",
+        details: "Verifique a configuração do banco de dados",
       })
     }
   }

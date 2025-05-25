@@ -7,89 +7,96 @@ export default function AboutPage() {
     <MainLayout>
       <section className="container mx-auto px-4 md:px-6 py-20">
         <div className="max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-normal mb-8">Sobre nós</h1>
-          <p className="text-xl mb-8">
-            A Agentes de Conversão é uma empresa de pesquisa e implantação de IA com a missão de garantir que a
-            inteligência artificial beneficie toda a humanidade.
+          <h1 className="text-4xl md:text-5xl font-normal mb-8">Transformando negócios com IA conversacional</h1>
+          <p className="text-xl mb-8 text-gray-300">
+            A Agentes de Conversão é líder em criação de assistentes virtuais inteligentes que convertem visitantes em clientes. 
+            Desenvolvemos agentes conversacionais que entendem contexto, personalizam experiências e maximizam resultados.
           </p>
         </div>
 
-        <div className="mt-16">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/OpenAI_Website_Clone__Community_-N4UMmInBmfKvnutkYNKNuVKdKNEAz6.png"
-            alt="Equipe da Agentes de Conversão"
-            className="w-full h-auto object-cover max-h-[600px]"
-          />
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50">
+            <h3 className="text-2xl font-bold text-white mb-4">50M+</h3>
+            <p className="text-gray-300">Conversas processadas</p>
+          </div>
+          <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50">
+            <h3 className="text-2xl font-bold text-white mb-4">15,000+</h3>
+            <p className="text-gray-300">Empresas atendidas</p>
+          </div>
+          <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50">
+            <h3 className="text-2xl font-bold text-white mb-4">45%</h3>
+            <p className="text-gray-300">Aumento médio em conversões</p>
+          </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-white/20">
+      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-gray-800/50">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 mb-6 md:mb-0">
-            <h2 className="text-4xl font-normal mb-6">Nossa missão</h2>
+            <h2 className="text-4xl font-normal mb-6 text-white">Nossa missão</h2>
           </div>
           <div className="md:w-2/3">
-            <p className="text-2xl font-normal mb-6 leading-tight">
-              Nossa missão é garantir que a inteligência artificial avançada beneficie toda a humanidade. Estamos
-              comprometidos em construir IA segura, benéfica e acessível.
+            <p className="text-2xl font-normal mb-6 leading-tight text-white">
+              Democratizar o poder da IA conversacional para empresas de todos os tamanhos. 
+              Criamos agentes inteligentes que transformam a forma como negócios se conectam com seus clientes.
             </p>
-            <p className="text-white/70 mb-6">
-              Acreditamos que a IA tem o potencial de resolver alguns dos problemas mais desafiadores da humanidade,
-              desde mudanças climáticas até cuidados de saúde. No entanto, reconhecemos que essa tecnologia poderosa
-              também apresenta riscos significativos.
+            <p className="text-gray-300 mb-6">
+              Acreditamos que toda empresa deveria ter acesso a tecnologia de ponta para automatizar vendas, 
+              suporte e marketing. Nossos agentes conversacionais não apenas respondem perguntas - eles entendem 
+              intenções, personalizam experiências e guiam clientes através de jornadas de compra complexas.
             </p>
-            <p className="text-white/70">
-              É por isso que nos dedicamos a pesquisar e desenvolver IA de forma responsável, priorizando a segurança e
-              o benefício público em todas as nossas decisões.
+            <p className="text-gray-300">
+              Com tecnologia baseada nos modelos mais avançados do mundo (GPT-4o, Claude 3.5), oferecemos 
+              soluções que combinam inteligência artificial de última geração com foco absoluto em resultados comerciais.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-white/20">
+      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-gray-800/50">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 mb-6 md:mb-0">
-            <h2 className="text-4xl font-normal mb-6">Nossa história</h2>
+            <h2 className="text-4xl font-normal mb-6 text-white">Nossa jornada</h2>
           </div>
           <div className="md:w-2/3">
             <div className="space-y-8">
               <div>
-                <h3 className="text-xl font-normal mb-2">2020</h3>
-                <p className="text-white/70">
-                  A Agentes de Conversão foi fundada por um grupo de pesquisadores e engenheiros com a visão de
-                  desenvolver IA avançada que pudesse ajudar a resolver problemas complexos.
+                <h3 className="text-xl font-normal mb-2 text-white">2022</h3>
+                <p className="text-gray-300">
+                  Fundamos a Agentes de Conversão com a visão de tornar chatbots verdadeiramente inteligentes. 
+                  Começamos desenvolvendo os primeiros protótipos focados em conversão de vendas.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-normal mb-2">2021</h3>
-                <p className="text-white/70">
-                  Lançamos nossa primeira versão do modelo de linguagem e começamos a construir nossa plataforma de
-                  agentes conversacionais.
+                <h3 className="text-xl font-normal mb-2 text-white">2023</h3>
+                <p className="text-gray-300">
+                  Lançamos nossa plataforma beta e conseguimos nossos primeiros clientes. Resultados impressionantes: 
+                  aumentos de 35-60% nas taxas de conversão para e-commerces e empresas SaaS.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-normal mb-2">2022</h3>
-                <p className="text-white/70">
-                  Expandimos nossa equipe e estabelecemos parcerias com universidades e organizações para avançar nossa
-                  pesquisa em IA segura e alinhada.
+                <h3 className="text-xl font-normal mb-2 text-white">Início 2024</h3>
+                <p className="text-gray-300">
+                  Integramos GPT-4o e Claude 3.5 à nossa plataforma. Lançamos recursos avançados como análise de 
+                  sentimentos em tempo real e personalização de diálogos baseada em comportamento do usuário.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-normal mb-2">2023</h3>
-                <p className="text-white/70">
-                  Lançamos nossa API pública e expandimos nossos serviços para empresas e desenvolvedores em todo o
-                  mundo.
+                <h3 className="text-xl font-normal mb-2 text-white">Meio 2024</h3>
+                <p className="text-gray-300">
+                  Atingimos 1.000+ empresas ativas na plataforma. Lançamos integrações nativas com WhatsApp, 
+                  Instagram, Telegram e principais plataformas de e-commerce.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-normal mb-2">Hoje</h3>
-                <p className="text-white/70">
-                  Continuamos a inovar e expandir nossas capacidades, sempre com o foco em desenvolver IA segura e
-                  benéfica para todos.
+                <h3 className="text-xl font-normal mb-2 text-white">Hoje</h3>
+                <p className="text-gray-300">
+                  Lideramos o mercado brasileiro de agentes conversacionais para vendas. Expandindo para 
+                  América Latina com foco em democratizar IA conversacional para PMEs.
                 </p>
               </div>
             </div>
@@ -97,59 +104,53 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-white/20">
-        <h2 className="text-3xl font-normal mb-10">Nossa equipe</h2>
+      <section className="container mx-auto px-4 md:px-6 py-20 border-t border-gray-800/50">
+        <h2 className="text-3xl font-normal mb-10 text-white">Especialistas em IA conversacional</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
-            <img
-              src="/placeholder.svg?height=300&width=300"
-              alt="Membro da equipe 1"
-              className="aspect-square object-cover mb-4"
-            />
-            <h3 className="text-lg font-normal mb-1">Ana Silva</h3>
-            <p className="text-white/70 text-sm mb-2">CEO e Co-fundadora</p>
-            <p className="text-white/70 text-sm">
-              Ana lidera nossa visão estratégica e operações, com mais de 15 anos de experiência em IA e tecnologia.
-              Antes de fundar a Agentes de Conversão, ela liderou equipes de pesquisa em grandes empresas de tecnologia.
+          <div className="bg-gray-900/30 p-6 rounded-xl border border-gray-700/50">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4 flex items-center justify-center text-white font-bold text-lg">
+              LN
+            </div>
+            <h3 className="text-lg font-normal mb-1 text-white">Lucas Nóbrega</h3>
+            <p className="text-gray-400 text-sm mb-2">CEO e Co-fundador</p>
+            <p className="text-gray-300 text-sm">
+              Ex-Head of Conversational AI no Nubank. Especialista em NLP e sistemas de diálogo. 
+              Liderou a criação de chatbots que atendem milhões de usuários mensalmente.
             </p>
           </div>
 
-          <div>
-            <img
-              src="/placeholder.svg?height=300&width=300"
-              alt="Membro da equipe 2"
-              className="aspect-square object-cover mb-4"
-            />
-            <h3 className="text-lg font-normal mb-1">Carlos Mendes</h3>
-            <p className="text-white/70 text-sm mb-2">CTO e Co-fundador</p>
-            <p className="text-white/70 text-sm">
-              Carlos lidera nossa equipe de engenharia e pesquisa, com foco em desenvolver modelos de IA seguros e
-              eficientes. Ele tem PhD em Aprendizado de Máquina.
+          <div className="bg-gray-900/30 p-6 rounded-xl border border-gray-700/50">
+            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full mb-4 flex items-center justify-center text-white font-bold text-lg">
+              RM
+            </div>
+            <h3 className="text-lg font-normal mb-1 text-white">Rafael Moura</h3>
+            <p className="text-gray-400 text-sm mb-2">CTO e Co-fundador</p>
+            <p className="text-gray-300 text-sm">
+              Arquiteto de sistemas de IA conversacional. Ex-Google AI. PhD em Machine Learning pela USP. 
+              Especialista em fine-tuning de LLMs para casos de uso comerciais.
             </p>
           </div>
 
-          <div>
-            <img
-              src="/placeholder.svg?height=300&width=300"
-              alt="Membro da equipe 3"
-              className="aspect-square object-cover mb-4"
-            />
-            <h3 className="text-lg font-normal mb-1">Mariana Costa</h3>
-            <p className="text-white/70 text-sm mb-2">Diretora de Pesquisa</p>
-            <p className="text-white/70 text-sm">
-              Mariana lidera nossas iniciativas de pesquisa em segurança e alinhamento de IA. Ela publicou dezenas de
-              artigos em conferências internacionais.
+          <div className="bg-gray-900/30 p-6 rounded-xl border border-gray-700/50">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full mb-4 flex items-center justify-center text-white font-bold text-lg">
+              AC
+            </div>
+            <h3 className="text-lg font-normal mb-1 text-white">Ana Carvalho</h3>
+            <p className="text-gray-400 text-sm mb-2">Diretora de Produto</p>
+            <p className="text-gray-300 text-sm">
+              Product Manager com foco em IA conversacional. Ex-Microsoft Bot Framework. 
+              Especialista em UX para interfaces conversacionais e otimização de conversões.
             </p>
           </div>
         </div>
 
         <div className="mt-10 text-center">
           <Link
-            href="/team"
-            className="inline-flex items-center border border-white py-2 px-4 hover:bg-white hover:text-black transition-colors"
+            href="/careers"
+            className="inline-flex items-center border border-gray-600 text-gray-300 py-3 px-6 rounded-lg hover:bg-gray-800/30 hover:border-gray-500 hover:text-white transition-all"
           >
-            Ver equipe completa
+            Junte-se ao time
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
