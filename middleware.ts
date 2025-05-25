@@ -7,7 +7,7 @@ import type { Database } from "@/types/supabase"
 const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/reset-password", "/auth/error", "/unauthorized", "/about", "/example", "/research", "/safety", "/notes"]
 
 // Define routes that should be completely skipped by middleware
-const skipMiddlewareRoutes = ["/api/auth", "/api/debug-session", "/api/health", "/_next", "/favicon.ico"]
+const skipMiddlewareRoutes = ["/api/auth", "/api/debug-session", "/api/health", "/api/status", "/_next", "/favicon.ico"]
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
