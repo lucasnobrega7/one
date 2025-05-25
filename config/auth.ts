@@ -25,21 +25,80 @@ export const config: NextAuthConfig = {
           return null
         }
         
-        // Simple validation for now
-        if (credentials.email === "admin@example.com" && credentials.password === "password") {
-          return {
-            id: "1",
-            name: "Admin User",
-            email: "admin@example.com",
+        try {
+          // Import Supabase client
+          const { createClient } = await import("@supabase/supabase-js")
+          const bcrypt = await import("bcryptjs")
+          
+          const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+          const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+          
+          if (!supabaseUrl || !supabaseServiceKey) {
+            console.error("Supabase credentials not configured")
+            return null
           }
+          
+          const supabase = createClient(supabaseUrl, supabaseServiceKey)
+          
+          // Find user by email
+          const { data: user, error } = await supabase
+            .from("users")
+            .select("id, email, name, password")
+            .eq("email", credentials.email)
+            .single()
+            
+          if (error || !user) {
+            console.error("User not found:", error)
+            return null
+          }
+          
+          // Verify password
+          const isValidPassword = await bcrypt.compare(credentials.password, user.password)
+          
+          if (!isValidPassword) {
+            console.error("Invalid password")
+            return null
+          }
+          
+          // Get user roles
+          const { data: userRoles } = await supabase
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", user.id)
+            
+          const roles = userRoles?.map(ur => ur.role) || []
+          
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            roles: roles,
+          }
+        } catch (error) {
+          console.error("Authentication error:", error)
+          return null
         }
-        
-        return null
       },
     }),
   ],
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.roles = user.roles
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id
+        session.user.roles = token.roles || []
+      }
+      return session
+    },
   },
   pages: {
     signIn: "/login",
