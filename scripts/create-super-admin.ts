@@ -6,8 +6,8 @@ import { Role } from "../lib/auth/permissions"
 // Função principal para criar o super administrador
 async function createSuperAdmin() {
   // Configurações do Supabase
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://faccixlabriqwxkxqprw.supabase.co"
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhY2NpeGxhYnJpcXd4a3hxcHJ3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODAyNzEyMiwiZXhwIjoyMDYzNjAzMTIyfQ.ZTY8KZxF_B2Isx5P4OKqRnryDSIeXGH4GK5hEX6nC7E"
 
   if (!supabaseUrl || !supabaseServiceKey) {
     console.error("Erro: Variáveis de ambiente do Supabase não configuradas!")
@@ -74,7 +74,7 @@ async function createSuperAdmin() {
 
     // Adicionar todas as roles disponíveis
     console.log("Adicionando roles de super-admin...")
-    const roles = Object.values(Role)
+    const roles: Role[] = ['admin', 'manager', 'user', 'viewer']
 
     const rolesToInsert = roles.map((role) => ({
       id: uuidv4(),
