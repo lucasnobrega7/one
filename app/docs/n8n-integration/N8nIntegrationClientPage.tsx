@@ -95,7 +95,7 @@ export default function N8nIntegrationClientPage() {
               <ol className="list-decimal pl-5">
                 <li className="mb-1">Adicione um nó de gatilho Webhook para receber dados do formulário</li>
                 <li className="mb-1">Adicione um nó Agentes de Conversão</li>
-                <li className="mb-1">Selecione a operação "Criar Agente"</li>
+                <li className="mb-1">Selecione a operação &quot;Criar Agente&quot;</li>
                 <li className="mb-1">Mapeie os campos do formulário para os campos do agente</li>
                 <li>Adicione um nó de notificação por e-mail para confirmar a criação</li>
               </ol>
@@ -293,7 +293,7 @@ export default function N8nIntegrationClientPage() {
                 <li className="mb-1">Adicione um nó de gatilho Google Drive para monitorar alterações em documentos</li>
                 <li className="mb-1">Adicione um nó Google Drive para baixar o documento atualizado</li>
                 <li className="mb-1">Adicione um nó Agentes de Conversão</li>
-                <li className="mb-1">Selecione a operação "Atualizar Base de Conhecimento"</li>
+                <li className="mb-1">Selecione a operação &quot;Atualizar Base de Conhecimento&quot;</li>
                 <li>Configure para enviar o documento baixado para a base de conhecimento</li>
               </ol>
 

@@ -11,14 +11,10 @@ import {
   Play, 
   Sparkles, 
   Zap, 
-  MessageSquare, 
   Bot,
-  Globe,
   BarChart3,
-  Shield,
   ChevronDown,
   Star,
-  CheckCircle,
   Menu,
   X
 } from "lucide-react"
@@ -511,8 +507,8 @@ export default function HomePageRevised() {
                   <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
                     <p className="text-sm text-gray-500 mb-2">💬 Última interação:</p>
                     <p className="text-gray-900 leading-relaxed">
-                      "Olá! Vi que você está interessado em nossos planos Enterprise. 
-                      Posso ajudar a encontrar a melhor solução para escalar seu negócio?"
+                      &quot;Olá! Vi que você está interessado em nossos planos Enterprise. 
+                      Posso ajudar a encontrar a melhor solução para escalar seu negócio?&quot;
                     </p>
                   </div>
                   
@@ -582,7 +578,7 @@ export default function HomePageRevised() {
                     ))}
                   </div>
                   <p className="text-gray-600 mb-6 leading-relaxed italic">
-                    "{testimonial.text}"
+                    &quot;{testimonial.text}&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
@@ -726,7 +722,7 @@ export default function HomePageRevised() {
                 title: 'Suporte',
                 links: ['Documentação', 'Central de Ajuda', 'Status', 'Comunidade', 'Treinamento']
               }
-            ].map((section, index) => (
+            ].map((section) => (
               <div key={section.title}>
                 <h4 className="font-semibold mb-6 text-white">{section.title}</h4>
                 <ul className="space-y-3">

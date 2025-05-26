@@ -49,6 +49,8 @@ export function Navigation() {
       document.addEventListener("click", handleClickOutside)
       return () => document.removeEventListener("click", handleClickOutside)
     }
+    
+    return undefined
   }, [userMenuOpen, mobileMenuOpen])
 
   const isActive = (path: string) => {

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ React Strict Mode
+  // ✅ React 19 + Strict Mode
   reactStrictMode: true,
   
   // ✅ NUNCA desabilitar em produção
@@ -8,23 +8,32 @@ const nextConfig = {
     ignoreDuringBuilds: false,
   },
   typescript: {
-    // Temporariamente ignorar erros de build para deploy
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 
-  // 🚀 Next.js 15 Features (corrigidas)
+  // 🚀 Next.js 15 Features
   experimental: {
-    // React Compiler desabilitado temporariamente (requer babel-plugin-react-compiler)
-    // reactCompiler: true,
-  },
-
-  // ✅ Webpack configuration for SVG
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack']
-    });
-    return config;
+    // React 19 Compiler para otimizações automáticas
+    reactCompiler: true,
+    
+    // Turbopack para desenvolvimento ultra-rápido
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
+    
+    // unstable_after API para execução pós-resposta
+    after: true,
+    
+    // Instrumentação estável
+    instrumentationHook: true,
+    
+    // Static Indicator para visualizar rotas estáticas
+    staticIndicator: true,
   },
 
   // ✅ Security Headers Avançados
@@ -54,6 +63,11 @@ const nextConfig = {
             key: 'X-Middleware-Subrequest-Protection',
             value: 'enabled',
           },
+          // Content Security Policy
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.agentesdeconversao.com.br https://*.supabase.co;",
+          },
         ],
       },
     ]
@@ -79,10 +93,13 @@ const nextConfig = {
     ],
     dangerouslyAllowSVG: false,
     contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   poweredByHeader: false,
-  transpilePackages: ["@supabase/ssr"],
+  
+  // ✅ Next.js 15: Caching otimizado
+  cacheHandler: process.env.NODE_ENV === 'production' ? require.resolve('./cache-handler.js') : undefined,
   
   // ✅ Compiler otimizations
   compiler: {

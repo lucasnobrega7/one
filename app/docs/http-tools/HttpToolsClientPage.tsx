@@ -142,7 +142,7 @@ export default function HttpToolsClientPage() {
                 <li className="mb-1">Insira a URL do seu endpoint</li>
                 <li className="mb-1">Selecione o tipo de evento que deseja simular</li>
                 <li className="mb-1">Personalize os dados do evento (opcional)</li>
-                <li>Clique em "Enviar Teste"</li>
+                <li>Clique em &quot;Enviar Teste&quot;</li>
               </ol>
             </CardContent>
           </Card>

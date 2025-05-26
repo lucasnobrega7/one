@@ -4,7 +4,7 @@ import { cookies } from "next/headers"
 export async function POST() {
   try {
     // Limpar todos os cookies relacionados à autenticação
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const authCookies = [
       "next-auth.session-token",
       "next-auth.callback-url",

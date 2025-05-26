@@ -2,7 +2,10 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { getToken } from "next-auth/jwt"
 
-// 🚀 Next.js 15: Configuração otimizada de rotas
+// 🚀 Next.js 15: Async Request APIs support
+type RouteHandler = (request: NextRequest) => Promise<NextResponse>
+
+// ✅ Public routes configuration
 const publicRoutes = new Set([
   "/", "/login", "/signup", "/auth/login", "/auth/signup", 
   "/auth/callback", "/auth/error", "/auth/forgot-password",
@@ -10,6 +13,7 @@ const publicRoutes = new Set([
   "/api/health", "/api/status"
 ])
 
+// ✅ Skip middleware routes
 const skipRoutes = new Set([
   "/api/auth", "/api/health", "/api/status", 
   "/_next", "/favicon.ico", "/public", "/.well-known"
@@ -30,7 +34,7 @@ function detectMiddlewareBypass(request: NextRequest): boolean {
   )
 }
 
-// ✅ Rate limiting
+// ✅ Rate limiting with Map
 const rateLimitStore = new Map<string, {
   count: number
   resetTime: number
@@ -59,6 +63,7 @@ function checkRateLimit(clientId: string): boolean {
   return true
 }
 
+// 🚀 Main middleware with Next.js 15 features
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl
   const clientId = request.ip ?? 
@@ -66,7 +71,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     request.headers.get('x-real-ip') ?? 
     'unknown'
   
-  // 🚨 CRITICAL: Block bypass attempts
+  // 🚨 CRITICAL: Block bypass attempts immediately
   if (detectMiddlewareBypass(request)) {
     console.error(`🚨 Security Alert: Middleware bypass attempt from ${clientId}`)
     
@@ -74,13 +79,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       JSON.stringify({
         error: "Security Violation",
         message: "Request blocked for security reasons",
-        code: "MIDDLEWARE_BYPASS_BLOCKED"
+        code: "MIDDLEWARE_BYPASS_BLOCKED",
+        timestamp: new Date().toISOString()
       }),
       {
         status: 403,
         headers: {
           "Content-Type": "application/json",
-          "X-Security-Event": "middleware-bypass-blocked"
+          "X-Security-Event": "middleware-bypass-blocked",
+          "X-Request-ID": crypto.randomUUID()
         }
       }
     )
@@ -98,13 +105,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         status: 429,
         headers: {
           "Content-Type": "application/json",
-          "Retry-After": "60"
+          "Retry-After": "60",
+          "X-RateLimit-Limit": "100",
+          "X-RateLimit-Remaining": "0"
         }
       }
     )
   }
 
-  // ✅ Skip static assets
+  // ✅ Skip static assets and specific routes
   if (
     skipRoutes.has(pathname) ||
     [...skipRoutes].some(route => pathname.startsWith(route)) ||
@@ -132,12 +141,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
     const isApiRoute = pathname.startsWith("/api/")
 
+    // ✅ Authentication required
     if (!token?.sub) {
       if (isApiRoute) {
         return new NextResponse(
           JSON.stringify({
             error: "Unauthorized",
-            message: "Authentication required"
+            message: "Authentication required",
+            code: "AUTH_REQUIRED"
           }),
           {
             status: 401,
@@ -156,34 +167,65 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       const userRole = (token as any).role || 'user'
       
       if (!['admin', 'super_admin'].includes(userRole)) {
+        if (isApiRoute) {
+          return new NextResponse(
+            JSON.stringify({
+              error: "Forbidden", 
+              message: "Insufficient permissions",
+              code: "INSUFFICIENT_PERMISSIONS"
+            }),
+            {
+              status: 403,
+              headers: { "Content-Type": "application/json" }
+            }
+          )
+        }
+        
         return NextResponse.redirect(new URL("/auth/access-denied", request.url))
       }
     }
 
-    // ✅ Response with security headers
+    // ✅ Create response with security headers
     const response = NextResponse.next()
     
+    // User context headers
     response.headers.set("x-user-id", token.sub)
     response.headers.set("x-user-email", token.email || "")
     response.headers.set("x-user-role", (token as any).role || "user")
+    
+    // Security headers
     response.headers.set("x-content-type-options", "nosniff")
     response.headers.set("x-frame-options", "DENY")
+    response.headers.set("x-request-id", crypto.randomUUID())
     
     return response
 
   } catch (error) {
-    console.error('Middleware error:', error)
+    console.error('Middleware authentication error:', error)
     
+    // Development mode fallback
     if (process.env.NODE_ENV === "development") {
+      console.warn('🚧 Dev mode: Bypassing auth error')
       return NextResponse.next()
     }
     
-    return NextResponse.redirect(new URL("/auth/error", request.url))
+    // Production error handling
+    const errorUrl = new URL(
+      pathname.startsWith("/api/") ? "/api/auth/error" : "/auth/error", 
+      request.url
+    )
+    
+    return NextResponse.redirect(errorUrl)
   }
 }
 
+// ✅ Optimized matcher for Next.js 15
 export const config = {
   matcher: [
+    /*
+     * Matcher otimizado para Next.js 15
+     * Exclui: api/auth, _next/static, _next/image, arquivos estáticos
+     */
     "/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.(?:ico|png|jpg|jpeg|svg|css|js|woff|woff2|ttf|eot|webp|avif)$).*)"
   ]
 }

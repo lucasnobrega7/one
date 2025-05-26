@@ -20,7 +20,7 @@ export default function N8nIntegrationPage() {
         <p>Para configurar a integração com o N8N, siga os passos abaixo:</p>
         <ol>
           <li>Instale o N8N em seu ambiente ou use o serviço hospedado n8n.io</li>
-          <li>Instale o nó "Agentes de Conversão" através do menu de nós do N8N</li>
+          <li>Instale o nó &quot;Agentes de Conversão&quot; através do menu de nós do N8N</li>
           <li>Configure suas credenciais de API no nó</li>
         </ol>
 

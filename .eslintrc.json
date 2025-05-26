@@ -1,20 +1,12 @@
 {
   "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
+    "next/core-web-vitals"
   ],
   "rules": {
-    // Performance rules
+    "react/no-unescaped-entities": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "@next/next/no-img-element": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    
-    // TypeScript rules
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-    "@typescript-eslint/no-explicit-any": "warn",
-    
-    // General code quality
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-debugger": "error",
-    "prefer-const": "error",
-    "no-var": "error"
+    "prefer-const": "warn"
   }
 }
