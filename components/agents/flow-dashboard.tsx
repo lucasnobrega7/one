@@ -27,9 +27,12 @@ import {
   Plus,
   Play,
   Pause,
-  Settings
+  Settings,
+  Cpu
 } from 'lucide-react'
 import { usePermissions } from '@/hooks/use-permissions'
+import { SmartAIClient } from '@/lib/ai/smart-ai-client'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 // Custom node types
 const customNodeTypes = {
@@ -40,9 +43,9 @@ const customNodeTypes = {
 }
 
 // Agent Node Component
-function AgentNode({ data }: { data: any }) {
+function AgentNode({ data, selected }: { data: any; selected?: boolean }) {
   return (
-    <Card className="min-w-[200px] border-2 border-blue-500 bg-blue-50 dark:bg-blue-950">
+    <Card className={`min-w-[240px] border-2 ${selected ? 'border-blue-600 ring-2 ring-blue-200' : 'border-blue-500'} bg-blue-50 dark:bg-blue-950`}>
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <Bot className="h-4 w-4 text-blue-600" />
@@ -52,10 +55,36 @@ function AgentNode({ data }: { data: any }) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 space-y-2">
         <p className="text-xs text-gray-600 dark:text-gray-400">
           {data.description}
         </p>
+        
+        {/* Model Selector */}
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            Modelo de IA:
+          </label>
+          <Select value={data.model || 'openai/gpt-4o-mini'}>
+            <SelectTrigger className="h-6 text-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="openai/gpt-4o-mini">GPT-4O Mini (Rápido)</SelectItem>
+              <SelectItem value="openai/gpt-4o">GPT-4O (Balanced)</SelectItem>
+              <SelectItem value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</SelectItem>
+              <SelectItem value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</SelectItem>
+              <SelectItem value="google/gemini-pro-1.5">Gemini Pro 1.5</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Provider Status */}
+        <div className="flex items-center gap-1">
+          <Cpu className="h-3 w-3 text-green-600" />
+          <span className="text-xs text-green-600">OpenRouter (87% margem)</span>
+        </div>
+        
         <div className="flex gap-1 mt-2">
           <Button size="sm" variant="outline">
             <Settings className="h-3 w-3" />
@@ -199,9 +228,34 @@ export function FlowDashboard() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const [isRunning, setIsRunning] = useState(false)
+  const [aiClient, setAIClient] = useState<SmartAIClient | null>(null)
+  const [availableModels, setAvailableModels] = useState<any[]>([])
   const permissions = usePermissions()
   const canCreateAgents = true
   const canManageIntegrations = true
+
+  // Inicializar AI Client
+  useEffect(() => {
+    const client = new SmartAIClient({
+      openrouter: {
+        apiKey: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY || '',
+        enabled: true,
+      },
+      openai: {
+        apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || '',
+        enabled: true,
+      },
+      fallback: {
+        enabled: true,
+        retries: 3,
+      },
+    })
+
+    setAIClient(client)
+    
+    // Carregar modelos disponíveis
+    client.loadAvailableModels().then(setAvailableModels)
+  }, [])
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
@@ -215,8 +269,9 @@ export function FlowDashboard() {
       position: { x: Math.random() * 500, y: Math.random() * 300 },
       data: {
         label: 'Novo Agente',
-        description: 'Configurar agente...',
-        status: 'inactive'
+        description: 'Agente com OpenRouter + 300 modelos',
+        status: 'inactive',
+        model: 'openai/gpt-4o-mini'
       },
     }
     setNodes((nds) => [...nds, newNode])
@@ -273,9 +328,13 @@ export function FlowDashboard() {
       </div>
 
       {/* Flow Status */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 right-4 z-10 flex gap-2">
         <Badge variant={isRunning ? "default" : "secondary"}>
           {isRunning ? 'Fluxo Ativo' : 'Fluxo Parado'}
+        </Badge>
+        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          <Cpu className="h-3 w-3 mr-1" />
+          OpenRouter Active
         </Badge>
       </div>
 
