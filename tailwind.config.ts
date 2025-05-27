@@ -72,6 +72,31 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Dark-tech elegante - Enhanced Surface colors
+        surface: {
+          base: '#0e0e10',    // bg overall
+          raised: '#1a1a1d',  // cards 
+          stroke: '#27272a',  // borda sutil
+          hover: '#2a2a2e',   // hover states
+          active: '#34343a',  // active states
+        },
+        // Dark-tech elegante - Enhanced Accent colors
+        accent: {
+          start: '#46B2E0',   // cyan
+          mid: '#8A53D2',     // purple  
+          end: '#E056A0',     // pink
+          50: '#f0f9ff',
+          100: '#e0f2fe', 
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

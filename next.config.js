@@ -11,12 +11,24 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // ✅ Transpile packages necessários
-  transpilePackages: ["@supabase/ssr"],
+  // ✅ Experimental features otimizadas para App Router
+  experimental: {
+    optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react', '@xyflow/react'],
+    typedRoutes: true,
+  },
 
-  // ✅ Configurações básicas de otimização
+  // ✅ Transpile packages necessários (App Router bundling)
+  transpilePackages: ["@supabase/ssr"],
+  
+  // ✅ Bundle optimization para produção
+  bundlePagesRouterDependencies: true,
+  serverExternalPackages: ['@node-rs/argon2', '@node-rs/bcrypt'],
+
+  // ✅ Configurações avançadas de otimização
   images: {
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       {
         protocol: 'https',
@@ -26,10 +38,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.vercel.app',
+      },
     ],
   },
 
-  // ✅ Headers de segurança básicos
+  // ✅ Enhanced security headers
   async headers() {
     return [
       {
@@ -42,6 +58,14 @@ const nextConfig = {
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
           },
         ],
       },
@@ -56,6 +80,13 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn']
     } : false,
+  },
+
+  // ✅ Logging para debugging em produção
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 }
 

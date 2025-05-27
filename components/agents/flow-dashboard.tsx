@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useMemo } from 'react'
 import {
   ReactFlow,
   MiniMap,
@@ -17,6 +17,11 @@ import {
   Position,
   ConnectionLineType,
   ConnectionMode,
+  useConnection,
+  useReactFlow,
+  ReactFlowProvider,
+  type NodeTypes,
+  type EdgeTypes,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -38,8 +43,8 @@ import { usePermissions } from '@/hooks/use-permissions'
 import { SmartAIClient } from '@/lib/ai/smart-ai-client'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-// Custom node types
-const customNodeTypes = {
+// Custom node types - using NodeTypes for better type safety
+const customNodeTypes: NodeTypes = {
   agent: AgentNode,
   trigger: TriggerNode,
   action: ActionNode,
@@ -271,7 +276,23 @@ const initialEdges: Edge[] = [
   },
 ]
 
-export function FlowDashboard() {
+// Enhanced validation function
+const isValidConnection = (connection: Connection): boolean => {
+  // Prevent self-connections
+  if (connection.source === connection.target) return false
+  
+  // Only allow specific connection patterns
+  const sourceType = connection.sourceHandle?.split('-')[0]
+  const targetType = connection.targetHandle?.split('-')[0]
+  
+  // Business logic: triggers can only connect to agents, agents to actions/integrations
+  if (sourceType === 'trigger' && targetType !== 'agent') return false
+  if (sourceType === 'agent' && !['action', 'integration'].includes(targetType || '')) return false
+  
+  return true
+}
+
+function FlowDashboardInner() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const [isRunning, setIsRunning] = useState(false)
@@ -280,6 +301,13 @@ export function FlowDashboard() {
   const permissions = usePermissions()
   const canCreateAgents = true
   const canManageIntegrations = true
+  
+  // Use React Flow hooks for better control
+  const { fitView, setCenter } = useReactFlow()
+  const connection = useConnection()
+  
+  // Memoize node types for performance
+  const nodeTypes = useMemo(() => customNodeTypes, [])
 
   // Inicializar AI Client
   useEffect(() => {
@@ -305,9 +333,30 @@ export function FlowDashboard() {
   }, [])
 
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) => {
+      if (isValidConnection(params)) {
+        setEdges((eds) => addEdge(params, eds))
+      }
+    },
     [setEdges]
   )
+  
+  // Enhanced node update function with immutable updates (React Flow v12+)
+  const updateNodeData = useCallback((nodeId: string, newData: any) => {
+    setNodes((nds) =>
+      nds.map((node) => 
+        node.id === nodeId 
+          ? { ...node, data: { ...node.data, ...newData } }
+          : node
+      )
+    )
+  }, [setNodes])
+  
+  // Delete handler for selected nodes and edges
+  const onDelete = useCallback((nodesToDelete: Node[], edgesToDelete: Edge[]) => {
+    console.log('Deleted nodes:', nodesToDelete.length, 'edges:', edgesToDelete.length)
+    // Additional cleanup logic here if needed
+  }, [])
 
   const addNewAgent = () => {
     const newNode: Node = {
@@ -330,7 +379,7 @@ export function FlowDashboard() {
   }
 
   useEffect(() => {
-    // Simular atualizações em tempo real do status dos agentes
+    // Simular atualizações em tempo real do status dos agentes - usando immutable updates
     const interval = setInterval(() => {
       if (isRunning) {
         setNodes((nds) =>
@@ -352,6 +401,13 @@ export function FlowDashboard() {
 
     return () => clearInterval(interval)
   }, [isRunning, setNodes])
+  
+  // Auto-fit view when nodes change
+  useEffect(() => {
+    if (nodes.length > 0) {
+      setTimeout(() => fitView({ duration: 800 }), 100)
+    }
+  }, [nodes.length, fitView])
 
   return (
     <div className="w-full h-[600px] relative">
@@ -385,38 +441,64 @@ export function FlowDashboard() {
         </Badge>
       </div>
 
-      {/* ReactFlow Canvas */}
+      {/* ReactFlow Canvas - Enhanced with v12+ features */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        nodeTypes={customNodeTypes}
+        onDelete={onDelete}
+        nodeTypes={nodeTypes}
+        isValidConnection={isValidConnection}
         nodesDraggable={true}
         nodesConnectable={true}
         elementsSelectable={true}
         className="bg-[#0e0e10]"
         fitView
+        fitViewOptions={{ 
+          padding: 0.2, 
+          includeHiddenNodes: false,
+          duration: 800 
+        }}
         panOnDrag={true}
         selectNodesOnDrag={false}
         connectionLineType={ConnectionLineType.SmoothStep}
         connectionMode={ConnectionMode.Loose}
+        multiSelectionKeyCode="Shift"
+        deleteKeyCode="Delete"
+        selectionKeyCode="Shift"
+        proOptions={{ hideAttribution: true }}
       >
-        <Controls />
+        <Controls 
+          position="bottom-right"
+          showInteractive={false}
+        />
         <MiniMap 
           nodeStrokeColor="#27272a"
           nodeColor="#1a1a1d"
           nodeBorderRadius={8}
           className="bg-[#0e0e10] border border-[#27272a]"
+          position="bottom-left"
+          ariaLabel="Flow minimap"
         />
         <Background 
           variant={BackgroundVariant.Dots} 
           gap={20} 
           size={1}
           color="#27272a"
+          patternClassName="opacity-50"
         />
       </ReactFlow>
     </div>
+  )
+}
+
+// Main component wrapped with ReactFlowProvider for v12+ compatibility
+export function FlowDashboard() {
+  return (
+    <ReactFlowProvider>
+      <FlowDashboardInner />
+    </ReactFlowProvider>
   )
 }
