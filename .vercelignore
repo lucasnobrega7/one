@@ -8,6 +8,3 @@ railway.toml
 Dockerfile
 .env.local
 .env.development
-prisma/
-scripts/
-docs/
