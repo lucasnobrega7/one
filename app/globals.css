@@ -489,19 +489,28 @@
   @apply w-6 h-6 border-2 border-gray-600 border-t-white rounded-full animate-spin;
 }
 
-/* Typography OpenAI */
+/* Typography OpenAI Light Theme */
 .openai-heading {
-  @apply font-bold text-white;
+  @apply font-bold text-slate-900;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .openai-body {
-  @apply text-gray-300;
+  @apply text-slate-600;
   line-height: 1.6;
 }
 
 .openai-caption {
-  @apply text-gray-400 text-sm;
+  @apply text-slate-500 text-sm;
   line-height: 1.4;
+}
+
+/* Heroicons e SVG Icons */
+.openai-icon {
+  @apply text-indigo-500;
+}
+
+.openai-icon-lg {
+  @apply h-12 w-12 text-indigo-600;
 }

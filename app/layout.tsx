@@ -33,11 +33,11 @@ export default async function RootLayout({
   const session = await auth()
 
   return (
-    <html lang="pt-BR" className={`${inter.className} dark`} suppressHydrationWarning>
-      <body className="bg-surface-base text-white min-h-screen font-sans antialiased">
+    <html lang="pt-BR" className={inter.className} suppressHydrationWarning>
+      <body className="bg-white text-slate-900 min-h-screen font-sans antialiased">
         <ErrorBoundary>
           <AuthProvider>
-            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
               <GlobalErrorHandler>
                 {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
                 <div className="flex flex-col min-h-screen">

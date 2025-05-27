@@ -16,27 +16,52 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // OpenAI Official Color System
+        // OpenAI 2025 Rebrand Color System
         openai: {
+          // Core Identity Colors (2025)
           black: "#000000",
           white: "#FFFFFF",
+          
+          // Grays and Blues Base (evocam horizontes, céus e espaço expansivo)
           gray: {
-            50: "#F9FAFB",
-            100: "#F3F4F6",
-            200: "#E5E7EB",
-            300: "#D1D5DB",
-            400: "#9CA3AF",
-            500: "#6B7280",
-            600: "#4B5563",
-            700: "#374151",
-            800: "#1F2937",
-            900: "#111827",
-            950: "#030712"
+            50: "#FAFBFC",   // Horizonte claro
+            100: "#F5F6F7",  // Céu matinal  
+            200: "#E8EAED",  // Névoa suave
+            300: "#DADCE0",  // Nuvem distante
+            400: "#9AA0A6",  // Crepúsculo
+            500: "#5F6368",  // Céu nublado
+            600: "#3C4043",  // Fim de tarde
+            700: "#202124",  // Noite chegando
+            800: "#171717",  // Espaço profundo
+            900: "#0D0D0D",  // Cosmos infinito
+            950: "#000000"   // Vazio absoluto
           },
-          blue: "#3B82F6",
-          green: "#10B981",
-          purple: "#8B5CF6",
-          orange: "#F59E0B"
+          
+          // Paleta Horizon (inspirada em "horizontes, céus e espaço expansivo")
+          horizon: {
+            sky: "#E3F2FD",      // Céu de manhã
+            dawn: "#BBDEFB",     // Aurora
+            day: "#90CAF9",      // Meio-dia
+            dusk: "#64B5F6",     // Entardecer
+            night: "#42A5F5",    // Noite estrelada
+            deep: "#2196F3",     // Profundidade oceânica
+            void: "#1976D2",     // Vazio cósmico
+          },
+          
+          // Primary Contrasting Colors (2025)
+          blue: "#2196F3",      // Azul principal 2025
+          cyan: "#00BCD4",      // Ciano vibrante
+          purple: "#9C27B0",    // Roxo contrastante
+          indigo: "#3F51B5",    // Índigo profundo
+          
+          // Accent Colors (vivid)
+          accent: {
+            electric: "#00E5FF", // Elétrico
+            violet: "#D500F9",   // Violeta vívido
+            emerald: "#00C853",  // Esmeralda
+            amber: "#FFC107",    // Âmbar
+            coral: "#FF5722",    // Coral
+          }
         },
         // Manter cores existentes para compatibilidade
         immersive: {
@@ -178,8 +203,8 @@ const config: Config = {
         'openai': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       fontFamily: {
-        // Open Sans como fonte única do sistema baseado na documentação oficial
-        sans: ['"Open Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        // Inter como fonte principal OpenAI
+        sans: ['"Inter"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
       },
       fontSize: {
@@ -211,6 +236,84 @@ const config: Config = {
         },
         '.transition-openai-slow': {
           'transition': 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        // Classes de estilo OpenAI 2025
+        '.openai-nav': {
+          'backdrop-filter': 'blur(12px)',
+          'background': 'rgba(0, 0, 0, 0.8)',
+          'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.openai-card': {
+          'background': 'rgba(255, 255, 255, 0.02)',
+          'border': '1px solid rgba(255, 255, 255, 0.08)',
+          'border-radius': '12px',
+          'backdrop-filter': 'blur(8px)',
+        },
+        '.openai-card-elevated': {
+          'background': 'rgba(255, 255, 255, 0.04)',
+          'border': '1px solid rgba(255, 255, 255, 0.12)', 
+          'border-radius': '12px',
+          'backdrop-filter': 'blur(12px)',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        },
+        '.openai-card-interactive': {
+          'background': 'rgba(255, 255, 255, 0.02)',
+          'border': '1px solid rgba(255, 255, 255, 0.08)',
+          'border-radius': '12px',
+          'backdrop-filter': 'blur(8px)',
+          'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          'cursor': 'pointer',
+        },
+        '.openai-card-interactive:hover': {
+          'background': 'rgba(255, 255, 255, 0.06)',
+          'border-color': 'rgba(255, 255, 255, 0.16)',
+          'transform': 'translateY(-2px)',
+          'box-shadow': '0 12px 40px rgba(0, 0, 0, 0.15)',
+        },
+        '.btn-openai-primary': {
+          'background': 'linear-gradient(135deg, #46B2E0 0%, #8A53D2 100%)',
+          'border': '1px solid transparent',
+          'border-radius': '12px',
+          'color': 'white',
+          'font-weight': '600',
+          'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        '.btn-openai-primary:hover': {
+          'background': 'linear-gradient(135deg, #3da3d1 0%, #7b4bc3 100%)',
+          'transform': 'translateY(-1px)',
+          'box-shadow': '0 8px 24px rgba(70, 178, 224, 0.3)',
+        },
+        '.btn-openai-secondary': {
+          'background': 'rgba(255, 255, 255, 0.08)',
+          'border': '1px solid rgba(255, 255, 255, 0.16)',
+          'border-radius': '12px',
+          'color': 'white',
+          'backdrop-filter': 'blur(8px)',
+          'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        '.btn-openai-secondary:hover': {
+          'background': 'rgba(255, 255, 255, 0.12)',
+          'border-color': 'rgba(255, 255, 255, 0.24)',
+        },
+        '.btn-openai-ghost': {
+          'background': 'transparent',
+          'border': '1px solid transparent',
+          'border-radius': '12px',
+          'color': 'rgba(255, 255, 255, 0.8)',
+          'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        '.btn-openai-ghost:hover': {
+          'background': 'rgba(255, 255, 255, 0.06)',
+          'color': 'white',
+        },
+        '.elevation-1': {
+          'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.1)',
+        },
+        '.elevation-2': {
+          'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.12)',
+        },
+        '.elevation-3': {
+          'box-shadow': '0 8px 24px rgba(0, 0, 0, 0.15)',
         },
       })
     }

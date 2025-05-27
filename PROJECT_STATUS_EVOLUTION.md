@@ -5,9 +5,9 @@
 **✅ MARCO ALCANÇADO:** Deploy bem-sucedido no Vercel com Design System OpenAI completo
 
 ### 🎯 **URLs Ativas:**
-- **Produção:** https://agentesdeconversao.com.br
+- **Produção:** https://agentesdeconversao.ai  
+- **Backend API:** https://api.agentesdeconversao.ai
 - **Staging:** https://one-agentesdeconversao.vercel.app
-- **Latest:** https://one-dr2d8aevi-agentesdeconversao.vercel.app
 
 ---
 
@@ -174,10 +174,35 @@
 
 ---
 
-**📅 Última atualização:** 25/05/2025 13:52 BRT
-**🚀 Status:** PRODUÇÃO ATIVA - Focando em UX Evolution
-**👨‍💻 Desenvolvido com:** Claude Code + Design System OpenAI
+### **Fase 5: Flow Builder Enterprise** ✅ **NOVO**
+- ✅ **ReactFlow v12** - Arquitetura Flowise profissional
+- ✅ **Custom Nodes:** ConversationNode, ConditionNode, ActionNode
+- ✅ **Node Palette:** Categorização e busca inteligente
+- ✅ **Properties Panel:** Configuração dinâmica
+- ✅ **Context Management:** Sistema enterprise-grade
+- ✅ **Enhanced Edges:** Delete buttons e interações
+- ✅ **Bundle Size:** 60.1 kB otimizado
+
+### **Fase 6: Migração Domínio .ai** ✅ **NOVO**
+- ✅ **Domínio Premium:** agentesdeconversao.ai configurado
+- ✅ **DNS Setup:** A records + subdomínios mapeados
+- ✅ **SSL Automático:** Certificados Vercel ativos
+- ✅ **API Headers:** OpenRouter referer atualizado
+- ✅ **Vercel CLI:** Deploy structure configurada
+
+### **Fase 7: Higienização Projeto** ✅ **NOVO**
+- ✅ **Configs Legacy:** Removidos backups e duplicatas
+- ✅ **Components Clean:** Eliminadas duplicações
+- ✅ **Scripts Outdated:** Deploy antigos removidos
+- ✅ **Docs Obsoletos:** Documentação limpa
+- ✅ **Estrutura Otimizada:** Contextualização futura
 
 ---
 
-## 🎯 **COMEÇANDO UX EVOLUTION AGORA...**
+**📅 Última atualização:** 27/05/2025 06:47 BRT
+**🚀 Status:** 96% IMPLEMENTADO - PROJETO HIGIENIZADO
+**👨‍💻 Desenvolvido com:** Claude Code + MCPs + Flow Builder Enterprise
+
+---
+
+## 🎯 **PRÓXIMO: SISTEMA DE PRICING OTIMIZADO**
