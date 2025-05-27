@@ -14,10 +14,26 @@ export default function FixDomainPage() {
   const fixMainDomain = async () => {
     try {
       setFixing(true)
+      console.log('Iniciando correção do domínio...')
+      
       const response = await fetch('/api/admin/fix-domain', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
+      
+      console.log('Response status:', response.status)
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()))
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Response error:', errorText)
+        throw new Error(`HTTP ${response.status}: ${errorText}`)
+      }
+      
       const result = await response.json()
+      console.log('API result:', result)
       
       setResult(result)
       
@@ -31,9 +47,13 @@ export default function FixDomainPage() {
       }
     } catch (error) {
       console.error('Error fixing domain:', error)
+      setResult({
+        success: false,
+        error: error instanceof Error ? error.message : 'Erro desconhecido'
+      })
       toast({
         title: 'Erro',
-        description: 'Falha na correção do domínio principal',
+        description: error instanceof Error ? error.message : 'Falha na correção do domínio principal',
         variant: 'destructive'
       })
     } finally {
