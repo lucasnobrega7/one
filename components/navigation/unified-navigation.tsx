@@ -51,7 +51,7 @@ const subdomains: SubdomainConfig[] = [
       : 'http://localhost:3000',
     icon: Home,
     description: 'Landing page e marketing',
-    external: true
+    external: process.env.NODE_ENV === 'production'
   },
   {
     key: 'dash',

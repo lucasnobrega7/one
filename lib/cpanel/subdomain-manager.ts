@@ -26,35 +26,35 @@ export class SubdomainManager {
     {
       name: 'lp',
       description: 'Landing Page & Marketing',
-      vercelUrl: process.env.VERCEL_URL || 'agentesdeconversao.vercel.app',
+      vercelUrl: 'lp.agentesdeconversao.ai',
       required: true,
       path: '/'
     },
     {
       name: 'login',
       description: 'Authentication System',
-      vercelUrl: process.env.VERCEL_URL || 'agentesdeconversao.vercel.app',
+      vercelUrl: 'login.agentesdeconversao.ai',
       required: true,
       path: '/auth'
     },
     {
       name: 'dash',
       description: 'Dashboard & Main App',
-      vercelUrl: process.env.VERCEL_URL || 'agentesdeconversao.vercel.app', 
+      vercelUrl: 'dash.agentesdeconversao.ai', 
       required: true,
       path: '/dashboard'
     },
     {
       name: 'docs',
       description: 'Documentation & Guides',
-      vercelUrl: process.env.VERCEL_URL || 'agentesdeconversao.vercel.app',
+      vercelUrl: 'docs.agentesdeconversao.ai',
       required: true,
       path: '/docs'
     },
     {
       name: 'api',
       description: 'Backend API',
-      vercelUrl: process.env.VERCEL_URL || 'agentesdeconversao.vercel.app',
+      vercelUrl: 'api.agentesdeconversao.ai',
       required: true,
       path: '/api'
     }

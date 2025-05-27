@@ -40,6 +40,7 @@ export default function SubdomainsPage() {
   const [data, setData] = useState<SubdomainData | null>(null)
   const [loading, setLoading] = useState(true)
   const [deploying, setDeploying] = useState(false)
+  const [fixingDomain, setFixingDomain] = useState(false)
   const { toast } = useToast()
 
   const fetchSubdomainStatus = async () => {
@@ -94,6 +95,35 @@ export default function SubdomainsPage() {
     }
   }
 
+  const fixMainDomain = async () => {
+    try {
+      setFixingDomain(true)
+      const response = await fetch('/api/admin/fix-domain', {
+        method: 'POST'
+      })
+      const result = await response.json()
+      
+      if (result.success) {
+        toast({
+          title: 'Sucesso',
+          description: 'Domínio principal corrigido! Aguarde propagação DNS.',
+        })
+        await fetchSubdomainStatus()
+      } else {
+        throw new Error(result.error || 'Domain fix failed')
+      }
+    } catch (error) {
+      console.error('Error fixing domain:', error)
+      toast({
+        title: 'Erro',
+        description: 'Falha na correção do domínio principal',
+        variant: 'destructive'
+      })
+    } finally {
+      setFixingDomain(false)
+    }
+  }
+
   useEffect(() => {
     fetchSubdomainStatus()
     const interval = setInterval(fetchSubdomainStatus, 30000)
@@ -135,6 +165,19 @@ export default function SubdomainsPage() {
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Atualizar
+          </Button>
+          
+          <Button
+            onClick={fixMainDomain}
+            disabled={fixingDomain || loading}
+            className="bg-red-600 hover:bg-red-700"
+          >
+            {fixingDomain ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Settings className="w-4 h-4 mr-2" />
+            )}
+            Corrigir Domínio Principal
           </Button>
           
           <Button
