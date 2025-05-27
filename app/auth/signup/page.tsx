@@ -3,8 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
-import { createClient } from '@/lib/database/supabase-utils/client'
+import { useSupabase } from '@/components/supabase-provider'
+import { createClient } from '@/lib/supabase/client'
 import { AlertCircle, Check } from "lucide-react"
 import { AbstractBackground } from "@/components/visual/abstract-background"
 import { OpenAIButton } from "@/components/visual/openai-button"
@@ -35,18 +35,7 @@ export default function SignupPage() {
       })
 
       if (supabaseError) {
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password }),
-        })
-
-        const responseData = await response.json()
-        if (!response.ok) {
-          throw new Error(responseData.message || "Erro ao criar conta")
-        }
-
-        await signIn("credentials", { redirect: false, email, password })
+        throw new Error(supabaseError.message || "Erro ao criar conta")
       }
 
       // Show welcome screen before dashboard
@@ -220,7 +209,8 @@ export default function SignupPage() {
                       })
                       
                       if (error) {
-                        signIn("google", { callbackUrl: "/dashboard" })
+                        console.error('OAuth error:', error)
+                        setError('Erro ao fazer login com Google')
                       }
                     }}
                     className="w-full justify-center"

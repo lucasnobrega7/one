@@ -3,100 +3,279 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("NEON_DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
 }
 
-model User {
-  id            String         @id @default(cuid())
-  name          String?
-  email         String?        @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?        // Campo adicionado para autenticação
-  accounts      Account[]
-  sessions      Session[]
+// Multi-tenant Organization model (inspired by Chatvolt)
+model Organization {
+  id       String  @id @default(uuid())
+  name     String
+  icon_url String?
+  
+  // Relations
   agents        Agent[]
-  conversations Conversation[]
+  datastores    Datastore[]
+  memberships   Membership[]
+  api_keys      ApiKey[]
+  usage         Usage?
+  
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  
+  @@map("organizations")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
+model Membership {
+  id   String         @id @default(uuid())
+  role MembershipRole @default(MEMBER)
+  
+  organization_id String       
+  organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  
+  user_id String?
+  user    User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  // Invitation fields
+  invited_email String?
+  invited_token String?
+  
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  
+  @@unique([organization_id, user_id])
+  @@unique([organization_id, invited_email])
+  @@map("memberships")
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// Supabase Auth compatible User model
+model User {
+  id              String         @id @default(uuid())
+  email           String         @unique
+  name            String?
+  avatar_url      String?
+  email_verified  DateTime?
+  
+  // Relations
+  conversations   Conversation[]
+  analytics       Analytics[]
+  memberships     Membership[]
+  usage           Usage?
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("users")
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+enum MembershipRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
 
+// AI Agents (enhanced with Chatvolt features)
 model Agent {
-  id             String         @id @default(cuid())
-  name           String
-  description    String?
-  systemPrompt   String?        @db.Text
-  modelId        String?
-  temperature    Float?
-  userId         String
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  knowledgeBase  KnowledgeBase? @relation(fields: [knowledgeBaseId], references: [id])
-  knowledgeBaseId String?
-  conversations  Conversation[]
+  id              String         @id @default(uuid())
+  name            String
+  description     String
+  system_prompt   String?        @db.Text
+  user_prompt     String?        @db.Text
+  model_name      AgentModelName @default(gpt_3_5_turbo)
+  temperature     Float          @default(0.7)
+  max_tokens      Int?           @default(1000)
+  include_sources Boolean        @default(true)
+  restrict_knowledge Boolean     @default(true)
+  icon_url        String?
+  is_active       Boolean        @default(true)
+  
+  // Multi-tenant
+  organization_id String?        
+  organization    Organization?  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  
+  // Relations
+  datastore_id    String?
+  datastore       Datastore?     @relation(fields: [datastore_id], references: [id])
+  conversations   Conversation[]
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("agents")
 }
 
-model KnowledgeBase {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  indexName   String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  agents      Agent[]
+enum AgentModelName {
+  gpt_3_5_turbo
+  gpt_4
+  gpt_4_turbo
+  gpt_4o
+  claude_3_haiku
+  claude_3_sonnet
+  claude_3_opus
 }
 
+
+// Conversations
 model Conversation {
-  id        String    @id @default(cuid())
-  agentId   String
-  userId    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  agent     Agent     @relation(fields: [agentId], references: [id], onDelete: Cascade)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  messages  Message[]
+  id              String         @id @default(uuid())
+  agent_id        String
+  user_id         String
+  title           String?
+  summary         String?
+  status          String         @default("active") // active, archived, deleted
+  metadata        Json?
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  // Relations
+  agent           Agent          @relation(fields: [agent_id], references: [id], onDelete: Cascade)
+  user            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  messages        Message[]
+  
+  @@map("conversations")
 }
 
+// Messages in conversations
 model Message {
-  id             String       @id @default(cuid())
-  conversationId String
-  content        String       @db.Text
-  role           String
-  createdAt      DateTime     @default(now())
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  id                String         @id @default(uuid())
+  conversation_id   String
+  content           String         @db.Text
+  role              String         // user, assistant, system
+  tokens_used       Int?
+  model_used        String?
+  metadata          Json?
+  created_at        DateTime       @default(now())
+  
+  // Relations
+  conversation      Conversation   @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+  
+  @@map("messages")
+}
+
+// Datastore model (inspired by Chatvolt)
+model Datastore {
+  id              String         @id @default(uuid())
+  name            String
+  description     String?
+  type            DatastoreType  @default(text)
+  config          Json?
+  
+  // Multi-tenant
+  organization_id String         
+  organization    Organization   @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  
+  // Relations
+  agents          Agent[]
+  datasources     Datasource[]
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("datastores")
+}
+
+enum DatastoreType {
+  text
+  qa
+  web_page
+  web_site
+  file
+}
+
+// Datasources (files, URLs, etc.)
+model Datasource {
+  id              String         @id @default(uuid())
+  datastore_id    String
+  type            DatasourceType
+  name            String
+  config          Json?
+  status          DatasourceStatus @default(unsynched)
+  
+  // Relations
+  datastore       Datastore      @relation(fields: [datastore_id], references: [id], onDelete: Cascade)
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("datasources")
+}
+
+enum DatasourceType {
+  file
+  web_page
+  web_site
+  text
+}
+
+enum DatasourceStatus {
+  unsynched
+  pending
+  running
+  synched
+  error
+}
+
+// API Keys for external integrations
+model ApiKey {
+  id              String         @id @default(uuid())
+  name            String
+  key             String         @unique
+  organization_id String         
+  organization    Organization   @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("api_keys")
+}
+
+// Usage tracking for billing
+model Usage {
+  id              String         @id @default(uuid())
+  user_id         String?        @unique
+  organization_id String?        @unique
+  
+  // Monthly usage
+  nbAgentQueries  Int            @default(0)
+  nbDataProcessed Int            @default(0)
+  nbModelTokens   Int            @default(0)
+  
+  // Relations
+  user            User?          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  organization    Organization?  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  @@map("usage")
+}
+
+// Analytics and metrics
+model Analytics {
+  id              String         @id @default(uuid())
+  user_id         String
+  event_type      String         // conversation_started, message_sent, agent_created, etc.
+  event_data      Json?
+  timestamp       DateTime       @default(now())
+  
+  // Relations
+  user            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@map("analytics")
+}
+
+// API usage tracking
+model ApiUsage {
+  id              String         @id @default(uuid())
+  user_id         String?
+  endpoint        String
+  method          String
+  tokens_used     Int?
+  cost_usd        Decimal?       @db.Decimal(10, 6)
+  response_time   Int?           // milliseconds
+  status_code     Int
+  timestamp       DateTime       @default(now())
+  
+  @@map("api_usage")
 }

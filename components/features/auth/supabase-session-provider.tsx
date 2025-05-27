@@ -1,16 +1,13 @@
 "use client"
 
 import type React from "react"
-import { useSession } from "next-auth/react"
+import { useSupabase } from "@/components/supabase-provider"
 import { useEffect, useState } from "react"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 export function SupabaseSessionProvider({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession()
+  const { user, loading } = useSupabase()
   const [error, setError] = useState<string | null>(null)
-
-  // We'll avoid creating the Supabase client if the URL is invalid
-  // This way the app can still function with just NextAuth
 
   useEffect(() => {
     // Check if Supabase URL is valid
@@ -23,7 +20,6 @@ export function SupabaseSessionProvider({ children }: { children: React.ReactNod
   }, [])
 
   // If there's an error, show it but still render children
-  // This allows the app to function with just NextAuth
   return (
     <>
       {error && (

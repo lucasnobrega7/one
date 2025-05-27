@@ -2,13 +2,11 @@ import type React from "react"
 import { ThemeProvider } from "@/components/common/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { Toaster as SonnerToaster } from "sonner"
-import { AuthProvider } from "@/components/auth-provider"
+import SupabaseProvider from "@/components/supabase-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
 import { Footer } from "@/components/ui/footer"
 import { Inter } from "next/font/google"
-import Link from "next/link"
-import { auth } from "@/config/auth"
 import "./globals.css"
 
 const defaultUrl = process.env.VERCEL_URL
@@ -26,18 +24,16 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const session = await auth()
-
   return (
     <html lang="pt-BR" className={inter.className} suppressHydrationWarning>
       <body className="bg-white text-slate-900 min-h-screen font-sans antialiased">
         <ErrorBoundary>
-          <AuthProvider>
+          <SupabaseProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
               <GlobalErrorHandler>
                 {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
@@ -57,7 +53,7 @@ export default async function RootLayout({
                 closeButton
               />
             </ThemeProvider>
-          </AuthProvider>
+          </SupabaseProvider>
         </ErrorBoundary>
       </body>
     </html>

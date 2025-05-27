@@ -2,7 +2,6 @@
 
 import type React from "react"
 
-import { SessionProvider } from "next-auth/react"
 import { SupabaseSessionProvider } from "@/components/features/auth/supabase-session-provider"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { useState, useEffect } from "react"
@@ -39,24 +38,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <SessionProvider>
-      <SupabaseSessionProvider>
-        {envError && (
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-            <Alert variant="destructive">
-              <AlertTitle>Environment Configuration Error</AlertTitle>
-              <AlertDescription className="text-sm">
-                {envError}
-                <div className="mt-2">
-                  Please update your <code className="bg-muted px-1 py-0.5 rounded">.env.local</code> file with valid
-                  values.
-                </div>
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
-        {children}
-      </SupabaseSessionProvider>
-    </SessionProvider>
+    <SupabaseSessionProvider>
+      {envError && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+          <Alert variant="destructive">
+            <AlertTitle>Environment Configuration Error</AlertTitle>
+            <AlertDescription className="text-sm">
+              {envError}
+              <div className="mt-2">
+                Please update your <code className="bg-muted px-1 py-0.5 rounded">.env.local</code> file with valid
+                values.
+              </div>
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      {children}
+    </SupabaseSessionProvider>
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "next-auth/react"
+import { useSupabase } from '@/components/supabase-provider'
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -20,6 +20,7 @@ export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
+  const { supabase } = useSupabase()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,13 +28,12 @@ export default function LoginForm() {
     setError("")
 
     try {
-      const result = await signIn("credentials", {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
-        redirect: false,
       })
 
-      if (result?.error) {
+      if (signInError) {
         setError("Email ou senha incorretos")
       } else {
         router.push(callbackUrl)
@@ -48,7 +48,17 @@ export default function LoginForm() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     try {
-      await signIn("google", { callbackUrl })
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${callbackUrl}`
+        }
+      })
+      
+      if (error) {
+        setError("Erro ao fazer login com Google")
+        setIsLoading(false)
+      }
     } catch (error) {
       setError("Erro ao fazer login com Google")
       setIsLoading(false)

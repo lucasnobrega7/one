@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useSession } from "next-auth/react"
+import { useSupabase } from '@/components/supabase-provider'
 import { AuthCheck } from "@/components/features/auth/auth-check"
 import { UnifiedNavigation } from "@/components/navigation/unified-navigation"
 import { CrossDomainBreadcrumbs } from "@/components/navigation/cross-domain-breadcrumbs"
@@ -31,7 +31,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { signOut } from "next-auth/react"
 import { Logo } from "@/components/ui/logo"
 
 interface NavItem {
@@ -43,7 +42,7 @@ interface NavItem {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const { user, supabase } = useSupabase()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // Fechar sidebar ao mudar de rota em dispositivos móveis
@@ -192,7 +191,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <Button variant="ghost" className="relative h-9 w-9 rounded-full hover:bg-[#27272a]/30 transition-all duration-200 group">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                     <Avatar className="h-8 w-8 relative z-10 border border-[#27272a]">
-                      <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
+                      <AvatarImage src={user?.user_metadata?.avatar_url || ""} alt={user?.user_metadata?.name || "User"} />
                       <AvatarFallback className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white">
                         <User className="h-4 w-4" />
                       </AvatarFallback>
@@ -201,8 +200,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <div className="flex flex-col space-y-1 p-2">
-                    <p className="text-sm font-medium">{session?.user?.name}</p>
-                    <p className="text-xs text-gray-500 truncate">{session?.user?.email}</p>
+                    <p className="text-sm font-medium">{user?.user_metadata?.name || user?.email}</p>
+                    <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
@@ -213,7 +212,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    onClick={async () => {
+                      await supabase.auth.signOut()
+                      window.location.href = '/'
+                    }}
                     className="text-red-500 focus:text-red-500"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
