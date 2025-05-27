@@ -17,7 +17,6 @@ const nextConfig = {
   poweredByHeader: false,
   transpilePackages: ["@supabase/ssr"],
   experimental: {
-    esmExternals: false,
     serverActions: {
       allowedOrigins: [
         'localhost:3000', 
