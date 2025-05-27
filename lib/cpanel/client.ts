@@ -44,9 +44,9 @@ export class CPanelAPIClient {
   }
 
   /**
-   * Execute cPanel API call
+   * Execute cPanel API call (made public for advanced operations)
    */
-  private async executeAPI(
+  async executeAPI(
     module: string, 
     func: string, 
     params: Record<string, any> = {}
@@ -186,6 +186,22 @@ export class CPanelAPIClient {
         errors: [error instanceof Error ? error.message : 'Failed to setup subdomain']
       }
     }
+  }
+
+  /**
+   * List redirections configured in cPanel
+   */
+  async listRedirects(): Promise<SubdomainResponse> {
+    return this.executeAPI('Mime', 'list_redirects')
+  }
+
+  /**
+   * Remove a redirect by ID
+   */
+  async removeRedirect(redirectId: number): Promise<SubdomainResponse> {
+    return this.executeAPI('Mime', 'delete_redirect', {
+      id: redirectId
+    })
   }
 
   /**

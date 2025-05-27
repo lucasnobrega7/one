@@ -18,7 +18,45 @@ export async function POST(request: NextRequest) {
 
     const results = []
 
-    // 1. Adicionar registro A para o domínio raiz
+    // 1. Verificar e remover redirecionamentos incorretos
+    console.log('[API] Verificando redirecionamentos...')
+    try {
+      const redirects = await cpanel.executeAPI('Mime', 'list_redirects')
+      results.push({
+        step: 'list_redirects',
+        success: redirects.success,
+        message: redirects.success ? 'Redirecionamentos listados' : 'Erro ao listar redirecionamentos',
+        details: redirects.data
+      })
+
+      // Remover redirecionamentos para clubedaconversao.com.br
+      if (redirects.success && redirects.data) {
+        for (const redirect of redirects.data) {
+          if (redirect.dest_url?.includes('clubedaconversao.com.br')) {
+            console.log(`[API] Removendo redirecionamento: ${redirect.source_url} → ${redirect.dest_url}`)
+            const removeResult = await cpanel.executeAPI('Mime', 'delete_redirect', {
+              id: redirect.id
+            })
+            
+            results.push({
+              step: 'remove_redirect',
+              success: removeResult.success,
+              message: removeResult.success ? 'Redirecionamento removido' : 'Erro ao remover redirecionamento',
+              details: { source: redirect.source_url, dest: redirect.dest_url }
+            })
+          }
+        }
+      }
+    } catch (error) {
+      results.push({
+        step: 'redirects_check',
+        success: false,
+        message: 'Erro na verificação de redirecionamentos',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      })
+    }
+
+    // 2. Adicionar registro A para o domínio raiz
     const addARecord = await cpanel.addDNSRecord({
       name: '@',
       type: 'A', 
@@ -33,7 +71,7 @@ export async function POST(request: NextRequest) {
       details: addARecord.errors
     })
 
-    // 2. Adicionar CNAME para www
+    // 3. Adicionar CNAME para www
     const addCNAME = await cpanel.addDNSRecord({
       name: 'www',
       type: 'CNAME',
@@ -61,7 +99,9 @@ export async function POST(request: NextRequest) {
         results,
         nextSteps: [
           'Aguardar propagação DNS (15-30 minutos)',
-          'Verificar na Vercel se aparece "Configured Correctly"'
+          'Testar: https://agentesdeconversao.ai',
+          'Verificar que não redireciona para clubedaconversao.com.br',
+          'Confirmar na Vercel se aparece "Configured Correctly"'
         ]
       }
     })
