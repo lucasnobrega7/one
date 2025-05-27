@@ -1,6 +1,6 @@
 export const unifiedConfig = {
   // API Principal
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.com.br',
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.ai',
   
   // Autenticação
   AUTH_SECRET: process.env.NEXTAUTH_SECRET,

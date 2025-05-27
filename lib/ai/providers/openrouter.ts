@@ -49,7 +49,7 @@ export class OpenRouterProvider {
       baseURL: this.config.baseURL,
       apiKey: this.config.apiKey,
       defaultHeaders: {
-        'HTTP-Referer': 'https://agentesdeconversao.com.br',
+        'HTTP-Referer': 'https://agentesdeconversao.ai',
         'X-Title': 'Agentes de Conversão',
         ...this.config.defaultHeaders,
       },

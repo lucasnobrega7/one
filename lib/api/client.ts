@@ -13,7 +13,7 @@ class ApiClient {
   private baseUrl: string
   
   constructor() {
-    this.baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.com.br'
+    this.baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.ai'
   }
 
   private async getHeaders(): Promise<Record<string, string>> {

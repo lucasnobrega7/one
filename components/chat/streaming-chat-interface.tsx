@@ -45,7 +45,7 @@ export function StreamingChatInterface({
   agentId, 
   agentName = 'Agente IA',
   placeholder = 'Digite sua mensagem...',
-  websocketUrl = 'wss://api.agentesdeconversao.com.br/ws'
+  websocketUrl = 'wss://api.agentesdeconversao.ai/ws'
 }: StreamingChatInterfaceProps) {
   const [messages, setMessages] = useState<StreamingMessage[]>([
     {

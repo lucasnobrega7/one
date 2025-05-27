@@ -15,6 +15,18 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons', 'lucide-react', '@xyflow/react'],
     typedRoutes: true,
+    serverActions: {
+      allowedOrigins: [
+        'localhost:3000',
+        'agentesdeconversao.ai',
+        '*.agentesdeconversao.ai',
+        'lp.agentesdeconversao.ai',
+        'dash.agentesdeconversao.ai',
+        'login.agentesdeconversao.ai',
+        'docs.agentesdeconversao.ai',
+        'api.agentesdeconversao.ai'
+      ],
+    },
   },
 
   // ✅ Transpile packages necessários (App Router bundling)

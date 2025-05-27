@@ -24,7 +24,7 @@ export class ApiError extends Error {
 
 // Environment configuration
 const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.com.br',
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'https://api.agentesdeconversao.ai',
   timeout: 30000, // 30 seconds
   retries: 3
 }
