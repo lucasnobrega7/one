@@ -8,9 +8,9 @@ import { OpenAICard } from "@/components/ui/openai-card"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-surface-base text-white">
-      {/* Enhanced Header with better spacing and hierarchy */}
-      <header className="openai-nav sticky top-0 z-50 backdrop-blur-lg bg-surface-base/90 border-b border-surface-stroke/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Enhanced Header with OpenAI-style container */}
+      <header className="w-full openai-nav sticky top-0 z-50 backdrop-blur-lg bg-surface-base/90 border-b border-surface-stroke/30">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="w-10 h-10 bg-gradient-to-r from-accent-start to-accent-mid rounded-xl flex items-center justify-center group-hover:shadow-lg transition-all duration-200">
@@ -50,14 +50,15 @@ export default function HomePage() {
 
       {/* Enhanced Hero Section with better spacing and visual hierarchy */}
       <main className="relative">
-        <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+        {/* Hero Section with OpenAI-style full-bleed background */}
+        <section className="w-full relative overflow-hidden min-h-[90vh] flex items-center py-16 sm:py-20 lg:py-24">
           {/* Enhanced Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-accent-start/10 via-accent-mid/5 to-surface-base"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(70,178,224,0.1),transparent_50%)]"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(138,83,210,0.1),transparent_50%)]"></div>
           
-          <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="text-center max-w-5xl mx-auto">
+          <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="text-center">
               {/* Enhanced Badge */}
               <div className="inline-flex items-center gap-3 bg-surface-raised border border-surface-stroke px-6 py-3 rounded-2xl text-sm font-medium mb-12 animate-fade-in backdrop-blur-sm">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -146,9 +147,11 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>        {/* Features Section estilo OpenAI */}
-        <section className="py-24 bg-gray-950 border-t border-gray-800/50">
-          <div className="max-w-7xl mx-auto px-6">
+        </section>
+        
+        {/* Features Section com OpenAI-style container */}
+        <section className="w-full bg-gray-950 border-t border-gray-800/50 py-16 sm:py-20 lg:py-24">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-20">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">Criado para converter</h2>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
@@ -202,9 +205,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section estilo OpenAI */}
-        <section className="py-24 bg-gradient-to-b from-gray-950 to-black border-t border-gray-800/50">
-          <div className="max-w-4xl mx-auto text-center px-6">
+        {/* CTA Section com OpenAI-style container */}
+        <section className="w-full bg-gradient-to-b from-gray-950 to-black border-t border-gray-800/50 py-16 sm:py-20 lg:py-24">
+          <div className="max-w-4xl mx-auto text-center px-6 lg:px-8">
             <h2 className="openai-heading text-4xl md:text-5xl mb-6">
               Pronto para transformar seu negócio?
             </h2>
@@ -240,9 +243,9 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Footer estilo OpenAI */}
-      <footer className="bg-black border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      {/* Footer com OpenAI-style container */}
+      <footer className="w-full bg-black border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
           <div className="grid md:grid-cols-5 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">

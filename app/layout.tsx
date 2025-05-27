@@ -39,19 +39,17 @@ export default async function RootLayout({
           <AuthProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
               <GlobalErrorHandler>
-                {/* Main Container with proper spacing and max-width */}
+                {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
                 <div className="flex flex-col min-h-screen">
                   <main className="flex-1 relative">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                      {children}
-                    </div>
+                    {children}
                   </main>
                 </div>
               </GlobalErrorHandler>
 
-            {/* Enhanced Footer with better spacing and visual hierarchy */}
-            <footer className="border-t border-surface-stroke bg-surface-base mt-auto">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            {/* Enhanced Footer with OpenAI-style container */}
+            <footer className="w-full border-t border-surface-stroke bg-surface-base mt-auto">
+              <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                   <div className="space-y-6 md:col-span-1">
                     <div className="flex items-center space-x-3">
