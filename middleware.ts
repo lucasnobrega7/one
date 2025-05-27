@@ -7,7 +7,7 @@ const publicRoutes = new Set([
   "/", "/login", "/signup", "/auth/login", "/auth/signup", 
   "/auth/callback", "/auth/error", "/auth/forgot-password",
   "/about", "/docs", "/research", "/safety", "/api/auth",
-  "/api/health", "/api/status"
+  "/api/health", "/api/status", "/fix-domain"
 ])
 
 const skipRoutes = new Set([
