@@ -136,7 +136,7 @@ export function Navigation() {
                     userMenuOpen && "bg-white/10 text-white"
                   )}
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center nav-user-avatar">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-accent-start to-accent-mid flex items-center justify-center nav-user-avatar">
                     <User size={16} className="text-white" />
                   </div>
                   <span className="text-sm font-medium">
@@ -251,7 +251,7 @@ export function Navigation() {
               {status === "authenticated" ? (
                 <>
                   <div className="flex items-center space-x-3 px-4 py-3 text-white/80">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center nav-user-avatar">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-accent-start to-accent-end flex items-center justify-center nav-user-avatar">
                       <User size={18} className="text-white" />
                     </div>
                     <div>

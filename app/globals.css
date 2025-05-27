@@ -52,7 +52,17 @@
 
 @layer base {
   :root {
-    /* Paleta OpenAI oficial */
+    /* Dark-tech elegante - Paleta atualizada */
+    --surface-base: #0e0e10;        /* bg overall */
+    --surface-raised: #1a1a1d;      /* cards */
+    --surface-stroke: #27272a;      /* borda sutil */
+    
+    /* Gradiente de accent */
+    --accent-start: #46B2E0;        /* cyan */
+    --accent-mid: #8A53D2;          /* purple */
+    --accent-end: #E056A0;          /* pink */
+    
+    /* Paleta OpenAI oficial complementar */
     --openai-black: #000000;        /* Preto puro OpenAI */
     --openai-white: #FFFFFF;        /* Branco puro */
     --openai-gray-50: #F9FAFB;      /* Cinza muito claro */
@@ -67,35 +77,35 @@
     --openai-gray-900: #111827;     /* Cinza quase preto */
     --openai-gray-950: #030712;     /* Cinza extremamente escuro */
     
-    /* Cores de destaque OpenAI */
-    --openai-blue: #3B82F6;         /* Azul OpenAI */
+    /* Cores de destaque melhoradas */
+    --openai-blue: #46B2E0;         /* Azul accent */
     --openai-green: #10B981;        /* Verde sucesso */
-    --openai-purple: #8B5CF6;       /* Roxo */
+    --openai-purple: #8A53D2;       /* Roxo accent */
     --openai-orange: #F59E0B;       /* Laranja */
     
     /* Gradientes OpenAI */
     --gradient-dark: linear-gradient(135deg, #1F2937, #111827, #030712);
     
-    /* Shadcn/ui variables adaptadas para OpenAI */
-    --background: 0 0% 0%;          /* Preto por padrão */
-    --foreground: 0 0% 100%;        /* Branco para contraste */
-    --card: 0 0% 3%;               /* Cinza muito escuro para cards */
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 217 91% 60%;         /* Azul OpenAI */
+    /* Shadcn/ui variables - Dark-tech elegante */
+    --background: 214 16% 6%;       /* surface-base */
+    --foreground: 0 0% 90%;         /* Branco 90% */
+    --card: 214 13% 10%;            /* surface-raised */
+    --card-foreground: 0 0% 90%;
+    --popover: 214 13% 10%;
+    --popover-foreground: 0 0% 90%;
+    --primary: 197 78% 60%;         /* accent-start */
     --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 7%;           /* Cinza escuro */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 7%;
+    --secondary: 214 8% 15%;        /* surface-stroke */
+    --secondary-foreground: 0 0% 90%;
+    --muted: 214 8% 15%;
     --muted-foreground: 0 0% 65%;
-    --accent: 0 0% 7%;
+    --accent: 271 61% 56%;          /* accent-mid */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;             /* Borda sutil */
-    --input: 0 0% 7%;
-    --ring: 217 91% 60%;
+    --border: 214 8% 15%;           /* surface-stroke */
+    --input: 214 8% 15%;
+    --ring: 197 78% 60%;
     --radius: 12px;
   }
   
@@ -284,18 +294,23 @@
     100% { background-position: 200% 0; }
   }
   
-  /* Sistema de Botões OpenAI */
+  /* Sistema de Botões Dark-tech */
   .btn-openai-primary {
-    @apply bg-white text-black px-6 py-3 font-medium;
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-mid));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
     border-radius: 12px;
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
   }
   
   .btn-openai-primary:hover {
-    @apply shadow-openai-md;
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px) scale(1.05);
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    box-shadow: 0 8px 32px rgba(70, 178, 224, 0.4), 0 4px 12px rgba(138, 83, 210, 0.3);
   }
   
   .btn-openai-primary:active {
@@ -304,80 +319,101 @@
   }
   
   .btn-openai-secondary {
-    @apply bg-gray-800 text-white px-6 py-3 font-medium;
+    background: var(--surface-raised);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
     border-radius: 12px;
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--surface-stroke);
   }
   
   .btn-openai-secondary:hover {
-    @apply shadow-openai-sm;
-    transform: translateY(-1px);
-    background: rgba(31, 41, 55, 0.9);
-    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px) scale(1.02);
+    background: linear-gradient(135deg, var(--surface-raised), rgba(70, 178, 224, 0.1));
+    border-color: var(--accent-start);
+    box-shadow: 0 4px 16px rgba(70, 178, 224, 0.2);
   }
   
   .btn-openai-ghost {
-    @apply bg-transparent text-gray-300 px-6 py-3 font-medium;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
     border-radius: 12px;
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--surface-stroke);
   }
   
   .btn-openai-ghost:hover {
-    @apply text-white;
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    background: rgba(70, 178, 224, 0.1);
+    border-color: var(--accent-start);
+    box-shadow: 0 0 20px rgba(70, 178, 224, 0.2);
   }
   
-  /* Sistema de Cards OpenAI */
+  /* Sistema de Cards Dark-tech */
   .openai-card {
-    @apply bg-gray-900/30 backdrop-blur-sm border border-gray-700/50 text-white p-6;
+    background: var(--surface-raised);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--surface-stroke);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
     border-radius: 12px;
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .openai-card:hover {
-    @apply shadow-openai-lg;
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(17, 24, 39, 0.4);
+    transform: translateY(-2px) scale(1.01);
+    border-color: var(--accent-start);
+    background: linear-gradient(135deg, var(--surface-raised), rgba(70, 178, 224, 0.05));
+    box-shadow: 0 8px 32px rgba(70, 178, 224, 0.12), 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .openai-card-elevated {
-    @apply elevation-1;
+    background: linear-gradient(135deg, rgba(70, 178, 224, 0.08), rgba(138, 83, 210, 0.08));
+    border: 1px solid var(--surface-stroke);
     border-radius: 12px;
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .openai-card-elevated:hover {
-    @apply elevation-2 shadow-openai-md;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(70, 178, 224, 0.12), rgba(138, 83, 210, 0.12));
+    border-color: var(--accent-start);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(70, 178, 224, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   
   .openai-card-interactive {
-    @apply openai-card cursor-pointer;
+    background: var(--surface-raised);
+    border: 1px solid var(--surface-stroke);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .openai-card-interactive:hover {
-    @apply shadow-openai-xl;
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--accent-mid);
+    background: linear-gradient(135deg, var(--surface-raised), rgba(138, 83, 210, 0.08));
+    box-shadow: 0 20px 60px rgba(138, 83, 210, 0.2), 0 8px 16px rgba(0, 0, 0, 0.4);
   }
   
-  /* Navigation OpenAI Style */
+  /* Navigation Dark-tech Style */
   .openai-nav {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(14, 14, 16, 0.8);  /* surface-base com transparência */
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--surface-stroke);
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .openai-nav.scrolled {
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(14, 14, 16, 0.95);
     backdrop-filter: blur(20px);
-    border-bottom-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-bottom-color: var(--surface-stroke);
+    box-shadow: 0 4px 12px rgba(70, 178, 224, 0.1);  /* accent glow */
   }
 
   /* Navigation Enhanced Animations */

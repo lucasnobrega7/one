@@ -16,7 +16,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // OpenAI Official Color System
+        // Dark-tech elegante - Paleta atualizada
+        surface: {
+          base: '#0e0e10',    // bg overall
+          raised: '#1a1a1d',  // cards 
+          stroke: '#27272a',  // borda sutil
+        },
+        accent: {
+          start: '#46B2E0',   // cyan
+          mid: '#8A53D2',     // purple  
+          end: '#E056A0',     // pink
+        },
+        // OpenAI Official Color System - complementar
         openai: {
           black: "#000000",
           white: "#FFFFFF",
@@ -33,9 +44,9 @@ const config: Config = {
             900: "#111827",
             950: "#030712"
           },
-          blue: "#3B82F6",
+          blue: "#46B2E0",    // Atualizado para accent
           green: "#10B981",
-          purple: "#8B5CF6",
+          purple: "#8A53D2",  // Atualizado para accent
           orange: "#F59E0B"
         },
         // Manter cores existentes para compatibilidade
@@ -124,10 +135,11 @@ const config: Config = {
         }
       },
       boxShadow: {
-        'openai-sm': '0 1px 3px rgba(255, 255, 255, 0.04), 0 1px 2px rgba(255, 255, 255, 0.02)',
-        'openai-md': '0 4px 8px rgba(255, 255, 255, 0.06), 0 2px 4px rgba(255, 255, 255, 0.04)',
-        'openai-lg': '0 8px 24px rgba(255, 255, 255, 0.08), 0 4px 8px rgba(255, 255, 255, 0.04)',
-        'openai-xl': '0 20px 40px rgba(255, 255, 255, 0.1), 0 8px 16px rgba(255, 255, 255, 0.06)',
+        'openai-sm': '0 1px 3px rgba(70, 178, 224, 0.08), 0 1px 2px rgba(0, 0, 0, 0.1)',
+        'openai-md': '0 4px 8px rgba(70, 178, 224, 0.12), 0 2px 4px rgba(0, 0, 0, 0.15)',
+        'openai-lg': '0 8px 24px rgba(70, 178, 224, 0.16), 0 4px 8px rgba(0, 0, 0, 0.2)',
+        'openai-xl': '0 20px 40px rgba(138, 83, 210, 0.2), 0 8px 16px rgba(0, 0, 0, 0.25)',
+        'accent-glow': '0 0 20px rgba(70, 178, 224, 0.3), 0 0 40px rgba(138, 83, 210, 0.2)',
       },
       transitionTimingFunction: {
         'openai': 'cubic-bezier(0.4, 0, 0.2, 1)',

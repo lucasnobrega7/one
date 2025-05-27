@@ -7,7 +7,7 @@ import { OpenAICard } from "@/components/ui/openai-card"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-surface-base text-white">
       {/* Header estilo OpenAI */}
       <header className="openai-nav sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -46,23 +46,28 @@ export default function HomePage() {
       {/* Hero Section estilo OpenAI */}
       <main>
         <section className="relative overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-black"></div>
+          {/* Background gradient - Dark-tech */}
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-mid/10 via-accent-start/10 to-surface-base"></div>
+          
+          {/* Geometric mesh overlay */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="geometric-mesh"></div>
+          </div>
           
           <div className="relative pt-32 pb-20 px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 openai-card-elevated px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in bg-gradient-to-r from-accent-start/20 to-accent-mid/20 border border-surface-stroke">
                 <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
                 Integrado com WhatsApp, Website e APIs
               </div>
 
-              <h1 className="openai-heading text-5xl md:text-7xl mb-8 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent animate-slide-up">
+              <h1 className="openai-heading text-5xl md:text-7xl mb-8 bg-gradient-to-r from-white via-accent-start to-accent-mid bg-clip-text text-transparent animate-slide-up">
                 Crie Agentes de IA em minutos
               </h1>
 
               <p className="openai-body text-xl md:text-2xl mb-12 max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>
                 Transforme visitantes em clientes com agentes conversacionais inteligentes.<br />
-                <span className="text-emerald-400 font-medium">Sem código, sem complicação. Apenas resultados.</span>
+                <span className="text-accent-start font-medium">Sem código, sem complicação. Apenas resultados.</span>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20 animate-fade-in" style={{animationDelay: '0.4s'}}>
@@ -135,8 +140,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>        {/* Features Section estilo OpenAI */}
-        <section className="py-24 bg-gray-950 border-t border-gray-800/50">
+        </section>        {/* Features Section Dark-tech */}
+        <section className="py-24 bg-surface-raised border-t border-surface-stroke">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">Criado para converter</h2>
@@ -191,8 +196,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section estilo OpenAI */}
-        <section className="py-24 bg-gradient-to-b from-gray-950 to-black border-t border-gray-800/50">
+        {/* CTA Section Dark-tech */}
+        <section className="py-24 bg-gradient-to-b from-surface-raised to-surface-base border-t border-surface-stroke">
           <div className="max-w-4xl mx-auto text-center px-6">
             <h2 className="openai-heading text-4xl md:text-5xl mb-6">
               Pronto para transformar seu negócio?
@@ -229,8 +234,8 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Footer estilo OpenAI */}
-      <footer className="bg-black border-t border-gray-800">
+      {/* Footer Dark-tech */}
+      <footer className="bg-surface-base border-t border-surface-stroke">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="grid md:grid-cols-5 gap-8">
             <div className="md:col-span-2">
