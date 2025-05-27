@@ -18,9 +18,13 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
-        'agentesdeconversao.com.br',
-        '*.agentesdeconversao.com.br',
-        'api.agentesdeconversao.com.br',
+        'agentesdeconversao.ai',
+        '*.agentesdeconversao.ai',
+        'lp.agentesdeconversao.ai',
+        'dash.agentesdeconversao.ai',
+        'login.agentesdeconversao.ai',
+        'docs.agentesdeconversao.ai',
+        'api.agentesdeconversao.ai',
         '*.vercel.app'
       ],
     },

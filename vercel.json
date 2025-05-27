@@ -30,7 +30,7 @@
   "rewrites": [
     {
       "source": "/api/external/(.*)",
-      "destination": "https://api.agentesdeconversao.com.br/api/$1"
+      "destination": "https://api.agentesdeconversao.ai/api/$1"
     }
   ]
 }
