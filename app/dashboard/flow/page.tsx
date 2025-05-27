@@ -1,8 +1,6 @@
 'use client'
 
-import { Suspense, useState, useEffect } from 'react'
-import { FlowDashboard } from '@/components/agents/flow-dashboard'
-import { DashboardRedirect } from './redirect'
+// import { FlowDashboard } from '@/components/agents/flow-dashboard'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -61,20 +59,6 @@ function FlowStats() {
 export default function FlowPage() {
   const permissions = usePermissions()
   const canCreateAgents = true // Temporary fix
-  const [shouldRedirect, setShouldRedirect] = useState(false)
-
-  // Subdomain redirection disabled - using single domain
-  // useEffect(() => {
-  //   const currentHost = window.location.hostname
-  //   const isWrongDomain = !currentHost.includes('dash.agentesdeconversao.ai') && 
-  //                        !currentHost.includes('localhost') &&
-  //                        !currentHost.includes('vercel.app')
-  //   setShouldRedirect(isWrongDomain)
-  // }, [])
-
-  // if (shouldRedirect) {
-  //   return <DashboardRedirect />
-  // }
 
   const flows = [
     {
@@ -193,16 +177,18 @@ export default function FlowPage() {
             </div>
           </div>
           
-          <Suspense fallback={
-            <div className="w-full h-[600px] bg-gray-950 rounded-lg flex items-center justify-center border border-gray-800">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gray-800 rounded-full mx-auto mb-4 animate-pulse" />
-                <p className="text-gray-500">Carregando Flow Builder...</p>
+          <div className="w-full h-[600px] bg-gray-950 rounded-lg flex items-center justify-center border border-gray-800">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <Bot className="w-8 h-8 text-white" />
               </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Editor Visual de Fluxos</h3>
+              <p className="text-gray-400 mb-4">Interface baseada no Flowise para criação de agentes conversacionais</p>
+              <Button className="bg-blue-600 text-white hover:bg-blue-700">
+                Abrir Editor Completo
+              </Button>
             </div>
-          }>
-            <FlowDashboard />
-          </Suspense>
+          </div>
         </div>
       </div>
     </div>
