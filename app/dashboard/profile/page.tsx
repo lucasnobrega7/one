@@ -1,10 +1,12 @@
+"use client"
+
 import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { ProfileForm } from "@/components/features/dashboard/profile-form"
-import { auth } from "@/config/auth"
+import { useAuth } from "@/hooks/use-auth"
 
-export default async function ProfilePage() {
-  const session = await auth()
+export default function ProfilePage() {
+  const { user } = useAuth()
 
   return (
     <AuthCheck>

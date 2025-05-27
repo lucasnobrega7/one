@@ -1,6 +1,6 @@
 // Sistema de permissões funcional
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from './use-auth'
 
 type Permission = 
   | 'agents:create'
@@ -19,16 +19,16 @@ interface UsePermissionsReturn {
 }
 
 export function usePermissions(): UsePermissionsReturn {
-  const { data: session, status } = useSession()
+  const { user, loading: authLoading } = useAuth()
   const [loading, setLoading] = useState(true)
   const [userRole, setUserRole] = useState<string | null>(null)
 
   useEffect(() => {
-    if (status === 'loading') return
+    if (authLoading) return
 
-    if (session?.user) {
+    if (user) {
       // Determinar role do usuário baseado no email ou metadata
-      const email = session.user.email
+      const email = user.email
       let role = 'user'
 
       if (email?.includes('admin') || email?.endsWith('@agentesdeconversao.com.br')) {
@@ -41,7 +41,7 @@ export function usePermissions(): UsePermissionsReturn {
     }
     
     setLoading(false)
-  }, [session, status])
+  }, [user, authLoading])
 
   const hasPermission = (permission: Permission): boolean => {
     if (loading || !userRole) return false

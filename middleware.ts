@@ -1,34 +1,60 @@
-import { type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
-
-// 🚀 Simplified Middleware with Supabase Auth
-const publicRoutes = new Set([
-  "/", "/login", "/signup", "/auth/login", "/auth/signup", 
-  "/auth/callback", "/auth/error", "/auth/forgot-password",
-  "/about", "/docs", "/research", "/safety", "/api/health", 
-  "/api/status", "/fix-domain"
-])
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
 
-  // ✅ Skip static assets and API auth routes
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+
+  // Refresh session if expired - required for Server Components
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // Protect dashboard routes
   if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api/auth') ||
-    pathname.includes('.') ||
-    pathname.startsWith('/favicon.ico')
+    !user &&
+    (request.nextUrl.pathname.startsWith('/dashboard') ||
+     request.nextUrl.pathname.startsWith('/onboarding'))
   ) {
-    return await updateSession(request)
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
   }
 
-  // ✅ Public routes - no auth required
-  if (publicRoutes.has(pathname)) {
-    return await updateSession(request)
+  // Redirect authenticated users away from auth pages
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith('/auth/login') ||
+     request.nextUrl.pathname.startsWith('/auth/signup'))
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/dashboard'
+    return NextResponse.redirect(url)
   }
 
-  // ✅ Update Supabase session for all other routes
-  return await updateSession(request)
+  return supabaseResponse
 }
 
 export const config = {
@@ -38,8 +64,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
+     * - api (API routes)
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|api).*)',
   ],
 }

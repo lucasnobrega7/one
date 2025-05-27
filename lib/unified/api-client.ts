@@ -1,4 +1,3 @@
-import { getSession } from 'next-auth/react'
 
 // API Response interface
 export interface ApiResponse<T = any> {

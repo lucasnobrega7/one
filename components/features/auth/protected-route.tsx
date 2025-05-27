@@ -2,7 +2,6 @@
 
 import type React from "react"
 
-import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import type { Permission } from "@/lib/auth/permissions"
@@ -19,7 +18,7 @@ interface ProtectedRouteProps {
  * ou para acesso negado se não tiver permissão
  */
 export function ProtectedRoute({ children, permission, redirectTo = "/auth/login" }: ProtectedRouteProps) {
-  const { data: session, status } = useSession()
+  const { data: session, status } = // TODO: Replace with Supabase auth()
   const router = useRouter()
 
   useEffect(() => {

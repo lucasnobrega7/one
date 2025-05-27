@@ -1,5 +1,4 @@
 // API Client moderno para Agentes de Conversão
-import { getSession } from 'next-auth/react'
 
 export interface ApiResponse<T = any> {
   success: boolean

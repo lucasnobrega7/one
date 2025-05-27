@@ -14,15 +14,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bell, Menu, User, Settings, LogOut } from "lucide-react"
-import { signOut, useSession } from "next-auth/react"
 
 export function DashboardHeader() {
-  const { data: session } = useSession()
+  const { data: session } = // TODO: Replace with Supabase auth()
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: "/" })
+    await // TODO: Replace with supabase.auth.signOut({ callbackUrl: "/" })
   }
 
   return (

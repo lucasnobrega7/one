@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
 
 export function AuthHealthCheck() {
-  const { data: session, status } = useSession()
+  const { data: session, status } = // TODO: Replace with Supabase auth()
   const [apiHealth, setApiHealth] = useState<{ status: string; error?: string } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 

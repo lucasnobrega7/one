@@ -1,6 +1,5 @@
 "use client"
 
-import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -9,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Loader2, User, Shield, Settings } from "lucide-react"
 
 export default function AuthDebug() {
-  const { data: session, status } = useSession()
+  const { data: session, status } = // TODO: Replace with Supabase auth()
   const [healthCheck, setHealthCheck] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

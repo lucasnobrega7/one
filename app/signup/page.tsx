@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { useAuth } from "@/hooks/use-auth"
 import { ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 
 export default function SignupPage() {
   const router = useRouter()
+  const { signUp, signIn, signInWithProvider } = useAuth()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -49,11 +50,10 @@ export default function SignupPage() {
       }
 
       // Login automático após o registro bem-sucedido
-      await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      })
+      const { error: signInError } = await signIn(email, password)
+      if (signInError) {
+        throw new Error(signInError.message)
+      }
 
       // Redirecionar para o onboarding
       router.push("/onboarding")
@@ -200,14 +200,14 @@ export default function SignupPage() {
               <Button
                 variant="outline"
                 className="border-white/20 hover:bg-white/5"
-                onClick={() => signIn("google", { callbackUrl: "/onboarding" })}
+                onClick={() => signInWithProvider("google")}
               >
                 Google
               </Button>
               <Button
                 variant="outline"
                 className="border-white/20 hover:bg-white/5"
-                onClick={() => signIn("github", { callbackUrl: "/onboarding" })}
+                onClick={() => signInWithProvider("github")}
               >
                 GitHub
               </Button>

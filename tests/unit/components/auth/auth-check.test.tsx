@@ -1,10 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react"
-import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { AuthCheck } from "@/components/features/auth/auth-check"
 
 // Mock the hooks
-const mockUseSession = useSession as jest.Mock
+const mockUseSession = // TODO: Replace with Supabase auth as jest.Mock
 const mockUseRouter = useRouter as jest.Mock
 
 describe("AuthCheck", () => {

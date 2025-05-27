@@ -1,8 +1,9 @@
 "use client"
 
-import { useSession } from "next-auth/react"
-import type { Permission } from "@/lib/auth/permissions"
 import type { ReactNode } from "react"
+import { useAuth } from "@/hooks/use-auth"
+
+type Permission = string
 
 interface PermissionGateProps {
   permission: Permission | Permission[]
@@ -14,14 +15,14 @@ interface PermissionGateProps {
  * Componente que renderiza seu conteúdo apenas se o usuário tiver a permissão especificada
  */
 export function PermissionGate({ permission, children, fallback }: PermissionGateProps) {
-  const { data: session } = useSession()
+  const { user } = useAuth()
 
   // Se não houver sessão, não renderizar nada
-  if (!session) {
+  if (!user) {
     return fallback || null
   }
 
-  const userPermissions = session.user.permissions || []
+  const userPermissions = (user as any).permissions || []
 
   // Verificar se o usuário tem todas as permissões necessárias
   const hasPermission = Array.isArray(permission)

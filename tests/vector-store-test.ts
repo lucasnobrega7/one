@@ -32,7 +32,6 @@ const SAMPLE_DOCUMENTS: AppDocument<ChunkMetadata>[] = [
     metadata: {
       chunk_hash: 'hash1',
       datasource_id: TEST_DATASOURCE_ID,
-      chunk_index: 0,
       source_url: 'test://doc1'
     }
   },
@@ -41,7 +40,6 @@ const SAMPLE_DOCUMENTS: AppDocument<ChunkMetadata>[] = [
     metadata: {
       chunk_hash: 'hash2', 
       datasource_id: TEST_DATASOURCE_ID,
-      chunk_index: 1,
       source_url: 'test://doc2'
     }
   },
@@ -50,7 +48,6 @@ const SAMPLE_DOCUMENTS: AppDocument<ChunkMetadata>[] = [
     metadata: {
       chunk_hash: 'hash3',
       datasource_id: TEST_DATASOURCE_ID, 
-      chunk_index: 2,
       source_url: 'test://doc3'
     }
   }
@@ -114,7 +111,7 @@ async function runVectorStoreTest() {
     console.log('5️⃣ Testando atualização de metadata...')
     await vectorStore.updateDatasourceMetadata({
       datasourceId: TEST_DATASOURCE_ID,
-      metadata: { updated_by_test: true }
+      metadata: { datasource_id: TEST_DATASOURCE_ID }
     })
     console.log('✅ Metadata atualizada com sucesso\n')
 

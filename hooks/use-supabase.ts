@@ -1,12 +1,11 @@
 "use client"
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import type { Database } from "@/types/supabase"
 
 export function useSupabase() {
-  const { data: session } = useSession()
+  const { data: session } = // TODO: Replace with Supabase auth()
   const [isReady, setIsReady] = useState(false)
   const supabase = createClientComponentClient<Database>()
 

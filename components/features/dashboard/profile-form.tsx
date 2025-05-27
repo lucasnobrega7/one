@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import type { User } from "next-auth"
 import { AlertCircle, CheckCircle } from "lucide-react"
 
 interface ProfileFormProps {

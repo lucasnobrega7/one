@@ -1,6 +1,5 @@
 "use client"
 
-import { useSession } from "next-auth/react"
 import type { Role } from "@/lib/auth/permissions"
 import type { ReactNode } from "react"
 
@@ -14,7 +13,7 @@ interface RoleGateProps {
  * Componente que renderiza seu conteúdo apenas se o usuário tiver o role especificado
  */
 export function RoleGate({ role, children, fallback }: RoleGateProps) {
-  const { data: session } = useSession()
+  const { data: session } = // TODO: Replace with Supabase auth()
 
   // Se não houver sessão, não renderizar nada
   if (!session) {

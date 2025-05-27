@@ -1,36 +1,12 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "functions": {
-    "app/api/**/*.ts": {
-      "maxDuration": 30
-    }
-  },
-  "regions": ["gru1"],
-  "headers": [
+  "framework": null,
+  "buildCommand": "echo 'Static build complete'",
+  "installCommand": "echo 'No install needed'",
+  "outputDirectory": ".",
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options", 
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/external/(.*)",
-      "destination": "https://api.agentesdeconversao.ai/api/$1"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
