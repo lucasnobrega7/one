@@ -8,6 +8,7 @@ import { createClient } from '@/lib/database/supabase-utils/client'
 import { AlertCircle, Check } from "lucide-react"
 import { AbstractBackground } from "@/components/visual/abstract-background"
 import { OpenAIButton } from "@/components/visual/openai-button"
+import { Logo } from "@/components/ui/logo"
 
 export default function SignupPage() {
   const router = useRouter()
@@ -69,10 +70,7 @@ export default function SignupPage() {
       </div>      {/* Header Simples */}
       <header className="relative z-10 border-b border-white/10 py-4">
         <div className="container mx-auto px-6">
-          <Link href="/" className="flex items-center text-white">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-600 rounded mr-3"></div>
-            <span className="text-xl font-medium tracking-tight">Agentes de Conversão</span>
-          </Link>
+          <Logo variant="light" size="md" />
         </div>
       </header>
 

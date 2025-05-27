@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { ArrowRight, Play, Brain, MessageSquare, BarChart3, CheckCircle, Zap, Clock, Users } from "lucide-react"
+import { Logo } from "@/components/ui/logo"
 
 export default function HomePage() {
   return (
@@ -10,14 +11,7 @@ export default function HomePage() {
       <header className="w-full sticky top-0 z-50 openai-nav-light">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center group-hover:bg-gray-800 transition-colors duration-150">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold tracking-tight text-gray-900 sohne-heading">
-                Agentes de Conversão
-              </span>
-            </Link>
+            <Logo variant="default" size="lg" />
             
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/research" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Pesquisa</Link>
@@ -216,11 +210,8 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid md:grid-cols-5 gap-8">
             <div className="md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-white" />
-                </div>
-                <span className="sohne-heading text-xl font-semibold text-gray-900">Agentes de Conversão</span>
+              <div className="mb-4">
+                <Logo variant="default" size="md" />
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Criando IA conversacional avançada que transforma a experiência do cliente e otimiza resultados para empresas visionárias.
