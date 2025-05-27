@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -32,14 +32,14 @@ const HeroAdvanced = () => {
   }
 
   // Examples for the typing animation
-  const typingExamples = [
+  const typingExamples = useMemo(() => [
     "Crie agentes de IA para WhatsApp Business",
     "Automatize atendimento ao cliente 24/7",
     "Integre ChatGPT em seus processos de vendas",
     "Desenvolva assistentes virtuais personalizados",
     "Conecte IA com CRM, E-commerce e APIs",
     "Gerencie leads com inteligência artificial"
-  ]
+  ], [])
   
   const [typingIndex, setTypingIndex] = useState(0)
   const [typingText, setTypingText] = useState('')
