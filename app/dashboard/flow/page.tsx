@@ -63,18 +63,18 @@ export default function FlowPage() {
   const canCreateAgents = true // Temporary fix
   const [shouldRedirect, setShouldRedirect] = useState(false)
 
-  useEffect(() => {
-    // Check if we're on the wrong subdomain
-    const currentHost = window.location.hostname
-    const isWrongDomain = !currentHost.includes('dash.agentesdeconversao.ai') && 
-                         !currentHost.includes('localhost') &&
-                         !currentHost.includes('vercel.app')
-    setShouldRedirect(isWrongDomain)
-  }, [])
+  // Subdomain redirection disabled - using single domain
+  // useEffect(() => {
+  //   const currentHost = window.location.hostname
+  //   const isWrongDomain = !currentHost.includes('dash.agentesdeconversao.ai') && 
+  //                        !currentHost.includes('localhost') &&
+  //                        !currentHost.includes('vercel.app')
+  //   setShouldRedirect(isWrongDomain)
+  // }, [])
 
-  if (shouldRedirect) {
-    return <DashboardRedirect />
-  }
+  // if (shouldRedirect) {
+  //   return <DashboardRedirect />
+  // }
 
   const flows = [
     {

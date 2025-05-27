@@ -15,11 +15,11 @@ interface SubdomainLinkProps {
 }
 
 const subdomainUrls = {
-  lp: 'https://lp.agentesdeconversao.ai',
-  login: 'https://login.agentesdeconversao.ai',
-  dash: 'https://dash.agentesdeconversao.ai',
-  docs: 'https://docs.agentesdeconversao.ai',
-  api: 'https://api.agentesdeconversao.ai'
+  lp: 'https://one-2wow7l0ne-agentesdeconversao.vercel.app',
+  login: 'https://one-2wow7l0ne-agentesdeconversao.vercel.app',
+  dash: 'https://one-2wow7l0ne-agentesdeconversao.vercel.app',
+  docs: 'https://one-2wow7l0ne-agentesdeconversao.vercel.app',
+  api: 'https://one-2wow7l0ne-agentesdeconversao.vercel.app'
 }
 
 export function SubdomainLink({
