@@ -7,33 +7,38 @@ import { OpenAICard } from "@/components/ui/openai-card"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header estilo OpenAI */}
-      <header className="openai-nav sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+    <div className="min-h-screen bg-surface-base text-white">
+      {/* Enhanced Header with better spacing and hierarchy */}
+      <header className="openai-nav sticky top-0 z-50 backdrop-blur-lg bg-surface-base/90 border-b border-surface-stroke/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <Brain className="w-5 h-5 text-black" />
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 bg-gradient-to-r from-accent-start to-accent-mid rounded-xl flex items-center justify-center group-hover:shadow-lg transition-all duration-200">
+                <Brain className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-semibold tracking-tight">Agentes de Conversão</span>
+              <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-accent-start to-accent-mid bg-clip-text text-transparent">
+                Agentes de Conversão
+              </span>
             </Link>
             
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/research" className="text-gray-300 hover:text-white transition-colors">Pesquisa</Link>
-              <Link href="/api" className="text-gray-300 hover:text-white transition-colors">API</Link>
-              <Link href="/dashboard" className="text-gray-300 hover:text-white transition-colors">Agentes</Link>
-              <Link href="/safety" className="text-gray-300 hover:text-white transition-colors">Segurança</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">Empresa</Link>
+            <nav className="hidden lg:flex items-center space-x-8">
+              <Link href="/research" className="text-gray-300 hover:text-accent-start transition-colors duration-200 font-medium">Pesquisa</Link>
+              <Link href="/api" className="text-gray-300 hover:text-accent-start transition-colors duration-200 font-medium">API</Link>
+              <Link href="/dashboard" className="text-gray-300 hover:text-accent-start transition-colors duration-200 font-medium">Dashboard</Link>
+              <Link href="/safety" className="text-gray-300 hover:text-accent-start transition-colors duration-200 font-medium">Segurança</Link>
+              <Link href="/about" className="text-gray-300 hover:text-accent-start transition-colors duration-200 font-medium">Empresa</Link>
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link href="/auth/login" className="text-gray-300 hover:text-white transition-colors">
+              <Link 
+                href="/auth/login" 
+                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium px-4 py-2 rounded-lg hover:bg-surface-hover"
+              >
                 Entrar
               </Link>
               <Link 
                 href="/auth/signup"
-                className="btn-openai-primary text-sm"
+                className="bg-gradient-to-r from-accent-start to-accent-mid text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-sm"
                 aria-label="Criar conta gratuita para usar Agentes de Conversão"
               >
                 Começar Agora
@@ -43,51 +48,57 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section estilo OpenAI */}
-      <main>
-        <section className="relative overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-black"></div>
+      {/* Enhanced Hero Section with better spacing and visual hierarchy */}
+      <main className="relative">
+        <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+          {/* Enhanced Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-start/10 via-accent-mid/5 to-surface-base"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(70,178,224,0.1),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(138,83,210,0.1),transparent_50%)]"></div>
           
-          <div className="relative pt-32 pb-20 px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 openai-card-elevated px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
-                <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-                Integrado com WhatsApp, Website e APIs
+          <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div className="text-center max-w-5xl mx-auto">
+              {/* Enhanced Badge */}
+              <div className="inline-flex items-center gap-3 bg-surface-raised border border-surface-stroke px-6 py-3 rounded-2xl text-sm font-medium mb-12 animate-fade-in backdrop-blur-sm">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <Sparkles className="w-5 h-5 text-accent-start" />
+                Integrado com WhatsApp, Website e 300+ APIs de IA
               </div>
 
-              <h1 className="openai-heading text-5xl md:text-7xl mb-8 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent animate-slide-up">
-                Crie Agentes de IA em minutos
+              {/* Enhanced Heading with better typography */}
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-tight tracking-tight animate-slide-up">
+                <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                  Crie Agentes de IA
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-accent-start via-accent-mid to-accent-end bg-clip-text text-transparent">
+                  em minutos
+                </span>
               </h1>
 
-              <p className="openai-body text-xl md:text-2xl mb-12 max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>
-                Transforme visitantes em clientes com agentes conversacionais inteligentes.<br />
-                <span className="text-emerald-400 font-medium">Sem código, sem complicação. Apenas resultados.</span>
+              {/* Enhanced Description */}
+              <p className="text-xl md:text-3xl mb-16 max-w-4xl mx-auto leading-relaxed text-gray-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
+                Transforme visitantes em clientes com agentes conversacionais inteligentes que aprendem e evoluem.
+                <br />
+                <span className="text-accent-start font-semibold">87% de margem de lucro</span> com nossa tecnologia OpenRouter.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20 animate-fade-in" style={{animationDelay: '0.4s'}}>
-                <OpenAIButton 
-                  variant="primary" 
-                  size="lg"
-                  className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
-                  asChild
+              {/* Enhanced CTAs with better visual hierarchy */}
+              <div className="flex flex-col sm:flex-row gap-6 justify-center mb-24 animate-fade-in" style={{animationDelay: '0.4s'}}>
+                <Link 
+                  href="/auth/signup"
+                  className="group bg-gradient-to-r from-accent-start to-accent-mid text-white px-12 py-5 rounded-2xl text-xl font-bold hover:shadow-2xl hover:shadow-accent-start/25 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
                 >
-                  <Link href="/auth/signup">
-                    Começar Gratuitamente
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </OpenAIButton>
-                <OpenAIButton 
-                  variant="secondary" 
-                  size="lg"
-                  className="px-8 py-4 text-lg group hover:scale-105 transition-all duration-200"
-                  asChild
+                  Começar Gratuitamente
+                  <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+                <Link 
+                  href="/dashboard/flow"
+                  className="group bg-surface-raised border-2 border-surface-stroke text-white px-12 py-5 rounded-2xl text-xl font-bold hover:border-accent-start hover:shadow-xl hover:shadow-accent-start/10 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
                 >
-                  <Link href="/demo">
-                    <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-                    Ver Demo Ao Vivo
-                  </Link>
-                </OpenAIButton>
+                  <Play className="mr-3 w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                  Ver Demo Interativo
+                </Link>
               </div>
 
               {/* Stats grid com micro-interações */}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useEffect, useMemo } from 'react'
+import { useCallback, useState, useEffect, useMemo, memo } from 'react'
 import {
   ReactFlow,
   MiniMap,
@@ -51,21 +51,37 @@ const customNodeTypes: NodeTypes = {
   integration: IntegrationNode,
 }
 
-// Agent Node Component
-function AgentNode({ data, selected }: { data: any; selected?: boolean }) {
+// Estilos memoizados para evitar recriação
+const handleStyles = {
+  target: { background: '#46B2E0', border: '2px solid #8A53D2' },
+  source: { background: '#46B2E0', border: '2px solid #8A53D2' },
+}
+
+const cardBaseClasses = "min-w-[240px] border bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-colors duration-150"
+
+// Agent Node Component - Otimizado com memo
+const AgentNode = memo(({ data, selected }: { data: any; selected?: boolean }) => {
+  // Memoizar classes CSS para evitar recálculos
+  const cardClasses = useMemo(() => 
+    `${cardBaseClasses} ${selected ? 'border-[#46B2E0] ring-2 ring-[#46B2E0]/20' : 'border-[#27272a]'}`,
+    [selected]
+  )
+
+  const badgeVariant = data.status === 'active' ? 'default' : 'secondary'
+
   return (
     <>
       <Handle
         type="target"
         position={Position.Left}
-        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
+        style={handleStyles.target}
       />
-      <Card className={`min-w-[240px] border ${selected ? 'border-[#46B2E0] ring-2 ring-[#46B2E0]/20' : 'border-[#27272a]'} bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-all duration-200`}>
+      <Card className={cardClasses}>
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2">
             <Bot className="h-4 w-4 text-[#46B2E0]" />
             <CardTitle className="text-sm text-white">{data.label}</CardTitle>
-            <Badge variant={data.status === 'active' ? 'default' : 'secondary'} className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white">
+            <Badge variant={badgeVariant} className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white">
               {data.status}
             </Badge>
           </div>
@@ -75,36 +91,17 @@ function AgentNode({ data, selected }: { data: any; selected?: boolean }) {
             {data.description}
           </p>
           
-          {/* Model Selector */}
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-gray-300">
-              Modelo de IA:
-            </label>
-            <Select value={data.model || 'openai/gpt-4o-mini'}>
-              <SelectTrigger className="h-6 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="openai/gpt-4o-mini">GPT-4O Mini (Rápido)</SelectItem>
-                <SelectItem value="openai/gpt-4o">GPT-4O (Balanced)</SelectItem>
-                <SelectItem value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</SelectItem>
-                <SelectItem value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</SelectItem>
-                <SelectItem value="google/gemini-pro-1.5">Gemini Pro 1.5</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Provider Status */}
+          {/* Provider Status - Simplificado para melhor performance */}
           <div className="flex items-center gap-1">
             <Cpu className="h-3 w-3 text-[#8A53D2]" />
             <span className="text-xs text-[#8A53D2]">OpenRouter (87% margem)</span>
           </div>
           
           <div className="flex gap-1 mt-2">
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="outline" className="p-1">
               <Settings className="h-3 w-3" />
             </Button>
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="outline" className="p-1">
               <MessageSquare className="h-3 w-3" />
             </Button>
           </div>
@@ -113,79 +110,96 @@ function AgentNode({ data, selected }: { data: any; selected?: boolean }) {
       <Handle
         type="source"
         position={Position.Right}
-        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
+        style={handleStyles.source}
       />
     </>
   )
+})
+
+AgentNode.displayName = 'AgentNode'
+
+// Trigger Node Component - Otimizado com memo
+const TriggerNode = memo(({ data }: { data: any }) => (
+  <>
+    <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-colors duration-150">
+      <CardHeader className="pb-2">
+        <div className="flex items-center gap-2">
+          <Zap className="h-4 w-4 text-[#46B2E0]" />
+          <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <p className="text-xs text-gray-400">
+          {data.triggerType}
+        </p>
+      </CardContent>
+    </Card>
+    <Handle
+      type="source"
+      position={Position.Right}
+      style={handleStyles.source}
+    />
+  </>
+))
+
+TriggerNode.displayName = 'TriggerNode'
+
+// Estilos específicos para action nodes
+const actionHandleStyles = {
+  target: { background: '#8A53D2', border: '2px solid #E056A0' },
+  source: { background: '#8A53D2', border: '2px solid #E056A0' },
 }
 
-// Trigger Node Component  
-function TriggerNode({ data }: { data: any }) {
-  return (
-    <>
-      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-all duration-200">
-        <CardHeader className="pb-2">
-          <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-[#46B2E0]" />
-            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-xs text-gray-400">
-            {data.triggerType}
-          </p>
-        </CardContent>
-      </Card>
-      <Handle
-        type="source"
-        position={Position.Right}
-        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
-      />
-    </>
-  )
+// Action Node Component - Otimizado com memo
+const ActionNode = memo(({ data }: { data: any }) => (
+  <>
+    <Handle
+      type="target"
+      position={Position.Left}
+      style={actionHandleStyles.target}
+    />
+    <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#8A53D2]/30 transition-colors duration-150">
+      <CardHeader className="pb-2">
+        <div className="flex items-center gap-2">
+          <MessageSquare className="h-4 w-4 text-[#8A53D2]" />
+          <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <p className="text-xs text-gray-400">
+          {data.actionType}
+        </p>
+      </CardContent>
+    </Card>
+    <Handle
+      type="source"
+      position={Position.Right}
+      style={actionHandleStyles.source}
+    />
+  </>
+))
+
+ActionNode.displayName = 'ActionNode'
+
+// Estilos específicos para integration nodes  
+const integrationHandleStyles = {
+  target: { background: '#E056A0', border: '2px solid #46B2E0' },
+  source: { background: '#E056A0', border: '2px solid #46B2E0' },
 }
 
-// Action Node Component
-function ActionNode({ data }: { data: any }) {
+// Integration Node Component - Otimizado com memo
+const IntegrationNode = memo(({ data }: { data: any }) => {
+  const badgeVariant = data.connected ? 'default' : 'destructive'
+  const badgeClasses = data.connected ? 'bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white' : ''
+
   return (
     <>
       <Handle
         type="target"
         position={Position.Left}
-        style={{ background: '#8A53D2', border: '2px solid #E056A0' }}
+        style={integrationHandleStyles.target}
       />
-      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#8A53D2]/30 transition-all duration-200">
-        <CardHeader className="pb-2">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="h-4 w-4 text-[#8A53D2]" />
-            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-xs text-gray-400">
-            {data.actionType}
-          </p>
-        </CardContent>
-      </Card>
-      <Handle
-        type="source"
-        position={Position.Right}
-        style={{ background: '#8A53D2', border: '2px solid #E056A0' }}
-      />
-    </>
-  )
-}
-
-// Integration Node Component
-function IntegrationNode({ data }: { data: any }) {
-  return (
-    <>
-      <Handle
-        type="target"
-        position={Position.Left}
-        style={{ background: '#E056A0', border: '2px solid #46B2E0' }}
-      />
-      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#E056A0]/30 transition-all duration-200">
+      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#E056A0]/30 transition-colors duration-150">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2">
             <Globe className="h-4 w-4 text-[#E056A0]" />
@@ -196,7 +210,7 @@ function IntegrationNode({ data }: { data: any }) {
           <p className="text-xs text-gray-400">
             {data.service}
           </p>
-          <Badge variant={data.connected ? 'default' : 'destructive'} className={data.connected ? 'bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white' : ''}>
+          <Badge variant={badgeVariant} className={badgeClasses}>
             {data.connected ? 'Conectado' : 'Desconectado'}
           </Badge>
         </CardContent>
@@ -204,11 +218,13 @@ function IntegrationNode({ data }: { data: any }) {
       <Handle
         type="source"
         position={Position.Right}
-        style={{ background: '#E056A0', border: '2px solid #46B2E0' }}
+        style={integrationHandleStyles.source}
       />
     </>
   )
-}
+})
+
+IntegrationNode.displayName = 'IntegrationNode'
 
 // Initial nodes and edges
 const initialNodes: Node[] = [
@@ -341,15 +357,17 @@ function FlowDashboardInner() {
     [setEdges]
   )
   
-  // Enhanced node update function with immutable updates (React Flow v12+)
+  // Enhanced node update function with immutable updates (React Flow v12+) - Otimizado
   const updateNodeData = useCallback((nodeId: string, newData: any) => {
-    setNodes((nds) =>
-      nds.map((node) => 
-        node.id === nodeId 
-          ? { ...node, data: { ...node.data, ...newData } }
-          : node
-      )
-    )
+    setNodes((nds) => {
+      const nodeIndex = nds.findIndex(node => node.id === nodeId)
+      if (nodeIndex === -1) return nds
+      
+      const updatedNode = { ...nds[nodeIndex], data: { ...nds[nodeIndex].data, ...newData } }
+      const newNodes = [...nds]
+      newNodes[nodeIndex] = updatedNode
+      return newNodes
+    })
   }, [setNodes])
   
   // Delete handler for selected nodes and edges
@@ -358,7 +376,7 @@ function FlowDashboardInner() {
     // Additional cleanup logic here if needed
   }, [])
 
-  const addNewAgent = () => {
+  const addNewAgent = useCallback(() => {
     const newNode: Node = {
       id: `agent-${Date.now()}`,
       type: 'agent',
@@ -371,42 +389,53 @@ function FlowDashboardInner() {
       },
     }
     setNodes((nds) => [...nds, newNode])
-  }
+  }, [setNodes])
 
-  const toggleFlow = () => {
-    setIsRunning(!isRunning)
+  const toggleFlow = useCallback(() => {
+    setIsRunning(prev => !prev)
     // Aqui você integraria com o backend para iniciar/parar o fluxo
-  }
+  }, [])
 
   useEffect(() => {
-    // Simular atualizações em tempo real do status dos agentes - usando immutable updates
+    // Simular atualizações em tempo real do status dos agentes - otimizado com menos re-renders
+    if (!isRunning) return
+
     const interval = setInterval(() => {
-      if (isRunning) {
-        setNodes((nds) =>
-          nds.map((node) => {
-            if (node.type === 'agent') {
+      setNodes((nds) => {
+        let hasChanges = false
+        const newNodes = nds.map((node) => {
+          if (node.type === 'agent') {
+            const newStatus = Math.random() > 0.7 ? 'processing' : 'active'
+            if (node.data.status !== newStatus) {
+              hasChanges = true
               return {
                 ...node,
                 data: {
                   ...node.data,
-                  status: Math.random() > 0.7 ? 'processing' : 'active'
+                  status: newStatus
                 }
               }
             }
-            return node
-          })
-        )
-      }
+          }
+          return node
+        })
+        // Só retorna novo array se houve mudanças
+        return hasChanges ? newNodes : nds
+      })
     }, 3000)
 
     return () => clearInterval(interval)
   }, [isRunning, setNodes])
   
-  // Auto-fit view when nodes change
+  // Auto-fit view when nodes change - debounced for performance
   useEffect(() => {
-    if (nodes.length > 0) {
-      setTimeout(() => fitView({ duration: 800 }), 100)
-    }
+    if (nodes.length === 0) return
+    
+    const timeoutId = setTimeout(() => {
+      fitView({ duration: 600, padding: 0.1 })
+    }, 150)
+
+    return () => clearTimeout(timeoutId)
   }, [nodes.length, fitView])
 
   return (
@@ -441,7 +470,7 @@ function FlowDashboardInner() {
         </Badge>
       </div>
 
-      {/* ReactFlow Canvas - Enhanced with v12+ features */}
+      {/* ReactFlow Canvas - Ultra otimizado para performance */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -457,9 +486,11 @@ function FlowDashboardInner() {
         className="bg-[#0e0e10]"
         fitView
         fitViewOptions={{ 
-          padding: 0.2, 
+          padding: 0.1, 
           includeHiddenNodes: false,
-          duration: 800 
+          duration: 600,
+          maxZoom: 1.5,
+          minZoom: 0.5
         }}
         panOnDrag={true}
         selectNodesOnDrag={false}
@@ -468,26 +499,45 @@ function FlowDashboardInner() {
         multiSelectionKeyCode="Shift"
         deleteKeyCode="Delete"
         selectionKeyCode="Shift"
+        // Performance optimizations
+        nodeExtent={[[-1000, -1000], [1000, 1000]]}
+        translateExtent={[[-2000, -2000], [2000, 2000]]}
+        nodeOrigin={[0.5, 0.5]}
+        snapToGrid={true}
+        snapGrid={[15, 15]}
+        attributionPosition="bottom-left"
         proOptions={{ hideAttribution: true }}
+        maxZoom={2}
+        minZoom={0.25}
+        defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+        onlyRenderVisibleElements={true}
       >
         <Controls 
           position="bottom-right"
           showInteractive={false}
+          showZoom={true}
+          showFitView={true}
         />
         <MiniMap 
           nodeStrokeColor="#27272a"
           nodeColor="#1a1a1d"
-          nodeBorderRadius={8}
+          nodeBorderRadius={6}
           className="bg-[#0e0e10] border border-[#27272a]"
           position="bottom-left"
           ariaLabel="Flow minimap"
+          pannable={true}
+          zoomable={true}
+          style={{ 
+            backgroundColor: '#0e0e10',
+            border: '1px solid #27272a'
+          }}
         />
         <Background 
           variant={BackgroundVariant.Dots} 
-          gap={20} 
-          size={1}
+          gap={15} 
+          size={0.8}
           color="#27272a"
-          patternClassName="opacity-50"
+          style={{ opacity: 0.3 }}
         />
       </ReactFlow>
     </div>

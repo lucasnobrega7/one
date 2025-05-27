@@ -242,8 +242,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
           </header>
 
-          {/* Page content */}
-          <main className="p-6 bg-[#0e0e10] min-h-screen">{children}</main>
+          {/* Page content - Enhanced container with better spacing */}
+          <main className="px-4 py-8 sm:px-6 lg:px-8 bg-surface-base min-h-screen">
+            <div className="max-w-full mx-auto">
+              {children}
+            </div>
+          </main>
         </div>
       </div>
     </AuthCheck>
