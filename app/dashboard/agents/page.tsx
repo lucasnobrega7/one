@@ -1,4 +1,5 @@
-import { RoleGuard } from "@/components/auth/role-guard"
+import { PermissionGate } from "@/components/features/auth/permission-gate"
+import { Permission } from "@/lib/auth/permissions"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
@@ -7,7 +8,7 @@ import { AgentsList } from "@/components/agents/agents-list"
 export default function AgentsPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <RoleGuard requiredPermission="agents:read">
+      <PermissionGate permission={Permission.ViewAgents}>
         <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
           <div className="flex items-center justify-between">
             <div>
@@ -15,19 +16,19 @@ export default function AgentsPage() {
               <p className="text-gray-400">Gerencie seus agentes conversacionais e configure suas funcionalidades</p>
             </div>
 
-            <RoleGuard requiredPermission="agents:create">
+            <PermissionGate permission={Permission.CreateAgent}>
               <Button className="bg-white text-black hover:bg-gray-100 transition-all" asChild>
                 <Link href="/dashboard/agents/new">
                   <Plus className="mr-2 h-4 w-4" />
                   Criar Agente
                 </Link>
               </Button>
-            </RoleGuard>
+            </PermissionGate>
           </div>
 
           <AgentsList />
         </div>
-      </RoleGuard>
+      </PermissionGate>
     </div>
   )
 }

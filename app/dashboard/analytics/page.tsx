@@ -1,9 +1,10 @@
-import { RoleGuard } from "@/components/auth/role-guard"
+import { PermissionGate } from "@/components/features/auth/permission-gate"
+import { Permission } from "@/lib/auth/permissions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function AnalyticsPage() {
   return (
-    <RoleGuard requiredPermission="analytics:read">
+    <PermissionGate permission={Permission.ViewAnalytics}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Analytics</h1>
@@ -73,6 +74,6 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
       </div>
-    </RoleGuard>
+    </PermissionGate>
   )
 }

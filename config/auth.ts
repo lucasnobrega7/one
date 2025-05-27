@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import type { NextAuthConfig } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { Role } from "@/lib/auth/permissions"
 
 export const config: NextAuthConfig = {
   providers: [
@@ -55,7 +56,7 @@ export const config: NextAuthConfig = {
             id: user.id,
             name: user.user_metadata?.name || user.email,
             email: user.email || "",
-            roles: ['admin'], // For now, give admin role to authenticated users
+            roles: [Role.Admin], // For now, give admin role to authenticated users
           }
         } catch (error) {
           return null
