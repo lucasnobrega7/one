@@ -138,13 +138,24 @@ export default function FixDomainPage() {
                   </span>
                 </div>
                 
+                {result.manualSteps && (
+                  <div className="mt-4 bg-blue-50 border border-blue-200 rounded p-3">
+                    <p className="text-sm font-medium text-blue-700">Etapas manuais no cPanel:</p>
+                    <ol className="text-sm mt-2 space-y-1 list-decimal list-inside">
+                      {result.manualSteps.map((step: string, index: number) => (
+                        <li key={index} className="text-blue-600">{step}</li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+
                 {result.redirectsRemoved && (
                   <div className="mt-2">
-                    <p className="text-sm font-medium">Redirects removidos:</p>
+                    <p className="text-sm font-medium">Redirects a serem removidos:</p>
                     <ul className="text-sm mt-1 space-y-1">
                       {result.redirectsRemoved.map((redirect: any, index: number) => (
                         <li key={index} className="text-gray-600">
-                          • {redirect.domain} → {redirect.destination}
+                          • {redirect.source} → {redirect.destination}
                         </li>
                       ))}
                     </ul>
@@ -153,7 +164,7 @@ export default function FixDomainPage() {
                 
                 {result.dnsRecords && (
                   <div className="mt-2">
-                    <p className="text-sm font-medium">Registros DNS configurados:</p>
+                    <p className="text-sm font-medium">Registros DNS a configurar:</p>
                     <ul className="text-sm mt-1 space-y-1">
                       {result.dnsRecords.map((record: any, index: number) => (
                         <li key={index} className="text-gray-600">

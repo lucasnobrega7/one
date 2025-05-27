@@ -61,11 +61,16 @@ export class CPanelAPIClient {
 
       console.log(`[cPanel API] ${module}::${func}`, { url: url.toString(), params })
 
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000)
+      
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: this.baseHeaders,
-        timeout: 30000
+        signal: controller.signal
       })
+      
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`)
@@ -218,10 +223,15 @@ export class CPanelAPIClient {
       const fullDomain = `${subdomain}.${this.config.domain}`
       
       // Test DNS resolution
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000)
+      
       const response = await fetch(`https://${fullDomain}`, {
         method: 'HEAD',
-        timeout: 10000
+        signal: controller.signal
       })
+      
+      clearTimeout(timeoutId)
       
       const responseTime = Date.now() - startTime
       
