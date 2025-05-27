@@ -76,26 +76,26 @@
     /* Gradientes OpenAI */
     --gradient-dark: linear-gradient(135deg, #1F2937, #111827, #030712);
     
-    /* Shadcn/ui variables adaptadas para OpenAI */
-    --background: 0 0% 0%;          /* Preto por padrão */
-    --foreground: 0 0% 100%;        /* Branco para contraste */
-    --card: 0 0% 3%;               /* Cinza muito escuro para cards */
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 217 91% 60%;         /* Azul OpenAI */
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 7%;           /* Cinza escuro */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 7%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 0 0% 7%;
-    --accent-foreground: 0 0% 100%;
+    /* Shadcn/ui variables para OpenAI Light Theme */
+    --background: 0 0% 100%;        /* Branco OpenAI */
+    --foreground: 210 11% 15%;      /* Gray-900 OpenAI */
+    --card: 0 0% 100%;              /* Branco para cards */
+    --card-foreground: 210 11% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 11% 15%;
+    --primary: 221 83% 53%;         /* Blue-500 OpenAI */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 98%;       /* Gray-50 OpenAI */
+    --secondary-foreground: 215 25% 27%;
+    --muted: 210 40% 96%;           /* Gray-100 OpenAI */
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 215 25% 27%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;             /* Borda sutil */
-    --input: 0 0% 7%;
-    --ring: 217 91% 60%;
+    --border: 214 32% 91%;          /* Gray-200 OpenAI */
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
     --radius: 12px;
   }
   
@@ -121,11 +121,12 @@
   }
   
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-variation-settings: normal;
     font-weight: 400;
+    background-color: var(--openai-white);
+    color: var(--openai-gray-900);
   }
 
   html {
@@ -508,9 +509,144 @@
 
 /* Heroicons e SVG Icons */
 .openai-icon {
-  @apply text-indigo-500;
+  color: var(--openai-blue);
 }
 
 .openai-icon-lg {
-  @apply h-12 w-12 text-indigo-600;
+  @apply h-8 w-8;
+  color: var(--openai-blue);
+}
+
+/* Typography Söhne for Headings */
+.sohne-heading {
+  font-family: 'Söhne', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Light Theme Shadow System */
+.shadow-openai-light-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.shadow-openai-light-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-openai-light-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-openai-light-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+}
+
+/* Light Theme Button System */
+.btn-openai-primary-light {
+  background-color: var(--openai-black);
+  color: var(--openai-white);
+  @apply px-8 py-4 font-semibold;
+  border-radius: 12px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.btn-openai-primary-light:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-openai-ghost-light {
+  background-color: transparent;
+  color: var(--openai-gray-700);
+  border: 2px solid var(--openai-gray-300);
+  @apply px-8 py-4 font-semibold;
+  border-radius: 12px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-openai-ghost-light:hover {
+  background-color: var(--openai-gray-50);
+  border-color: var(--openai-gray-400);
+  color: var(--openai-gray-900);
+}
+
+/* Light Theme Card System */
+.openai-card-light {
+  background-color: var(--openai-white);
+  border: 1px solid var(--openai-gray-200);
+  color: var(--openai-gray-900);
+  border-radius: 12px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.openai-card-light:hover {
+  transform: translateY(-2px);
+  border-color: var(--openai-gray-300);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* Geometric mesh subtle overlay for light theme */
+.geometric-mesh-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--openai-blue) 1px, transparent 1px),
+    linear-gradient(90deg, var(--openai-blue) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.02;
+  animation: mesh-pulse-light 4s infinite ease-in-out;
+}
+
+@keyframes mesh-pulse-light {
+  0%, 100% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+}
+
+/* Navigation Light Theme */
+.openai-nav-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--openai-gray-200);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.openai-nav-light.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom-color: var(--openai-gray-300);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
