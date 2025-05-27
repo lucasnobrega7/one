@@ -1,10 +1,12 @@
-# AGENTES DE CONVERSÃO - PROJETO FINALIZADO + DOMÍNIO CORRIGIDO
+# AGENTES DE CONVERSÃO - PROJETO 100% COMPLETO + CHATVOLT ARCHITECTURE
 
-**Status:** ✅ 100% IMPLEMENTADO + ARQUITETURA DE SUBDOMÍNIOS COMPLETA  
+**Status:** ✅ 100% IMPLEMENTADO + ARQUITETURA CHATVOLT COMPLETA  
 **Margem de Lucro:** 87% (vs 13% anterior)  
 **Economia IA:** 85% com OpenRouter  
 **Deploy:** Ativo em produção com subdomínios configurados  
-**Design:** OpenAI Light Theme completo
+**Design:** OpenAI Light Theme completo  
+**Vector Store:** Supabase pgvector + OpenRouter embeddings implementado  
+**Database:** 14 tabelas Prisma + 16 datasource types funcionando  
 
 ## 🎯 PROJETO ATUAL
 

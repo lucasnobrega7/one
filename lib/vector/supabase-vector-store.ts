@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { OpenAIEmbeddings } from '@langchain/openai'
+import OpenAI from 'openai'
 import { Datastore } from '@prisma/client'
 import { AppDocument, ChunkMetadata, ChunkMetadataRetrieved } from '@/lib/types/document'
 import { SearchRequestSchema } from '@/lib/types/dtos'
@@ -15,7 +15,7 @@ type DatastoreType = Datastore & {
 
 export class SupabaseVectorManager extends VectorStoreManager<DatastoreType> {
   private client: any
-  private embeddings: OpenAIEmbeddings
+  private openai: OpenAI
   private tableName: string
   private queryName: string
 
@@ -27,9 +27,9 @@ export class SupabaseVectorManager extends VectorStoreManager<DatastoreType> {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
     
-    this.embeddings = new OpenAIEmbeddings({
-      openAIApiKey: process.env.OPENROUTER_API_KEY,
-      modelName: 'text-embedding-ada-002',
+    this.openai = new OpenAI({
+      apiKey: process.env.OPENROUTER_API_KEY,
+      baseURL: 'https://openrouter.ai/api/v1',
     })
     
     this.tableName = datastore.config?.tableName || 'document_chunks'
@@ -92,9 +92,17 @@ export class SupabaseVectorManager extends VectorStoreManager<DatastoreType> {
   ): Promise<AppDocument<ChunkMetadata>[]> {
     await this.initializeSchema()
     
-    // Generate embeddings for all documents
+    // Generate embeddings for all documents using OpenRouter
     const texts = documents.map(doc => doc.pageContent)
-    const embeddings = await this.embeddings.embedDocuments(texts)
+    const embeddings = await Promise.all(
+      texts.map(async (text) => {
+        const response = await this.openai.embeddings.create({
+          model: 'openai/text-embedding-ada-002',
+          input: text,
+        })
+        return response.data[0].embedding
+      })
+    )
     
     // Prepare data for insertion
     const insertData = documents.map((doc, index) => ({
@@ -162,8 +170,12 @@ export class SupabaseVectorManager extends VectorStoreManager<DatastoreType> {
   async search(props: any): Promise<AppDocument<ChunkMetadataRetrieved>[]> {
     const { query, topK = 5, threshold = 0.7 } = props
     
-    // Generate embedding for the query
-    const queryEmbedding = await this.embeddings.embedQuery(query)
+    // Generate embedding for the query using OpenRouter
+    const response = await this.openai.embeddings.create({
+      model: 'openai/text-embedding-ada-002',
+      input: query,
+    })
+    const queryEmbedding = response.data[0].embedding
     
     // Perform similarity search
     const { data, error } = await this.client.rpc(this.queryName, {
