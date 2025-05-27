@@ -1,7 +1,8 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { FlowDashboard } from '@/components/agents/flow-dashboard'
+import { DashboardRedirect } from './redirect'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -60,6 +61,20 @@ function FlowStats() {
 export default function FlowPage() {
   const permissions = usePermissions()
   const canCreateAgents = true // Temporary fix
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+
+  useEffect(() => {
+    // Check if we're on the wrong subdomain
+    const currentHost = window.location.hostname
+    const isWrongDomain = !currentHost.includes('dash.agentesdeconversao.ai') && 
+                         !currentHost.includes('localhost') &&
+                         !currentHost.includes('vercel.app')
+    setShouldRedirect(isWrongDomain)
+  }, [])
+
+  if (shouldRedirect) {
+    return <DashboardRedirect />
+  }
 
   const flows = [
     {

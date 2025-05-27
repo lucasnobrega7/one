@@ -67,26 +67,37 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     request.headers.get('x-real-ip') ?? 
     'unknown'
 
-  // 🎯 Subdomain routing logic
+  // 🎯 Subdomain routing logic - Always redirect to correct subdomain
+  console.log(`Middleware: ${host} ${pathname}`) // Debug log
+  
   // If accessing /dashboard routes, redirect to dash subdomain
-  if (pathname.startsWith('/dashboard') && !host.includes('dash.agentesdeconversao.ai')) {
-    const dashboardUrl = new URL(pathname, 'https://dash.agentesdeconversao.ai')
-    dashboardUrl.search = request.nextUrl.search
-    return NextResponse.redirect(dashboardUrl)
+  if (pathname.startsWith('/dashboard')) {
+    if (!host.includes('dash.agentesdeconversao.ai') && !host.includes('localhost')) {
+      const dashboardUrl = new URL(pathname, 'https://dash.agentesdeconversao.ai')
+      dashboardUrl.search = request.nextUrl.search
+      console.log(`Redirecting to dashboard: ${dashboardUrl.toString()}`)
+      return NextResponse.redirect(dashboardUrl)
+    }
   }
 
   // If accessing /login or /auth routes, redirect to login subdomain  
-  if ((pathname.startsWith('/login') || pathname.startsWith('/auth')) && !host.includes('login.agentesdeconversao.ai')) {
-    const loginUrl = new URL(pathname, 'https://login.agentesdeconversao.ai')
-    loginUrl.search = request.nextUrl.search
-    return NextResponse.redirect(loginUrl)
+  if (pathname.startsWith('/login') || pathname.startsWith('/auth')) {
+    if (!host.includes('login.agentesdeconversao.ai') && !host.includes('localhost')) {
+      const loginUrl = new URL(pathname, 'https://login.agentesdeconversao.ai')
+      loginUrl.search = request.nextUrl.search
+      console.log(`Redirecting to login: ${loginUrl.toString()}`)
+      return NextResponse.redirect(loginUrl)
+    }
   }
 
   // If accessing /docs routes, redirect to docs subdomain
-  if (pathname.startsWith('/docs') && !host.includes('docs.agentesdeconversao.ai')) {
-    const docsUrl = new URL(pathname, 'https://docs.agentesdeconversao.ai')
-    docsUrl.search = request.nextUrl.search
-    return NextResponse.redirect(docsUrl)
+  if (pathname.startsWith('/docs')) {
+    if (!host.includes('docs.agentesdeconversao.ai') && !host.includes('localhost')) {
+      const docsUrl = new URL(pathname, 'https://docs.agentesdeconversao.ai')
+      docsUrl.search = request.nextUrl.search
+      console.log(`Redirecting to docs: ${docsUrl.toString()}`)
+      return NextResponse.redirect(docsUrl)
+    }
   }
   
   // 🚨 CRITICAL: Block bypass attempts
