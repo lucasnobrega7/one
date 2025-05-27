@@ -1,10 +1,72 @@
 {
+  "version": 2,
   "framework": "nextjs",
   "installCommand": "npm install",
   "buildCommand": "npm run build",
+  "outputDirectory": ".next",
   "functions": {
-    "app/api/auth/[...nextauth]/route.ts": {
+    "app/api/**/*.ts": {
       "maxDuration": 30
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/dashboard/:path*",
+      "destination": "https://dash.agentesdeconversao.ai/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "https://login.agentesdeconversao.ai",
+      "permanent": false
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://docs.agentesdeconversao.ai/:path*",
+      "permanent": false
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
+    "NEXT_PUBLIC_API_URL": "@next_public_api_url",
+    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url",
+    "OPENROUTER_API_KEY": "@openrouter_api_key"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production",
+      "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
+      "NEXT_PUBLIC_API_URL": "@next_public_api_url"
+    }
+  },
+  "regions": ["iad1"],
+  "crons": []
 }

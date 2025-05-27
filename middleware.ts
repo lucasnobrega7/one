@@ -9,6 +9,19 @@ const publicRoutes = ["/", "/login", "/signup", "/auth/forgot-password", "/auth/
 const skipMiddlewareRoutes = ["/api/auth", "/api/debug-session", "/api/health", "/_next", "/favicon.ico"]
 
 export async function middleware(request: NextRequest) {
+  // 🚨 PROTEÇÃO CONTRA CVE-2025-29927: Bloquear header x-middleware-subrequest
+  if (request.headers.get('x-middleware-subrequest')) {
+    console.error('[SECURITY ALERT] Blocked x-middleware-subrequest attack attempt from:', request.ip);
+    return new NextResponse('Forbidden - Security Policy Violation', { 
+      status: 403,
+      headers: {
+        'X-Security-Block': 'CVE-2025-29927-Protection',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY'
+      }
+    });
+  }
+
   const { pathname } = request.nextUrl
 
   // Skip middleware for NextAuth routes and static assets
@@ -48,7 +61,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  // Adicionar headers de segurança para todas as respostas autenticadas
+  const response = NextResponse.next()
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('X-XSS-Protection', '1; mode=block')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  
+  return response
 }
 
 // Configure the matcher for the middleware
