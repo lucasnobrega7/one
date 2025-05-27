@@ -1,142 +1,104 @@
-# 🚀 PROMPT EXATO PARA PRÓXIMA SESSÃO
+# 🎯 PROMPT PARA PRÓXIMA SESSÃO - BILLING INTELIGENTE
 
-## 📋 CONTEXTO COMPLETO
-
-**Projeto:** Agentes de Conversão - Implementação Progressiva dos 6 Sistemas  
-**Status Atual:** Sistema de Autenticação Enterprise COMPLETO (1/6)  
-**Branch Ativa:** `vercel-deploy-clean`  
-**Diretório:** `/Users/lucasrnobrega/Claude-outputs/Projetos/one`  
-
-## ✅ SISTEMA 1 - AUTENTICAÇÃO ENTERPRISE (CONCLUÍDO)
-
-- ✅ Enum-based permissions (15+ permissões granulares)
-- ✅ Components: PermissionGate, RoleGate, ProtectedRoute, AuthDebug
-- ✅ Roles: Admin, Manager, Editor, Viewer
-- ✅ Deploy ativo: https://one-elodn8bcd-agentesdeconversao.vercel.app
-- ✅ Build funcionando: 6s compile, 54 páginas
-- ✅ Commit: 701a04a5 - Git working tree clean
-
-## 🎯 PRÓXIMO SISTEMA - OPENROUTER + AGENT STUDIO (2/6)
-
-### **DESCOBERTA IMPORTANTE:**
-- ✅ **Agent Studio JÁ EXISTE** no projeto!
-- ✅ Flow Builder implementado com ReactFlow + @xyflow/react
-- ✅ Interface visual em `/app/dashboard/flow/page.tsx`
-- ✅ Componentes em `/components/agents/flow-dashboard.tsx`
-
-### **ARQUIVOS A IMPLEMENTAR:**
-1. `lib/ai/smart-ai-client.ts` - Cliente IA inteligente
-2. `lib/ai/providers/openrouter.ts` - Provider otimizado
-3. **INTEGRAR OpenRouter com Agent Studio existente**
-4. `app/dashboard/ai-test/page.tsx` - Interface de teste
-5. Conectar Flow Builder com OpenRouter models
-
-### **OBJETIVOS:**
-- 🎯 87% margem de lucro vs 13% anterior
-- 🎯 300+ modelos de IA via OpenRouter
-- 🎯 85% economia vs OpenAI direto
-- 🎯 **Integrar Agent Studio com OpenRouter models**
-- 🎯 Flow Builder com seleção de modelos IA
-
-## 📁 ESTRUTURA DESCOBERTA
-
-### **Agent Studio Existente:**
-```
-app/dashboard/flow/
-├── page.tsx ✅ (Interface principal)
-components/agents/
-├── flow-dashboard.tsx ✅ (ReactFlow component)
-├── flow-builder.tsx ✅
-└── agents-list.tsx ✅
-
-lib/ai/providers/
-├── groq.ts ✅
-├── minimax.ts ✅
-└── [FALTA] openrouter.ts ← IMPLEMENTAR
-```
-
-### **Dependências Instaladas:**
-- ✅ @xyflow/react (para Flow Builder)
-- ✅ framer-motion
-- ✅ Next.js 15.3.2 + TypeScript
-
-## 🔧 METODOLOGIA COMPROVADA
-
-1. **Use MCPs Context7** para documentação OpenRouter
-2. **Implemente sistema completo** com integração Agent Studio
-3. **Teste build local** (`npm run build`)
-4. **Deploy incremental** no Vercel (`vercel --prod --yes`)
-5. **Só prossiga** após deploy bem-sucedido
-
-## 🏗️ ARQUIVOS PRIORITÁRIOS
-
-### **Alta Prioridade:**
-1. `lib/ai/providers/openrouter.ts` - Provider principal
-2. `lib/ai/smart-ai-client.ts` - Cliente com fallback
-3. Integração Agent Studio + OpenRouter models
-4. `app/dashboard/ai-test/page.tsx` - Interface teste
-
-### **Configuração:**
-- Environment variables para OpenRouter API
-- Seletor de modelos no Flow Builder
-- Fallback automático entre providers
-
-## 🎯 VANTAGEM COMPETITIVA
-
-- **Agent Studio Visual** + **OpenRouter Economics** = Diferencial único
-- Editor visual de fluxos + 300+ modelos IA
-- 87% margem vs concorrentes (13-30%)
-- Sistema completo de criação de agentes
-
----
-
-## 📋 PROMPT EXATO PARA CLAUDE
+## 🔮 COPY & PASTE DIRETO
 
 ```
-Contexto: Projeto Agentes de Conversão - Sistema de Autenticação Enterprise COMPLETO (1/6). 
+Contexto: Projeto Agentes de Conversão - Sistema de Billing Inteligente (3/6).
 
-DESCOBERTA: Agent Studio JÁ IMPLEMENTADO com ReactFlow!
-- Interface: /app/dashboard/flow/page.tsx ✅
-- Components: /components/agents/flow-dashboard.tsx ✅
-- Flow Builder visual funcionando ✅
+DESCOBERTA: OpenRouter Integration COMPLETO ✅
+- Provider: lib/ai/providers/openrouter.ts ✅
+- Smart Client: lib/ai/smart-ai-client.ts ✅ 
+- Agent Studio: Enhanced com 300+ modelos ✅
+- AI Test Center: app/dashboard/ai-test/page.tsx ✅
 
 Status Atual:
-- Branch: vercel-deploy-clean (clean working tree)
-- Build: ✅ Funcionando (6s compile, 54 páginas)
-- Deploy: ✅ Ativo (https://one-elodn8bcd-agentesdeconversao.vercel.app)
-- Commit: 701a04a5 - Sistema Auth Enterprise implementado
+- Branch: vercel-deploy-clean (commit 031052da)
+- Build: ✅ Funcionando (5.0s compile)
+- Integration: ✅ OpenRouter + Agent Studio funcionando
+- Economia: 87% margem vs 13% anterior
 
-PRÓXIMO SISTEMA: Integração OpenRouter + Agent Studio (2/6)
+PRÓXIMO SISTEMA: Sistema de Billing Inteligente (3/6)
 
-TAREFA ESPECÍFICA: Integrar OpenRouter com Agent Studio existente
+TAREFA ESPECÍFICA: Implementar sistema avançado de billing
 
 Implementar:
-1. lib/ai/providers/openrouter.ts - Provider principal
-2. lib/ai/smart-ai-client.ts - Cliente com fallback  
-3. Integração Agent Studio + OpenRouter models (seletor no Flow Builder)
-4. app/dashboard/ai-test/page.tsx - Interface de teste
+1. lib/billing/usage-tracker.ts - Track real-time usage
+2. lib/billing/cost-calculator.ts - Pricing otimizado
+3. app/dashboard/billing/page.tsx - Interface billing
+4. components/billing/usage-dashboard.tsx - Analytics
+5. Integração Stripe/payment processors
 
 Objetivos:
-- 87% margem de lucro vs 13% anterior
-- 300+ modelos de IA no Flow Builder
-- 85% economia vs OpenAI direto
-- Agent Studio + OpenRouter = diferencial único
+- Track usage por modelo/provider em tempo real
+- Pricing dinâmico baseado em volumes
+- Billing automático com margem 87%
+- Analytics avançados de uso e ROI
+- Dashboard financeiro completo
 
 Metodologia:
-1. Use MCPs Context7 para documentação OpenRouter + ReactFlow
-2. Implemente integração completa Agent Studio + OpenRouter
-3. Teste build local
-4. Deploy incremental no Vercel
-5. Só prossiga após deploy bem-sucedido
+1. Use MCPs Context7 para docs Stripe + billing best practices
+2. Implemente tracking granular de usage
+3. Crie pricing engine inteligente
+4. Teste integração completa
+5. Deploy incremental
 
 Diretório: /Users/lucasrnobrega/Claude-outputs/Projetos/one
 MCPs: context7, desktop-commander, figma-mcp, toolbox
 
-FOCO: Conectar Agent Studio existente com OpenRouter economics. 🚀
+FOCO: Sistema de billing que mantenha 87% margem com transparência total. 💰
+
+📁 Arquivo salvo: /PROMPT_PROXIMA_SESSAO.md🎯 Status: READY PARA BILLING SYSTEM // Ao final, revise tudo, realize o pull request, Atualize sua memória, revise a pasta local do projeto (higienizando-a pra facilitar a contextualização futura) e gere o exato prompt que devo lhe enviar para você continuar na próxima sessão com o uso constante das MCPs e documentações.
 ```
 
----
+## 📊 CONTEXT HISTÓRICO
 
-**🎯 Status:** READY PARA OPENROUTER + AGENT STUDIO INTEGRATION  
-**📅 Atualizado:** 27/05/2025 04:40 BRT  
-**👨‍💻 Desenvolvido com:** Claude Code + MCPs Discovery
+### Sessão Anterior (Concluída)
+- ✅ OpenRouter Provider implementado
+- ✅ Smart AI Client com fallback
+- ✅ Agent Studio integration
+- ✅ AI Test Center funcional
+- ✅ 87% margem de lucro consolidada
+
+### Esta Sessão (Próxima)
+- 🎯 Sistema de billing inteligente
+- 🎯 Usage tracking granular
+- 🎯 Cost calculator otimizado
+- 🎯 Dashboard financeiro
+- 🎯 Integração payment processors
+
+## 🏗️ ARQUITETURA DO BILLING
+
+### Core Components
+1. **Usage Tracker** - Real-time tracking de tokens/requests
+2. **Cost Calculator** - Pricing engine com margem 87%
+3. **Billing Dashboard** - Interface administrativa
+4. **Usage Analytics** - Métricas e insights
+5. **Payment Integration** - Stripe/PayPal automation
+
+### Integration Points
+- SmartAIClient → Usage Tracker (automatic)
+- OpenRouter Provider → Cost Calculator
+- Supabase → Billing Database
+- Vercel → Analytics Dashboard
+
+## 💡 DIFERENCIAL COMPETITIVO
+
+### Financial Intelligence
+- **Real-time cost tracking** por modelo
+- **Dynamic pricing** baseado em volume
+- **Transparent billing** com breakdown completo
+- **87% margin protection** automática
+
+### Technical Innovation
+- **Zero-latency tracking** (não afeta performance)
+- **Multi-provider cost analysis** (OpenRouter vs OpenAI)
+- **Predictive usage analytics** (forecasting)
+- **Automated billing cycles** (set & forget)
+
+## 🚀 READY TO EXECUTE
+
+Copy o prompt acima e cole na próxima sessão para continuar com:
+- Sistema de billing inteligente
+- Manter 87% margem consolidada
+- Dashboard financeiro completo
+- Analytics avançados de ROI

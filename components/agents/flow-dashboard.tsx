@@ -13,6 +13,10 @@ import {
   Edge,
   Node,
   BackgroundVariant,
+  Handle,
+  Position,
+  ConnectionLineType,
+  ConnectionMode,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -45,116 +49,159 @@ const customNodeTypes = {
 // Agent Node Component
 function AgentNode({ data, selected }: { data: any; selected?: boolean }) {
   return (
-    <Card className={`min-w-[240px] border-2 ${selected ? 'border-blue-600 ring-2 ring-blue-200' : 'border-blue-500'} bg-blue-50 dark:bg-blue-950`}>
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
-          <Bot className="h-4 w-4 text-blue-600" />
-          <CardTitle className="text-sm">{data.label}</CardTitle>
-          <Badge variant={data.status === 'active' ? 'default' : 'secondary'}>
-            {data.status}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0 space-y-2">
-        <p className="text-xs text-gray-600 dark:text-gray-400">
-          {data.description}
-        </p>
-        
-        {/* Model Selector */}
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
-            Modelo de IA:
-          </label>
-          <Select value={data.model || 'openai/gpt-4o-mini'}>
-            <SelectTrigger className="h-6 text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="openai/gpt-4o-mini">GPT-4O Mini (Rápido)</SelectItem>
-              <SelectItem value="openai/gpt-4o">GPT-4O (Balanced)</SelectItem>
-              <SelectItem value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</SelectItem>
-              <SelectItem value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</SelectItem>
-              <SelectItem value="google/gemini-pro-1.5">Gemini Pro 1.5</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <>
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
+      />
+      <Card className={`min-w-[240px] border ${selected ? 'border-[#46B2E0] ring-2 ring-[#46B2E0]/20' : 'border-[#27272a]'} bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-all duration-200`}>
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2">
+            <Bot className="h-4 w-4 text-[#46B2E0]" />
+            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+            <Badge variant={data.status === 'active' ? 'default' : 'secondary'} className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white">
+              {data.status}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0 space-y-2">
+          <p className="text-xs text-gray-400">
+            {data.description}
+          </p>
+          
+          {/* Model Selector */}
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-gray-300">
+              Modelo de IA:
+            </label>
+            <Select value={data.model || 'openai/gpt-4o-mini'}>
+              <SelectTrigger className="h-6 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="openai/gpt-4o-mini">GPT-4O Mini (Rápido)</SelectItem>
+                <SelectItem value="openai/gpt-4o">GPT-4O (Balanced)</SelectItem>
+                <SelectItem value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</SelectItem>
+                <SelectItem value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</SelectItem>
+                <SelectItem value="google/gemini-pro-1.5">Gemini Pro 1.5</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* Provider Status */}
-        <div className="flex items-center gap-1">
-          <Cpu className="h-3 w-3 text-green-600" />
-          <span className="text-xs text-green-600">OpenRouter (87% margem)</span>
-        </div>
-        
-        <div className="flex gap-1 mt-2">
-          <Button size="sm" variant="outline">
-            <Settings className="h-3 w-3" />
-          </Button>
-          <Button size="sm" variant="outline">
-            <MessageSquare className="h-3 w-3" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          {/* Provider Status */}
+          <div className="flex items-center gap-1">
+            <Cpu className="h-3 w-3 text-[#8A53D2]" />
+            <span className="text-xs text-[#8A53D2]">OpenRouter (87% margem)</span>
+          </div>
+          
+          <div className="flex gap-1 mt-2">
+            <Button size="sm" variant="outline">
+              <Settings className="h-3 w-3" />
+            </Button>
+            <Button size="sm" variant="outline">
+              <MessageSquare className="h-3 w-3" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
+      />
+    </>
   )
 }
 
 // Trigger Node Component  
 function TriggerNode({ data }: { data: any }) {
   return (
-    <Card className="min-w-[180px] border-2 border-green-500 bg-green-50 dark:bg-green-950">
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
-          <Zap className="h-4 w-4 text-green-600" />
-          <CardTitle className="text-sm">{data.label}</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <p className="text-xs text-gray-600 dark:text-gray-400">
-          {data.triggerType}
-        </p>
-      </CardContent>
-    </Card>
+    <>
+      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#46B2E0]/30 transition-all duration-200">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2">
+            <Zap className="h-4 w-4 text-[#46B2E0]" />
+            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-xs text-gray-400">
+            {data.triggerType}
+          </p>
+        </CardContent>
+      </Card>
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ background: '#46B2E0', border: '2px solid #8A53D2' }}
+      />
+    </>
   )
 }
 
 // Action Node Component
 function ActionNode({ data }: { data: any }) {
   return (
-    <Card className="min-w-[180px] border-2 border-purple-500 bg-purple-50 dark:bg-purple-950">
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="h-4 w-4 text-purple-600" />
-          <CardTitle className="text-sm">{data.label}</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <p className="text-xs text-gray-600 dark:text-gray-400">
-          {data.actionType}
-        </p>
-      </CardContent>
-    </Card>
+    <>
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ background: '#8A53D2', border: '2px solid #E056A0' }}
+      />
+      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#8A53D2]/30 transition-all duration-200">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="h-4 w-4 text-[#8A53D2]" />
+            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-xs text-gray-400">
+            {data.actionType}
+          </p>
+        </CardContent>
+      </Card>
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ background: '#8A53D2', border: '2px solid #E056A0' }}
+      />
+    </>
   )
 }
 
 // Integration Node Component
 function IntegrationNode({ data }: { data: any }) {
   return (
-    <Card className="min-w-[180px] border-2 border-orange-500 bg-orange-50 dark:bg-orange-950">
-      <CardHeader className="pb-2">
-        <div className="flex items-center gap-2">
-          <Globe className="h-4 w-4 text-orange-600" />
-          <CardTitle className="text-sm">{data.label}</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <p className="text-xs text-gray-600 dark:text-gray-400">
-          {data.service}
-        </p>
-        <Badge variant={data.connected ? 'default' : 'destructive'}>
-          {data.connected ? 'Conectado' : 'Desconectado'}
-        </Badge>
-      </CardContent>
-    </Card>
+    <>
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ background: '#E056A0', border: '2px solid #46B2E0' }}
+      />
+      <Card className="min-w-[180px] border border-[#27272a] bg-[#1a1a1d] hover:border-[#E056A0]/30 transition-all duration-200">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2">
+            <Globe className="h-4 w-4 text-[#E056A0]" />
+            <CardTitle className="text-sm text-white">{data.label}</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-xs text-gray-400">
+            {data.service}
+          </p>
+          <Badge variant={data.connected ? 'default' : 'destructive'} className={data.connected ? 'bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white' : ''}>
+            {data.connected ? 'Conectado' : 'Desconectado'}
+          </Badge>
+        </CardContent>
+      </Card>
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ background: '#E056A0', border: '2px solid #46B2E0' }}
+      />
+    </>
   )
 }
 
@@ -346,20 +393,28 @@ export function FlowDashboard() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={customNodeTypes}
-        className="bg-gray-50 dark:bg-gray-900"
+        nodesDraggable={true}
+        nodesConnectable={true}
+        elementsSelectable={true}
+        className="bg-[#0e0e10]"
         fitView
+        panOnDrag={true}
+        selectNodesOnDrag={false}
+        connectionLineType={ConnectionLineType.SmoothStep}
+        connectionMode={ConnectionMode.Loose}
       >
         <Controls />
         <MiniMap 
-          nodeStrokeColor="#374151"
-          nodeColor="#9ca3af"
+          nodeStrokeColor="#27272a"
+          nodeColor="#1a1a1d"
           nodeBorderRadius={8}
+          className="bg-[#0e0e10] border border-[#27272a]"
         />
         <Background 
           variant={BackgroundVariant.Dots} 
           gap={20} 
           size={1}
-          color="#d1d5db"
+          color="#27272a"
         />
       </ReactFlow>
     </div>
