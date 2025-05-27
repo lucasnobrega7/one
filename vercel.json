@@ -10,5 +10,7 @@
     "env": {
       "NODE_OPTIONS": "--max-old-space-size=4096"
     }
-  }
+  },
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build"
 }
