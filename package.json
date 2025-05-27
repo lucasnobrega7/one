@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "echo 'Dependencies installed successfully'"
   },
   "dependencies": {
     "@auth/supabase-adapter": "1.0.0",
@@ -32,7 +34,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "0.378.0",
-    "next": "14.2.15",
+    "next": "15.3.2",
     "next-auth": "5.0.0-beta.18",
     "next-themes": "^0.4.6",
     "react": "18.3.1",
@@ -50,6 +52,8 @@
     "@types/node": "22.10.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.3",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "15.3.2",
     "typescript": "5.7.2"
   }
 }
