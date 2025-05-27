@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight, Play, Brain, MessageSquare, BarChart3, CheckCircle, Zap, Clock, Users } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
+import { SubdomainLink } from "@/components/ui/subdomain-link"
 
 export default function HomePage() {
   return (
@@ -15,26 +16,29 @@ export default function HomePage() {
             
             <nav className="hidden lg:flex items-center space-x-8">
               <Link href="/research" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Pesquisa</Link>
-              <Link href="/api" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">API</Link>
-              <Link href="/dashboard" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Dashboard</Link>
+              <SubdomainLink subdomain="docs" path="/docs" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">API</SubdomainLink>
+              <SubdomainLink subdomain="dash" path="/dashboard" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Dashboard</SubdomainLink>
               <Link href="/safety" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Segurança</Link>
               <Link href="/about" className="text-gray-600 hover:text-blue-600 transition-colors duration-150 font-medium">Empresa</Link>
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link 
-                href="/auth/login" 
+              <SubdomainLink 
+                subdomain="login"
+                path="/login"
                 className="text-gray-600 hover:text-gray-900 transition-colors duration-150 font-medium px-4 py-2 rounded-lg hover:bg-gray-50"
               >
                 Entrar
-              </Link>
-              <Link 
-                href="/auth/signup"
+              </SubdomainLink>
+              <SubdomainLink 
+                subdomain="login"
+                path="/signup"
+                asButton
+                variant="default"
                 className="btn-openai-primary-light"
-                aria-label="Criar conta gratuita para usar Agentes de Conversão"
               >
                 Começar Agora
-              </Link>
+              </SubdomainLink>
             </div>
           </div>
         </div>

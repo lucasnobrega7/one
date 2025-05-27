@@ -68,6 +68,20 @@ export const config: NextAuthConfig = {
     strategy: "jwt",
   },
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Redirect to dashboard subdomain after successful login
+      if (url.startsWith("/dashboard") || url === "/") {
+        return "https://dash.agentesdeconversao.ai"
+      }
+      // Allow callback URLs on the same domain
+      if (url.startsWith(baseUrl)) return url
+      // Allow callback URLs on subdomain
+      if (url.startsWith("https://dash.agentesdeconversao.ai")) return url
+      if (url.startsWith("https://login.agentesdeconversao.ai")) return url
+      if (url.startsWith("https://lp.agentesdeconversao.ai")) return url
+      // Default redirect to dashboard
+      return "https://dash.agentesdeconversao.ai"
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id!

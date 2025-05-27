@@ -61,10 +61,33 @@ function checkRateLimit(clientId: string): boolean {
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl
+  const host = request.headers.get('host') || request.nextUrl.hostname
   const clientId = request.ip ?? 
     request.headers.get('x-forwarded-for') ?? 
     request.headers.get('x-real-ip') ?? 
     'unknown'
+
+  // 🎯 Subdomain routing logic
+  // If accessing /dashboard routes, redirect to dash subdomain
+  if (pathname.startsWith('/dashboard') && !host.includes('dash.agentesdeconversao.ai')) {
+    const dashboardUrl = new URL(pathname, 'https://dash.agentesdeconversao.ai')
+    dashboardUrl.search = request.nextUrl.search
+    return NextResponse.redirect(dashboardUrl)
+  }
+
+  // If accessing /login or /auth routes, redirect to login subdomain  
+  if ((pathname.startsWith('/login') || pathname.startsWith('/auth')) && !host.includes('login.agentesdeconversao.ai')) {
+    const loginUrl = new URL(pathname, 'https://login.agentesdeconversao.ai')
+    loginUrl.search = request.nextUrl.search
+    return NextResponse.redirect(loginUrl)
+  }
+
+  // If accessing /docs routes, redirect to docs subdomain
+  if (pathname.startsWith('/docs') && !host.includes('docs.agentesdeconversao.ai')) {
+    const docsUrl = new URL(pathname, 'https://docs.agentesdeconversao.ai')
+    docsUrl.search = request.nextUrl.search
+    return NextResponse.redirect(docsUrl)
+  }
   
   // 🚨 CRITICAL: Block bypass attempts
   if (detectMiddlewareBypass(request)) {
