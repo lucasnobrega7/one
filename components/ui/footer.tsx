@@ -3,21 +3,21 @@ import { Logo } from "@/components/ui/logo"
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-[--openai-gray-200] bg-white">
+    <footer className="w-full border-t border-gray-200 bg-white">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Pesquisa Column */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-[--openai-gray-900]">Pesquisa</h3>
+            <h3 className="text-sm font-medium text-gray-900">Pesquisa</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/research" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/research" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Overview
                 </Link>
               </li>
               <li>
-                <Link href="/research/publications" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/research/publications" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Publicações
                 </Link>
               </li>
@@ -26,25 +26,25 @@ export function Footer() {
 
           {/* API Column */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-[--openai-gray-900]">API</h3>
+            <h3 className="text-sm font-medium text-gray-900">API</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/docs" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/docs" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Overview
                 </Link>
               </li>
               <li>
-                <Link href="/docs/api-reference" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/docs/api-reference" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Documentação
                 </Link>
               </li>
               <li>
-                <Link href="/docs/webhooks" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/docs/webhooks" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Webhooks
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/pricing" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Preços
                 </Link>
               </li>
@@ -53,25 +53,25 @@ export function Footer() {
 
           {/* Agentes Column */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-[--openai-gray-900]">Agentes</h3>
+            <h3 className="text-sm font-medium text-gray-900">Agentes</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/dashboard" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/dashboard" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/agents" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/dashboard/agents" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Meus Agentes
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/analytics" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/dashboard/analytics" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Analytics
                 </Link>
               </li>
               <li>
-                <Link href="/examples" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/examples" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Experimentar <span className="inline-block ml-1">↗</span>
                 </Link>
               </li>
@@ -80,25 +80,25 @@ export function Footer() {
 
           {/* Empresa Column */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-[--openai-gray-900]">Empresa</h3>
+            <h3 className="text-sm font-medium text-gray-900">Empresa</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Sobre nós
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/careers" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Carreiras
                 </Link>
               </li>
               <li>
-                <Link href="/safety" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/safety" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Segurança
                 </Link>
               </li>
               <li>
-                <Link href="/customer-stories" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/customer-stories" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Cases de sucesso
                 </Link>
               </li>
@@ -107,20 +107,20 @@ export function Footer() {
 
           {/* Termos & políticas Column */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-[--openai-gray-900]">Termos & políticas</h3>
+            <h3 className="text-sm font-medium text-gray-900">Termos & políticas</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/policies/terms-of-use" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/policies/terms-of-use" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Termos de uso
                 </Link>
               </li>
               <li>
-                <Link href="/policies/privacy-policy" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/policies/privacy-policy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Política de privacidade
                 </Link>
               </li>
               <li>
-                <Link href="/policies/brand-guidelines" className="text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors">
+                <Link href="/policies/brand-guidelines" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Diretrizes da marca
                 </Link>
               </li>
@@ -129,7 +129,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-8 border-t border-[--openai-gray-200]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-8 border-t border-gray-200">
           {/* Logo */}
           <div className="mb-6 md:mb-0">
             <Logo variant="default" size="sm" />
@@ -141,7 +141,7 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <Link 
                 href="https://twitter.com/agentesdeconversao" 
-                className="text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Twitter"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -150,7 +150,7 @@ export function Footer() {
               </Link>
               <Link 
                 href="https://youtube.com/@agentesdeconversao" 
-                className="text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="YouTube"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -159,7 +159,7 @@ export function Footer() {
               </Link>
               <Link 
                 href="https://github.com/agentesdeconversao" 
-                className="text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="GitHub"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -168,7 +168,7 @@ export function Footer() {
               </Link>
               <Link 
                 href="https://linkedin.com/company/agentesdeconversao" 
-                className="text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -180,7 +180,7 @@ export function Footer() {
             {/* Back to Top */}
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center gap-2 text-sm text-[--openai-gray-600] hover:text-[--openai-gray-900] transition-colors"
+              className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
             >
               Back to top
               <svg width="12" height="12" viewBox="0 0 18 18" fill="none" className="rotate-0">
