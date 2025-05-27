@@ -29,8 +29,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://api.agentesdeconversao.ai/api/$1"
+      "source": "/api/external/(.*)",
+      "destination": "https://api.agentesdeconversao.com.br/api/$1"
     }
   ]
 }
