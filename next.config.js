@@ -19,7 +19,7 @@ const nextConfig = {
     },
     typedRoutes: true, // Rotas tipadas
     optimizePackageImports: ['@/components/ui', '@/lib'],
-    ppr: 'incremental', // Partial Pre-rendering
+    // ppr: 'incremental', // Partial Pre-rendering (requer canary)
   },
   
   // 🖼️ Otimizações de imagem
