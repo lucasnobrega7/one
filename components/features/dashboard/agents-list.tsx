@@ -53,36 +53,36 @@ export function AgentsList() {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden">
+    <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-gray-700">
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Nome</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+            <tr className="bg-slate-50">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">Nome</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
                 Conversas
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
                 Taxa de Conversão
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
                 Criado em
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Ações</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-slate-600 uppercase tracking-wider">Ações</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-700">
+          <tbody className="divide-y divide-slate-200 bg-white">
             {agents.map((agent) => (
-              <tr key={agent.id} className="hover:bg-gray-750">
+              <tr key={agent.id} className="hover:bg-slate-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                      <MessageSquare className="h-5 w-5 text-blue-500" />
+                    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                      <MessageSquare className="h-5 w-5 text-indigo-600" />
                     </div>
                     <div className="ml-4">
-                      <div className="font-medium">{agent.name}</div>
-                      <div className="text-sm text-gray-400">{agent.description}</div>
+                      <div className="font-medium text-slate-900">{agent.name}</div>
+                      <div className="text-sm text-slate-600">{agent.description}</div>
                     </div>
                   </div>
                 </td>
@@ -96,25 +96,25 @@ export function AgentsList() {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm">{agent.conversations}</div>
+                  <div className="text-sm text-slate-900">{agent.conversations}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm">{agent.conversionRate > 0 ? `${agent.conversionRate}%` : "N/A"}</div>
+                  <div className="text-sm text-slate-900">{agent.conversionRate > 0 ? `${agent.conversionRate}%` : "N/A"}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
                   {new Date(agent.createdAt).toLocaleDateString("pt-BR")}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="relative inline-block text-left">
-                    <button onClick={() => toggleDropdown(agent.id)} className="text-gray-400 hover:text-white">
+                    <button onClick={() => toggleDropdown(agent.id)} className="text-slate-600 hover:text-slate-900">
                       <MoreHorizontal className="h-5 w-5" />
                     </button>
                     {activeDropdown === agent.id && (
-                      <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-700 ring-1 ring-black ring-opacity-5 z-10">
+                      <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-slate-200 z-10">
                         <div className="py-1">
                           <Link
                             href={`/dashboard/agents/${agent.id}`}
-                            className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-600"
+                            className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                             onClick={() => setActiveDropdown(null)}
                           >
                             <Play className="h-4 w-4 mr-2" />
@@ -122,21 +122,21 @@ export function AgentsList() {
                           </Link>
                           <Link
                             href={`/dashboard/agents/${agent.id}/edit`}
-                            className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-600"
+                            className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                             onClick={() => setActiveDropdown(null)}
                           >
                             <Edit className="h-4 w-4 mr-2" />
                             Editar
                           </Link>
                           <button
-                            className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-600"
+                            className="flex items-center w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                             onClick={() => setActiveDropdown(null)}
                           >
                             <Copy className="h-4 w-4 mr-2" />
                             Duplicar
                           </button>
                           <button
-                            className="flex items-center w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-600"
+                            className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-slate-50"
                             onClick={() => handleDelete(agent.id)}
                           >
                             <Trash2 className="h-4 w-4 mr-2" />
