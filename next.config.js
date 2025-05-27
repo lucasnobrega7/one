@@ -58,7 +58,7 @@ const nextConfig = {
     ],
   },
 
-  // ✅ Enhanced security headers
+  // ✅ Enhanced security headers with subdomain support
   async headers() {
     return [
       {
@@ -66,7 +66,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'DENY',
+            value: 'SAMEORIGIN', // Changed from DENY to allow subdomain embeds
           },
           {
             key: 'X-Content-Type-Options',
@@ -79,6 +79,32 @@ const nextConfig = {
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*.agentesdeconversao.ai',
+          },
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
+        ],
+      },
+      // Specific headers for API routes
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://dash.agentesdeconversao.ai, https://docs.agentesdeconversao.ai',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
           },
         ],
       },

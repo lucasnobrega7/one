@@ -7,6 +7,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { AuthCheck } from "@/components/features/auth/auth-check"
+import { UnifiedNavigation } from "@/components/navigation/unified-navigation"
+import { CrossDomainBreadcrumbs } from "@/components/navigation/cross-domain-breadcrumbs"
 import {
   Home,
   MessageSquare,
@@ -96,6 +98,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <AuthCheck>
       <div className="min-h-screen bg-[#0e0e10] text-white">
+        {/* Unified Navigation */}
+        <UnifiedNavigation 
+          currentSubdomain="dash" 
+          showMobileMenu={sidebarOpen}
+          onMobileMenuToggle={setSidebarOpen}
+        />
         {/* Mobile sidebar backdrop */}
         {sidebarOpen && (
           <div 
@@ -219,6 +227,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Page content - Enhanced container with better spacing */}
           <main className="px-4 py-8 sm:px-6 lg:px-8 bg-surface-base min-h-screen">
             <div className="max-w-full mx-auto">
+              {/* Cross-Domain Breadcrumbs */}
+              <CrossDomainBreadcrumbs 
+                currentLabel={getPageTitle()}
+                currentPath={pathname}
+                className="mb-6"
+              />
+              
               {children}
             </div>
           </main>

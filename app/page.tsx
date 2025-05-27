@@ -4,12 +4,16 @@ import Link from "next/link"
 import { ArrowRight, Play, Brain, MessageSquare, BarChart3, CheckCircle, Zap, Clock, Users } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
 import { SubdomainLink } from "@/components/ui/subdomain-link"
+import { UnifiedNavigation } from "@/components/navigation/unified-navigation"
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Unified Navigation for Cross-Domain UX */}
+      <UnifiedNavigation currentSubdomain="lp" />
+      
       {/* Enhanced Header - OpenAI Light Style */}
-      <header className="w-full sticky top-0 z-50 openai-nav-light">
+      <header className="w-full sticky top-0 z-40 openai-nav-light">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Logo variant="default" size="lg" />

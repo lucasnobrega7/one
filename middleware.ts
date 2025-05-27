@@ -59,6 +59,74 @@ function checkRateLimit(clientId: string): boolean {
   return true
 }
 
+// 🌐 Subdomain utilities
+function getSubdomain(host: string): string {
+  if (host.includes('localhost') || host.includes('vercel.app')) {
+    return 'unified' // Development/staging mode
+  }
+  
+  const parts = host.split('.')
+  if (parts.length >= 3 && host.includes('agentesdeconversao.ai')) {
+    return parts[0] // Extract subdomain (lp, login, dash, docs, api)
+  }
+  
+  return 'main'
+}
+
+// 🔄 Subdomain routing handler
+function handleSubdomainRouting(subdomain: string, pathname: string, request: NextRequest): NextResponse | null {
+  const baseUrl = 'https://agentesdeconversao.ai'
+  
+  // Define subdomain-specific routing rules
+  const subdomainRoutes: Record<string, {
+    allowedPaths: string[]
+    defaultRedirect?: string
+    requiresAuth?: boolean
+  }> = {
+    'lp': {
+      allowedPaths: ['/', '/about', '/pricing', '/features'],
+      defaultRedirect: '/',
+      requiresAuth: false
+    },
+    'login': {
+      allowedPaths: ['/auth', '/login', '/signup', '/forgot-password', '/callback'],
+      defaultRedirect: '/auth/login',
+      requiresAuth: false
+    },
+    'dash': {
+      allowedPaths: ['/dashboard', '/onboarding', '/agents', '/analytics', '/settings'],
+      defaultRedirect: '/dashboard',
+      requiresAuth: true
+    },
+    'docs': {
+      allowedPaths: ['/docs', '/api-reference', '/guides', '/examples'],
+      defaultRedirect: '/docs',
+      requiresAuth: false
+    },
+    'api': {
+      allowedPaths: ['/api'],
+      defaultRedirect: '/api',
+      requiresAuth: true
+    }
+  }
+  
+  const config = subdomainRoutes[subdomain]
+  if (!config) return null
+  
+  // Check if current path is allowed for this subdomain
+  const isAllowedPath = config.allowedPaths.some(path => 
+    pathname === path || pathname.startsWith(path + '/')
+  )
+  
+  // Redirect to appropriate subdomain if path doesn't belong here
+  if (!isAllowedPath && config.defaultRedirect) {
+    const targetUrl = new URL(`https://${subdomain}.agentesdeconversao.ai${config.defaultRedirect}`)
+    return NextResponse.redirect(targetUrl)
+  }
+  
+  return null
+}
+
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl
   const host = request.headers.get('host') || request.nextUrl.hostname
@@ -67,8 +135,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     request.headers.get('x-real-ip') ?? 
     'unknown'
 
-  // 🎯 Subdomain routing disabled - using single domain deployment
-  console.log(`Middleware: ${host} ${pathname}`) // Debug log
+  // 🎯 Enhanced Subdomain Routing for agentesdeconversao.ai
+  const subdomain = getSubdomain(host)
+  console.log(`Middleware: ${host} ${pathname} | Subdomain: ${subdomain}`) // Debug log
+  
+  // 🔄 Handle subdomain routing in production
+  if (process.env.NODE_ENV === 'production' && host.includes('agentesdeconversao.ai')) {
+    const subdomainRedirect = handleSubdomainRouting(subdomain, pathname, request)
+    if (subdomainRedirect) return subdomainRedirect
+  }
   
   // 🚨 CRITICAL: Block bypass attempts
   if (detectMiddlewareBypass(request)) {
