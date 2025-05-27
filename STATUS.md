@@ -7,7 +7,7 @@
 ## 📊 Progresso Geral: 98% Completo
 
 ### ✅ Concluído
-- **API Backend**: Online em https://api.agentesdeconversao.com.br
+- **API Backend**: Online em https://api.agentesdeconversao.ai
 - **Database**: Supabase configurado com schema completo
 - **Infrastructure**: Railway deployment ativo
 - **Authentication**: NextAuth v5 + Supabase Auth
@@ -75,7 +75,7 @@
 
 ## 🔗 Links Importantes
 
-- **API**: https://api.agentesdeconversao.com.br
+- **API**: https://api.agentesdeconversao.ai
 - **Supabase**: https://faccixlabriqwxkxqprw.supabase.co
 - **Docs**: [docs/README.md](docs/README.md)
 - **Setup**: [docs/setup/supabase-schema.md](docs/setup/supabase-schema.md)

@@ -18,6 +18,18 @@ const nextConfig = {
   transpilePackages: ["@supabase/ssr"],
   experimental: {
     esmExternals: false,
+    serverActions: {
+      allowedOrigins: [
+        'localhost:3000', 
+        'agentesdeconversao.ai', 
+        '*.agentesdeconversao.ai',
+        'lp.agentesdeconversao.ai',
+        'dash.agentesdeconversao.ai',
+        'login.agentesdeconversao.ai',
+        'docs.agentesdeconversao.ai',
+        'api.agentesdeconversao.ai'
+      ],
+    },
   },
   webpack: (config) => {
     config.resolve.alias = {
