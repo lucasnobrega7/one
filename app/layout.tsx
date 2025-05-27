@@ -5,6 +5,7 @@ import { Toaster as SonnerToaster } from "sonner"
 import { AuthProvider } from "@/components/auth-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
+import { Footer } from "@/components/ui/footer"
 import { Inter } from "next/font/google"
 import Link from "next/link"
 import { auth } from "@/config/auth"
@@ -44,6 +45,7 @@ export default async function RootLayout({
                   <main className="flex-1 relative">
                     {children}
                   </main>
+                  <Footer />
                 </div>
               </GlobalErrorHandler>
 

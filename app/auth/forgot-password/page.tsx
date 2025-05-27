@@ -1,10 +1,10 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowRight, AlertCircle, CheckCircle } from "lucide-react"
+import { Logo } from "@/components/ui/logo"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -30,42 +30,27 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex flex-col">
-      <header className="border-b border-white/10 py-4">
-        <div className="container mx-auto px-4 md:px-6">
-          <Link href="/" className="flex items-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="mr-2"
-            >
-              <path
-                d="M16 0C7.163 0 0 7.163 0 16C0 24.837 7.163 32 16 32C24.837 32 32 24.837 32 16C32 7.163 24.837 0 16 0ZM14.5 21.5C14.5 22.881 13.381 24 12 24C10.619 24 9.5 22.881 9.5 21.5C9.5 20.119 10.619 19 12 19C13.381 19 14.5 20.119 14.5 21.5ZM14.5 10.5C14.5 11.881 13.381 13 12 13C10.619 13 9.5 11.881 9.5 10.5C9.5 9.119 10.619 8 12 8C13.381 8 14.5 9.119 14.5 10.5ZM20 16C20 17.381 18.881 18.5 17.5 18.5C16.119 18.5 15 17.381 15 16C15 14.619 16.119 13.5 17.5 13.5C18.881 13.5 20 14.619 20 16ZM22.5 21.5C22.5 22.881 21.381 24 20 24C18.619 24 17.5 22.881 17.5 21.5C17.5 20.119 18.619 19 20 19C21.381 19 22.5 20.119 22.5 21.5ZM22.5 10.5C22.5 11.881 21.381 13 20 13C18.619 13 17.5 11.881 17.5 10.5C17.5 9.119 18.619 8 20 8C21.381 8 22.5 9.119 22.5 10.5Z"
-                fill="white"
-              />
-            </svg>
-            <span className="font-medium">Agentes de Conversão</span>
-          </Link>
+    <div className="min-h-screen bg-white flex flex-col">
+      <header className="border-b border-[--openai-gray-200] py-4">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <Logo variant="default" size="md" />
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center py-12 px-4">
+      <main className="flex-1 flex items-center justify-center py-24 px-6">
         <div className="w-full max-w-md">
           {success ? (
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/10 mb-6">
-                <CheckCircle className="h-8 w-8 text-green-500" />
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50 mb-8">
+                <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h1 className="text-3xl font-normal mb-4">Email enviado</h1>
-              <p className="text-white/70 mb-8">
+              <h1 className="sohne-heading text-3xl font-normal mb-4 text-[--openai-gray-900]">Email enviado</h1>
+              <p className="text-[--openai-gray-600] mb-8 leading-relaxed">
                 Enviamos um email com instruções para redefinir sua senha. Por favor, verifique sua caixa de entrada.
               </p>
               <Link
                 href="/auth/login"
-                className="inline-flex items-center justify-center bg-white text-black py-2 px-4 hover:bg-white/90 transition-colors"
+                className="btn-openai-primary-light inline-flex items-center"
               >
                 Voltar para o login
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -73,15 +58,15 @@ export default function ForgotPasswordPage() {
             </div>
           ) : (
             <>
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-normal mb-2">Esqueceu sua senha?</h1>
-                <p className="text-white/70">
+              <div className="text-center mb-10">
+                <h1 className="sohne-heading text-3xl font-normal mb-4 text-[--openai-gray-900]">Esqueceu sua senha?</h1>
+                <p className="text-[--openai-gray-600] leading-relaxed">
                   Não se preocupe. Informe seu email e enviaremos instruções para redefinir sua senha.
                 </p>
               </div>
 
               {error && (
-                <div className="mb-6 flex items-center gap-2 rounded-md border border-red-500/20 bg-red-500/10 px-4 py-3 text-red-500">
+                <div className="mb-6 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
                   <AlertCircle className="h-5 w-5" />
                   <p>{error}</p>
                 </div>
@@ -89,7 +74,7 @@ export default function ForgotPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium mb-2 text-[--openai-gray-700]">
                     Email
                   </label>
                   <input
@@ -98,7 +83,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full bg-transparent border border-white/20 px-3 py-2 focus:outline-none focus:border-white"
+                    className="w-full border border-[--openai-gray-300] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[--openai-blue] focus:border-transparent text-[--openai-gray-900] placeholder-[--openai-gray-400]"
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -106,10 +91,10 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-white text-black py-2 px-4 hover:bg-white/90 transition-colors flex items-center justify-center"
+                  className="btn-openai-primary-light w-full flex items-center justify-center"
                 >
                   {loading ? (
-                    <div className="h-5 w-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                    <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
                     <>
                       Enviar instruções
@@ -120,9 +105,9 @@ export default function ForgotPasswordPage() {
               </form>
 
               <div className="mt-8 text-center">
-                <p className="text-white/70 text-sm">
+                <p className="text-[--openai-gray-600] text-sm">
                   Lembrou sua senha?{" "}
-                  <Link href="/auth/login" className="underline hover:no-underline">
+                  <Link href="/auth/login" className="text-[--openai-blue] hover:underline">
                     Voltar para o login
                   </Link>
                 </p>
