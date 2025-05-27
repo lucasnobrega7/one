@@ -3,106 +3,200 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  directUrl    = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-// Multi-tenant Organization model (inspired by Chatvolt)
 model Organization {
-  id       String  @id @default(uuid())
-  name     String
-  icon_url String?
-  
-  // Relations
-  agents        Agent[]
-  datastores    Datastore[]
-  memberships   Membership[]
-  api_keys      ApiKey[]
-  usage         Usage?
-  
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  
+  id          String       @id @default(uuid())
+  name        String
+  icon_url    String?
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+  agents      Agent[]
+  api_keys    ApiKey[]
+  datastores  Datastore[]
+  memberships Membership[]
+  usage       Usage?
+
   @@map("organizations")
 }
 
 model Membership {
-  id   String         @id @default(uuid())
-  role MembershipRole @default(MEMBER)
-  
-  organization_id String       
-  organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
-  
-  user_id String?
-  user    User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  
-  // Invitation fields
-  invited_email String?
-  invited_token String?
-  
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  
+  id              String         @id @default(uuid())
+  role            MembershipRole @default(MEMBER)
+  organization_id String
+  user_id         String?
+  invited_email   String?
+  invited_token   String?
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  organization    Organization   @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  user            User?          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
   @@unique([organization_id, user_id])
   @@unique([organization_id, invited_email])
   @@map("memberships")
 }
 
-// Supabase Auth compatible User model
 model User {
-  id              String         @id @default(uuid())
-  email           String         @unique
-  name            String?
-  avatar_url      String?
-  email_verified  DateTime?
-  
-  // Relations
-  conversations   Conversation[]
-  analytics       Analytics[]
-  memberships     Membership[]
-  usage           Usage?
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
+  id             String         @id @default(uuid())
+  email          String         @unique
+  name           String?
+  avatar_url     String?
+  email_verified DateTime?
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @updatedAt
+  analytics      Analytics[]
+  conversations  Conversation[]
+  memberships    Membership[]
+  usage          Usage?
+
   @@map("users")
+}
+
+model Agent {
+  id                 String         @id @default(uuid())
+  name               String
+  description        String
+  system_prompt      String?
+  user_prompt        String?
+  model_name         AgentModelName @default(gpt_3_5_turbo)
+  temperature        Float          @default(0.7)
+  max_tokens         Int?           @default(1000)
+  include_sources    Boolean        @default(true)
+  restrict_knowledge Boolean        @default(true)
+  icon_url           String?
+  is_active          Boolean        @default(true)
+  organization_id    String?
+  datastore_id       String?
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt
+  datastore          Datastore?     @relation(fields: [datastore_id], references: [id])
+  organization       Organization?  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  conversations      Conversation[]
+
+  @@map("agents")
+}
+
+model Conversation {
+  id         String    @id @default(uuid())
+  agent_id   String
+  user_id    String
+  title      String?
+  summary    String?
+  status     String    @default("active")
+  metadata   Json?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  agent      Agent     @relation(fields: [agent_id], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id              String       @id @default(uuid())
+  conversation_id String
+  content         String
+  role            String
+  tokens_used     Int?
+  model_used      String?
+  metadata        Json?
+  created_at      DateTime     @default(now())
+  conversation    Conversation @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Datastore {
+  id              String        @id @default(uuid())
+  name            String
+  description     String?
+  type            DatastoreType @default(text)
+  config          Json?
+  organization_id String
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  agents          Agent[]
+  datasources     Datasource[]
+  organization    Organization  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
+  @@map("datastores")
+}
+
+model Datasource {
+  id           String           @id @default(uuid())
+  datastore_id String
+  type         DatasourceType
+  name         String
+  config       Json?
+  status       DatasourceStatus @default(unsynched)
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+  datastore    Datastore        @relation(fields: [datastore_id], references: [id], onDelete: Cascade)
+
+  @@map("datasources")
+}
+
+model ApiKey {
+  id              String       @id @default(uuid())
+  name            String
+  key             String       @unique
+  organization_id String
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+  organization    Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model Usage {
+  id              String        @id @default(uuid())
+  user_id         String?       @unique
+  organization_id String?       @unique
+  nbAgentQueries  Int           @default(0)
+  nbDataProcessed Int           @default(0)
+  nbModelTokens   Int           @default(0)
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  organization    Organization? @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  user            User?         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("usage")
+}
+
+model Analytics {
+  id         String   @id @default(uuid())
+  user_id    String
+  event_type String
+  event_data Json?
+  timestamp  DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("analytics")
+}
+
+model ApiUsage {
+  id            String   @id @default(uuid())
+  user_id       String?
+  endpoint      String
+  method        String
+  tokens_used   Int?
+  cost_usd      Decimal? @db.Decimal(10, 6)
+  response_time Int?
+  status_code   Int
+  timestamp     DateTime @default(now())
+
+  @@map("api_usage")
 }
 
 enum MembershipRole {
   OWNER
   ADMIN
   MEMBER
-}
-
-// AI Agents (enhanced with Chatvolt features)
-model Agent {
-  id              String         @id @default(uuid())
-  name            String
-  description     String
-  system_prompt   String?        @db.Text
-  user_prompt     String?        @db.Text
-  model_name      AgentModelName @default(gpt_3_5_turbo)
-  temperature     Float          @default(0.7)
-  max_tokens      Int?           @default(1000)
-  include_sources Boolean        @default(true)
-  restrict_knowledge Boolean     @default(true)
-  icon_url        String?
-  is_active       Boolean        @default(true)
-  
-  // Multi-tenant
-  organization_id String?        
-  organization    Organization?  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
-  
-  // Relations
-  datastore_id    String?
-  datastore       Datastore?     @relation(fields: [datastore_id], references: [id])
-  conversations   Conversation[]
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  @@map("agents")
 }
 
 enum AgentModelName {
@@ -115,90 +209,12 @@ enum AgentModelName {
   claude_3_opus
 }
 
-
-// Conversations
-model Conversation {
-  id              String         @id @default(uuid())
-  agent_id        String
-  user_id         String
-  title           String?
-  summary         String?
-  status          String         @default("active") // active, archived, deleted
-  metadata        Json?
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  // Relations
-  agent           Agent          @relation(fields: [agent_id], references: [id], onDelete: Cascade)
-  user            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  messages        Message[]
-  
-  @@map("conversations")
-}
-
-// Messages in conversations
-model Message {
-  id                String         @id @default(uuid())
-  conversation_id   String
-  content           String         @db.Text
-  role              String         // user, assistant, system
-  tokens_used       Int?
-  model_used        String?
-  metadata          Json?
-  created_at        DateTime       @default(now())
-  
-  // Relations
-  conversation      Conversation   @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
-  
-  @@map("messages")
-}
-
-// Datastore model (inspired by Chatvolt)
-model Datastore {
-  id              String         @id @default(uuid())
-  name            String
-  description     String?
-  type            DatastoreType  @default(text)
-  config          Json?
-  
-  // Multi-tenant
-  organization_id String         
-  organization    Organization   @relation(fields: [organization_id], references: [id], onDelete: Cascade)
-  
-  // Relations
-  agents          Agent[]
-  datasources     Datasource[]
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  @@map("datastores")
-}
-
 enum DatastoreType {
   text
   qa
   web_page
   web_site
   file
-}
-
-// Datasources (files, URLs, etc.)
-model Datasource {
-  id              String         @id @default(uuid())
-  datastore_id    String
-  type            DatasourceType
-  name            String
-  config          Json?
-  status          DatasourceStatus @default(unsynched)
-  
-  // Relations
-  datastore       Datastore      @relation(fields: [datastore_id], references: [id], onDelete: Cascade)
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  @@map("datasources")
 }
 
 enum DatasourceType {
@@ -214,68 +230,4 @@ enum DatasourceStatus {
   running
   synched
   error
-}
-
-// API Keys for external integrations
-model ApiKey {
-  id              String         @id @default(uuid())
-  name            String
-  key             String         @unique
-  organization_id String         
-  organization    Organization   @relation(fields: [organization_id], references: [id], onDelete: Cascade)
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  @@map("api_keys")
-}
-
-// Usage tracking for billing
-model Usage {
-  id              String         @id @default(uuid())
-  user_id         String?        @unique
-  organization_id String?        @unique
-  
-  // Monthly usage
-  nbAgentQueries  Int            @default(0)
-  nbDataProcessed Int            @default(0)
-  nbModelTokens   Int            @default(0)
-  
-  // Relations
-  user            User?          @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  organization    Organization?  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
-  
-  created_at      DateTime       @default(now())
-  updated_at      DateTime       @updatedAt
-  
-  @@map("usage")
-}
-
-// Analytics and metrics
-model Analytics {
-  id              String         @id @default(uuid())
-  user_id         String
-  event_type      String         // conversation_started, message_sent, agent_created, etc.
-  event_data      Json?
-  timestamp       DateTime       @default(now())
-  
-  // Relations
-  user            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  
-  @@map("analytics")
-}
-
-// API usage tracking
-model ApiUsage {
-  id              String         @id @default(uuid())
-  user_id         String?
-  endpoint        String
-  method          String
-  tokens_used     Int?
-  cost_usd        Decimal?       @db.Decimal(10, 6)
-  response_time   Int?           // milliseconds
-  status_code     Int
-  timestamp       DateTime       @default(now())
-  
-  @@map("api_usage")
 }
