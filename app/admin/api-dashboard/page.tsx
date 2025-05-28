@@ -475,3 +475,5 @@ export default function ApiDashboard() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

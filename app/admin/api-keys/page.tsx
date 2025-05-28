@@ -24,3 +24,5 @@ export default function ApiKeysPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

@@ -23,3 +23,5 @@ export default function EnvCheckPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

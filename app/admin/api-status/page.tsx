@@ -19,3 +19,5 @@ export default function ApiStatusPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

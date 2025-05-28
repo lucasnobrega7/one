@@ -266,3 +266,5 @@ export default function SubdomainsPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

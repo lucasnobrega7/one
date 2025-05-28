@@ -134,3 +134,5 @@ export default function DbCheckPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
