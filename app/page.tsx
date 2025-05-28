@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { ArrowRight, Play, MessageSquare, Clock, Brain, Target, BarChart3, Zap, Users } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
-import { SubdomainLink } from "@/components/ui/subdomain-link"
 
 export default function HomePage() {
   return (
@@ -21,9 +20,9 @@ export default function HomePage() {
                 <Link href="#resultados" className="text-gray-300 hover:text-white transition-colors">
                   Resultados
                 </Link>
-                <SubdomainLink subdomain="docs" path="/" className="text-gray-300 hover:text-white transition-colors">
+                <a href="https://docs.agentesdeconversao.ai/" className="text-gray-300 hover:text-white transition-colors">
                   Documentação
-                </SubdomainLink>
+                </a>
               </div>
             </div>
             
@@ -315,9 +314,9 @@ export default function HomePage() {
             <div className="text-center">
               <h4 className="font-semibold mb-4 text-white">Produto</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><SubdomainLink subdomain="dash" path="/" className="hover:text-white transition-colors">Dashboard</SubdomainLink></li>
-                <li><SubdomainLink subdomain="docs" path="/" className="hover:text-white transition-colors">Documentação</SubdomainLink></li>
-                <li><SubdomainLink subdomain="api" path="/" className="hover:text-white transition-colors">API</SubdomainLink></li>
+                <li><a href="https://dash.agentesdeconversao.ai/" className="hover:text-white transition-colors">Dashboard</a></li>
+                <li><a href="https://docs.agentesdeconversao.ai/" className="hover:text-white transition-colors">Documentação</a></li>
+                <li><a href="https://api.agentesdeconversao.ai/" className="hover:text-white transition-colors">API</a></li>
               </ul>
             </div>
             
