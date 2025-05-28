@@ -195,3 +195,5 @@ export default function DocsPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
