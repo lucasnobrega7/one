@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react'
 export default function SignupRedirect() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.href = 'https://dash.agentesdeconversao.ai/auth/signup'
+      window.location.href = 'https://login.agentesdeconversao.ai/signup'
     }, 1500)
 
     return () => clearTimeout(timer)
