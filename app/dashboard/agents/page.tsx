@@ -5,6 +5,8 @@ import { Plus } from "lucide-react"
 import Link from "next/link"
 import { AgentsList } from "@/components/features/dashboard/agents-list"
 
+export const dynamic = 'force-dynamic'
+
 export default function AgentsPage() {
   return (
     <div className="space-y-8">

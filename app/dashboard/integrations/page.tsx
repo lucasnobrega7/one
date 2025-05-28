@@ -271,4 +271,5 @@ export default function IntegrationsPage() {
       </div>
     </div>
   )
-}
+}-e 
+export const dynamic = "force-dynamic"

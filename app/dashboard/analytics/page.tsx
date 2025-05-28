@@ -2,6 +2,9 @@ import { PermissionGate } from "@/components/features/auth/permission-gate"
 import { Permission } from "@/lib/auth/permissions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+// Force dynamic rendering for auth-protected pages
+export const dynamic = 'force-dynamic'
+
 export default function AnalyticsPage() {
   return (
     <PermissionGate permission={Permission.ViewAnalytics}>
