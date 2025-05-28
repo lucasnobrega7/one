@@ -20,25 +20,25 @@ export default function HomePage() {
                 <Link href="#resultados" className="text-gray-300 hover:text-white transition-colors">
                   Resultados
                 </Link>
-                <Link href="/docs" className="text-gray-300 hover:text-white transition-colors">
+                <a href="https://docs.agentesdeconversao.ai/" className="text-gray-300 hover:text-white transition-colors">
                   Documentação
-                </Link>
+                </a>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
-              <Link 
-                href="/auth/login" 
+              <a 
+                href="https://login.agentesdeconversao.ai/login" 
                 className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Entrar
-              </Link>
-              <Link 
-                href="/auth/signup"
+              </a>
+              <a 
+                href="https://login.agentesdeconversao.ai/signup"
                 className="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
               >
                 Começar agora
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -89,13 +89,13 @@ export default function HomePage() {
               </h3>
             </div>
 
-            <Link 
-              href="/auth/signup"
+            <a 
+              href="https://login.agentesdeconversao.ai/signup"
               className="inline-flex items-center bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-2xl"
             >
               Descobrir como
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            </a>
           </div>
         </section>
 
@@ -283,13 +283,13 @@ export default function HomePage() {
             </h3>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link 
-                href="/auth/signup"
+              <a 
+                href="https://login.agentesdeconversao.ai/signup"
                 className="bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 flex items-center shadow-2xl"
               >
                 Começar agora
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+              </a>
               <Link 
                 href="/demo"
                 className="bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 backdrop-blur-sm flex items-center"
@@ -314,9 +314,9 @@ export default function HomePage() {
             <div className="text-center">
               <h4 className="font-semibold mb-4 text-white">Produto</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
-                <li><Link href="/docs" className="hover:text-white transition-colors">Documentação</Link></li>
-                <li><Link href="/api" className="hover:text-white transition-colors">API</Link></li>
+                <li><a href="https://dash.agentesdeconversao.ai/" className="hover:text-white transition-colors">Dashboard</a></li>
+                <li><a href="https://docs.agentesdeconversao.ai/" className="hover:text-white transition-colors">Documentação</a></li>
+                <li><a href="https://api.agentesdeconversao.ai/" className="hover:text-white transition-colors">API</a></li>
               </ul>
             </div>
             
