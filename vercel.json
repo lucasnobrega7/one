@@ -1,12 +1,12 @@
 {
-  "framework": null,
-  "buildCommand": "echo 'Static build complete'",
-  "installCommand": "echo 'No install needed'",
-  "outputDirectory": ".",
-  "routes": [
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
   ]
 }
