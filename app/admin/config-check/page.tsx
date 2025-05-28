@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, AlertCircle, Copy } from "lucide-react"
+import { CheckCircle, AlertCircle, Copy, Settings } from "lucide-react"
 
 export default function ConfigCheckPage() {
   const [envVars, setEnvVars] = useState<
@@ -99,11 +99,21 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <Card className="w-full max-w-3xl mx-auto">
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold mb-6 text-white flex items-center gap-3">
+          <CheckCircle className="w-8 h-8 text-[#46B2E0]" />
+          Verificação de Configuração
+        </h1>
+        <p className="text-white/70 mb-8">
+          Verifique se suas variáveis de ambiente estão configuradas corretamente.
+        </p>
+      </div>
+      
+      <Card className="w-full max-w-3xl bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle>Environment Configuration Check</CardTitle>
-          <CardDescription>Verify your environment variables are correctly configured</CardDescription>
+          <CardTitle className="text-white">Verificação de Variáveis de Ambiente</CardTitle>
+          <CardDescription className="text-white/70">Verifique se suas variáveis de ambiente estão configuradas corretamente</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -111,18 +121,23 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
               <Alert
                 key={v.name}
                 variant={v.status === "error" ? "destructive" : v.status === "warning" ? "default" : "default"}
+                className={`bg-[#0e0e10]/50 border-[#27272a] ${
+                  v.status === "error" ? "border-red-500/30 bg-red-500/10" :
+                  v.status === "warning" ? "border-yellow-500/30 bg-yellow-500/10" :
+                  "border-green-500/30 bg-green-500/10"
+                }`}
               >
                 {v.status === "ok" ? (
                   <CheckCircle className="h-4 w-4 text-green-500" />
                 ) : (
-                  <AlertCircle className={`h-4 w-4 ${v.status === "warning" ? "text-yellow-500" : ""}`} />
+                  <AlertCircle className={`h-4 w-4 ${v.status === "warning" ? "text-yellow-500" : "text-red-500"}`} />
                 )}
-                <AlertTitle>{v.name}</AlertTitle>
+                <AlertTitle className="text-white">{v.name}</AlertTitle>
                 <AlertDescription>
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="text-sm font-medium">{v.message}</p>
-                      <p className="text-xs mt-1 font-mono">
+                      <p className="text-sm font-medium text-white/80">{v.message}</p>
+                      <p className="text-xs mt-1 font-mono text-white/60">
                         {v.value ? (
                           v.name.includes("KEY") || v.name.includes("SECRET") ? (
                             `${v.value.substring(0, 8)}...`
@@ -130,7 +145,7 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
                             v.value
                           )
                         ) : (
-                          <span className="text-muted-foreground italic">Not set</span>
+                          <span className="text-white/40 italic">Não configurado</span>
                         )}
                       </p>
                     </div>
@@ -140,22 +155,25 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
             ))}
           </div>
 
-          <div className="mt-6 p-4 bg-muted rounded-md">
-            <h3 className="text-sm font-medium mb-2">How to fix configuration issues:</h3>
-            <ol className="list-decimal pl-5 text-sm space-y-2">
+          <div className="mt-6 p-4 bg-[#0e0e10]/50 border border-[#27272a] rounded-md">
+            <h3 className="text-sm font-medium mb-2 text-white">Como corrigir problemas de configuração:</h3>
+            <ol className="list-decimal pl-5 text-sm space-y-2 text-white/70">
               <li>
-                Create a <code className="bg-background px-1 py-0.5 rounded">.env.local</code> file in your project root
+                Crie um arquivo <code className="bg-[#1a1a1d] px-1 py-0.5 rounded text-[#46B2E0]">.env.local</code> na raiz do projeto
               </li>
-              <li>Add the required environment variables with proper values</li>
-              <li>Restart your development server</li>
-              <li>For production, add these variables to your hosting platform</li>
+              <li>Adicione as variáveis de ambiente necessárias com valores apropriados</li>
+              <li>Reinicie o servidor de desenvolvimento</li>
+              <li>Para produção, adicione essas variáveis na plataforma de hospedagem</li>
             </ol>
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={copyEnvTemplate} className="w-full">
+          <Button 
+            onClick={copyEnvTemplate} 
+            className="w-full bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] hover:from-[#46B2E0]/80 hover:to-[#8A53D2]/80 text-white"
+          >
             <Copy className="mr-2 h-4 w-4" />
-            Copy Environment Template
+            Copiar Template de Ambiente
           </Button>
         </CardFooter>
       </Card>

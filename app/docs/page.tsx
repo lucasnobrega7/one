@@ -10,7 +10,7 @@ export default function DocsPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between h-full px-6 lg:px-8">
           {/* Left Navigation */}
           <div className="flex items-center gap-8">
-            <Logo variant="white" size="sm" />
+            <Logo variant="light" size="sm" />
             <nav className="flex items-center gap-8">
               <Link href="/docs" className="text-sm text-[#46B2E0] font-medium">
                 Overview

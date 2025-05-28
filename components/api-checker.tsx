@@ -76,34 +76,34 @@ export function ApiChecker() {
   }, [])
 
   return (
-    <Card>
+    <Card className="bg-[#1a1a1d] border-[#27272a]">
       <CardHeader>
-        <CardTitle>Status das APIs</CardTitle>
-        <CardDescription>Verifique se todas as APIs estão funcionando corretamente</CardDescription>
+        <CardTitle className="text-white">Status das APIs</CardTitle>
+        <CardDescription className="text-white/70">Verifique se todas as APIs estão funcionando corretamente</CardDescription>
       </CardHeader>
       <CardContent>
         {error && <ErrorHandler message={error} retry={checkApis} />}
 
         <div className="space-y-4">
           {apiStatus.map((api) => (
-            <div key={api.name} className="flex items-center justify-between p-2 border rounded-md">
-              <div className="font-medium">{api.name}</div>
+            <div key={api.name} className="flex items-center justify-between p-2 border border-[#27272a] rounded-md bg-[#0e0e10]/50">
+              <div className="font-medium text-white">{api.name}</div>
               <div className="flex items-center gap-2">
                 {api.status === "checking" ? (
-                  <Badge variant="outline" className="flex items-center gap-1">
+                  <Badge variant="outline" className="flex items-center gap-1 bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
                     <Loader2 className="h-3 w-3 animate-spin" />
                     Verificando
                   </Badge>
                 ) : api.status === "online" ? (
                   <Badge
-                    variant="success"
-                    className="flex items-center gap-1 bg-green-100 text-green-800 hover:bg-green-200"
+                    variant="outline"
+                    className="flex items-center gap-1 bg-green-500/20 text-green-400 border-green-500/30"
                   >
                     <CheckCircle className="h-3 w-3" />
                     Online
                   </Badge>
                 ) : (
-                  <Badge variant="destructive" className="flex items-center gap-1">
+                  <Badge variant="outline" className="flex items-center gap-1 bg-red-500/20 text-red-400 border-red-500/30">
                     <XCircle className="h-3 w-3" />
                     Offline
                   </Badge>
@@ -114,9 +114,9 @@ export function ApiChecker() {
         </div>
 
         {apiStatus.some((api) => api.status === "offline") && (
-          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md text-amber-800 text-sm">
-            <p className="font-medium">Algumas APIs estão offline</p>
-            <ul className="list-disc list-inside mt-1">
+          <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-md text-amber-400 text-sm">
+            <p className="font-medium text-amber-300">Algumas APIs estão offline</p>
+            <ul className="list-disc list-inside mt-1 text-amber-400/80">
               {apiStatus
                 .filter((api) => api.status === "offline")
                 .map((api) => (
@@ -129,7 +129,11 @@ export function ApiChecker() {
         )}
       </CardContent>
       <CardFooter>
-        <Button onClick={checkApis} disabled={loading} className="flex items-center gap-1">
+        <Button 
+          onClick={checkApis} 
+          disabled={loading} 
+          className="flex items-center gap-1 bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] hover:from-[#46B2E0]/80 hover:to-[#8A53D2]/80 text-white"
+        >
           {loading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />

@@ -60,49 +60,63 @@ export default function DbCheckPage() {
   }, [])
 
   return (
-    <div className="container mx-auto py-10">
-      <Card className="w-full max-w-2xl mx-auto">
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold mb-6 text-white flex items-center gap-3">
+          <Database className="w-8 h-8 text-[#46B2E0]" />
+          Verificação do Banco de Dados
+        </h1>
+        <p className="text-white/70 mb-8">
+          Verifica se a conexão com o banco de dados Neon está funcionando corretamente.
+        </p>
+      </div>
+      
+      <Card className="w-full max-w-2xl bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Database className="h-6 w-6" />
-            Verificação do Banco de Dados
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Database className="h-6 w-6 text-[#46B2E0]" />
+            Status da Conexão
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-white/70">
             Verifica se a conexão com o banco de dados Neon está funcionando corretamente
           </CardDescription>
         </CardHeader>
         <CardContent>
           {status.loading ? (
             <div className="flex justify-center items-center py-8">
-              <RefreshCw className="h-8 w-8 animate-spin text-primary" />
-              <span className="ml-2">Verificando conexão...</span>
+              <RefreshCw className="h-8 w-8 animate-spin text-[#46B2E0]" />
+              <span className="ml-2 text-white/70">Verificando conexão...</span>
             </div>
           ) : status.success ? (
-            <Alert>
-              <CheckCircle className="h-4 w-4" />
-              <AlertTitle>Conexão estabelecida com sucesso</AlertTitle>
+            <Alert className="bg-green-500/10 border-green-500/30">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              <AlertTitle className="text-white">Conexão estabelecida com sucesso</AlertTitle>
               <AlertDescription>
-                <p>{status.message}</p>
+                <p className="text-white/80">{status.message}</p>
                 {status.timestamp && (
-                  <p className="text-sm text-muted-foreground mt-2">
+                  <p className="text-sm text-white/60 mt-2">
                     Timestamp do servidor: {new Date(status.timestamp).toLocaleString()}
                   </p>
                 )}
               </AlertDescription>
             </Alert>
           ) : (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erro na conexão</AlertTitle>
+            <Alert variant="destructive" className="bg-red-500/10 border-red-500/30">
+              <AlertCircle className="h-4 w-4 text-red-500" />
+              <AlertTitle className="text-white">Erro na conexão</AlertTitle>
               <AlertDescription>
-                <p>{status.error}</p>
-                {status.details && <p className="text-sm mt-2">{status.details}</p>}
+                <p className="text-red-400">{status.error}</p>
+                {status.details && <p className="text-sm mt-2 text-red-400/80">{status.details}</p>}
               </AlertDescription>
             </Alert>
           )}
         </CardContent>
         <CardFooter>
-          <Button onClick={checkDatabase} disabled={status.loading} className="w-full">
+          <Button 
+            onClick={checkDatabase} 
+            disabled={status.loading} 
+            className="w-full bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] hover:from-[#46B2E0]/80 hover:to-[#8A53D2]/80 text-white"
+          >
             {status.loading ? (
               <>
                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />

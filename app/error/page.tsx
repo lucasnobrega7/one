@@ -45,32 +45,38 @@ export default function AuthErrorPage() {
   }, [searchParams])
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 py-12 dark:bg-gray-900">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
-        <div className="flex flex-col items-center space-y-2 text-center">
-          <div className="rounded-full bg-red-100 p-3 dark:bg-red-900/20">
-            <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl mx-auto mb-6 flex items-center justify-center">
+            <AlertCircle className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">Erro de Autenticação</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Erro de Autenticação
+          </h2>
+          <p className="text-gray-400">
             {error ? `Erro: ${error}` : "Ocorreu um erro durante a autenticação"}
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-300">{errorDescription}</p>
+          <p className="text-gray-400 text-sm mt-2">
+            {errorDescription}
+          </p>
         </div>
 
-        <div className="mt-6 flex flex-col space-y-4">
-          <Link
-            href="/login"
-            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-600"
-          >
-            Voltar para o login
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-          >
-            Voltar para a página inicial
-          </Link>
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
+          <div className="space-y-4">
+            <Link
+              href="/auth/login"
+              className="inline-flex w-full justify-center rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-3 text-sm font-medium text-white transition-all"
+            >
+              Voltar para o login
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex w-full justify-center rounded-lg border border-white/20 bg-transparent hover:bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all"
+            >
+              Voltar para a página inicial
+            </Link>
+          </div>
         </div>
       </div>
     </div>

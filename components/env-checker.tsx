@@ -39,17 +39,24 @@ export default function EnvChecker() {
   }, [])
 
   if (missingVars.length === 0 && invalidUrls.length === 0) {
-    return null
+    return (
+      <Alert className="bg-green-500/10 border-green-500/30">
+        <AlertTitle className="text-green-400">Todas as variáveis de ambiente estão configuradas</AlertTitle>
+        <AlertDescription className="text-green-300">
+          Todas as variáveis de ambiente necessárias foram detectadas e estão configuradas corretamente.
+        </AlertDescription>
+      </Alert>
+    )
   }
 
   return (
-    <Alert variant="destructive" className="mb-4">
-      <AlertTitle>Environment Variable Issues Detected</AlertTitle>
+    <Alert variant="destructive" className="bg-red-500/10 border-red-500/30">
+      <AlertTitle className="text-red-400">Problemas de Configuração Detectados</AlertTitle>
       <AlertDescription>
         {missingVars.length > 0 && (
           <div className="mt-2">
-            <p className="font-semibold">Missing Variables:</p>
-            <ul className="list-disc pl-5">
+            <p className="font-semibold text-red-300">Variáveis Ausentes:</p>
+            <ul className="list-disc pl-5 text-red-400/80">
               {missingVars.map((v) => (
                 <li key={v}>{v}</li>
               ))}
@@ -59,8 +66,8 @@ export default function EnvChecker() {
 
         {invalidUrls.length > 0 && (
           <div className="mt-2">
-            <p className="font-semibold">Invalid URLs:</p>
-            <ul className="list-disc pl-5">
+            <p className="font-semibold text-red-300">URLs Inválidas:</p>
+            <ul className="list-disc pl-5 text-red-400/80">
               {invalidUrls.map((v) => (
                 <li key={v}>{v}</li>
               ))}
