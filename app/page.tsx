@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight, Play, MessageSquare, Clock, Brain, Target, BarChart3, Zap, Users } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
+import { Footer } from "@/components/ui/footer"
 
 export default function HomePage() {
   return (
@@ -339,6 +340,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      <Footer />
     </div>
   )
 }

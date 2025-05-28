@@ -36,12 +36,12 @@ export default function RootLayout({
           <SupabaseProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
               <GlobalErrorHandler>
-                {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
+                {/* Main Container - conditional footer based on route */}
                 <div className="flex flex-col min-h-screen">
                   <main className="flex-1 relative">
                     {children}
                   </main>
-                  <Footer />
+                  {/* Footer is now controlled by individual layouts */}
                 </div>
               </GlobalErrorHandler>
 
