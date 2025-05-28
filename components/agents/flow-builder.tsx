@@ -1,13 +1,59 @@
 "use client"
 
 import { useCallback, useState, useRef, createContext, useContext } from 'react'
-import { ReactFlow, Controls, Background, useNodesState, useEdgesState, addEdge, Handle, Position, getBezierPath } from '@xyflow/react'
+import { ReactFlow, Controls, Background, MiniMap, useNodesState, useEdgesState, addEdge, Handle, Position, getBezierPath, useReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Play, Pause, Save, MessageSquare, GitBranch, Zap, X, Plus, Search } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
+import { Textarea } from '@/components/ui/textarea'
+import { Separator } from '@/components/ui/separator'
+import { 
+  Play, 
+  Pause, 
+  Save, 
+  MessageSquare, 
+  GitBranch, 
+  Zap, 
+  X, 
+  Plus, 
+  Search,
+  Bot,
+  Database,
+  Webhook,
+  Mail,
+  Clock,
+  Filter,
+  Share2,
+  Eye,
+  Copy,
+  Download,
+  Settings
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+// Types based on Prisma schema
+interface AgentFlowData {
+  id?: string
+  name: string
+  description?: string
+  system_prompt?: string
+  model_name?: string
+  temperature?: number
+  max_tokens?: number
+  organization_id?: string
+  datastore_id?: string
+}
+
+interface FlowNodeData {
+  id: string
+  label: string
+  type: 'agent' | 'condition' | 'action' | 'datasource' | 'webhook'
+  config: Record<string, any>
+  agentData?: AgentFlowData
+}
 
 // Flow Context
 const FlowContext = createContext({
@@ -16,7 +62,9 @@ const FlowContext = createContext({
   deleteNode: () => {},
   deleteEdge: () => {},
   selectedNode: null,
-  setSelectedNode: () => {}
+  setSelectedNode: () => {},
+  saveFlow: () => {},
+  loadFlow: () => {}
 })
 
 // Custom Node Components

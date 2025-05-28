@@ -1,195 +1,90 @@
-'use client'
+"use client"
 
-// import { FlowDashboard } from '@/components/agents/flow-dashboard'
-import { Button } from '@/components/ui/button'
+import { FlowBuilderEnhanced } from '@/components/agents/flow-builder-enhanced'
+import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Activity, 
-  Bot, 
-  BarChart3,
-  Plus,
-  Share2,
-  Download,
-  Eye
-} from 'lucide-react'
-import { usePermissions } from '@/hooks/use-permissions'
-
-function FlowStats() {
-  return (
-    <div className="grid gap-6 md:grid-cols-3 mb-8">
-      <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50 backdrop-blur-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-2xl font-bold text-white">8</div>
-            <div className="text-sm text-gray-400">Fluxos ativos</div>
-          </div>
-          <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center border border-blue-500/30">
-            <Bot className="w-4 h-4 text-blue-400" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50 backdrop-blur-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-2xl font-bold text-white">2,341</div>
-            <div className="text-sm text-gray-400">Execuções hoje</div>
-          </div>
-          <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center border border-emerald-500/30">
-            <Activity className="w-4 h-4 text-emerald-400" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50 backdrop-blur-sm">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-2xl font-bold text-white">98.7%</div>
-            <div className="text-sm text-gray-400">Taxa sucesso</div>
-          </div>
-          <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center border border-purple-500/30">
-            <BarChart3 className="w-4 h-4 text-purple-400" />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { Separator } from '@/components/ui/separator'
 
 export default function FlowPage() {
-  const permissions = usePermissions()
-  const canCreateAgents = true // Temporary fix
-
-  const flows = [
-    {
-      id: 1,
-      name: "Vendas WhatsApp",
-      description: "Fluxo de qualificação e conversão via WhatsApp",
-      status: "active",
-      executions: 324,
-      conversion: "45.2%",
-      nodes: 12
-    },
-    {
-      id: 2,
-      name: "Suporte Técnico",
-      description: "Atendimento automatizado com escalação humana",
-      status: "active", 
-      executions: 156,
-      conversion: "78.1%",
-      nodes: 8
-    },
-    {
-      id: 3,
-      name: "Captação de Leads",
-      description: "Qualificação de prospects no site",
-      status: "draft",
-      executions: 0,
-      conversion: "0%",
-      nodes: 6
-    }
-  ]
-
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+    <div className="container mx-auto py-6">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Editor Visual de Fluxos</h1>
-            <p className="text-gray-400">
-              Crie fluxos conversacionais complexos com nossa interface visual baseada no Flowise
+            <h1 className="text-3xl font-bold text-gray-900">AgentStudio</h1>
+            <p className="text-gray-600 mt-2">
+              Editor visual de fluxos para criação de agentes inteligentes
             </p>
           </div>
-          
-          <div className="flex gap-3">
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800/30">
-              <BarChart3 className="h-4 w-4 mr-2" />
-              Analytics
-            </Button>
-            {canCreateAgents && (
-              <Button className="bg-white text-black hover:bg-gray-100">
-                <Plus className="h-4 w-4 mr-2" />
-                Novo Fluxo
-              </Button>
-            )}
+          <div className="flex items-center gap-3">
+            <Badge variant="default" className="bg-green-100 text-green-800 border-green-200">
+              ✅ ReactFlow v12
+            </Badge>
+            <Badge variant="default" className="bg-blue-100 text-blue-800 border-blue-200">
+              🎯 N8N Inspired
+            </Badge>
+            <Badge variant="default" className="bg-purple-100 text-purple-800 border-purple-200">
+              🧠 Chatvolt Patterns
+            </Badge>
           </div>
         </div>
+        
+        <Separator className="mt-4" />
+      </div>
 
-        <FlowStats />
+      {/* Features Info */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Card className="p-4">
+          <h3 className="font-semibold text-gray-900 mb-2">🚀 Triggers</h3>
+          <p className="text-sm text-gray-600">
+            Manual, Webhook e Schedule triggers para iniciar fluxos automaticamente
+          </p>
+        </Card>
+        
+        <Card className="p-4">
+          <h3 className="font-semibold text-gray-900 mb-2">🤖 Agentes IA</h3>
+          <p className="text-sm text-gray-600">
+            GPT-4, Claude, Mixtral integrados com 87% margem de lucro via OpenRouter
+          </p>
+        </Card>
+        
+        <Card className="p-4">
+          <h3 className="font-semibold text-gray-900 mb-2">📊 Schema Integration</h3>
+          <p className="text-sm text-gray-600">
+            Conectado ao Prisma schema com Organization, Agent, Datastore models
+          </p>
+        </Card>
+      </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-          {flows.map((flow) => (
-            <div key={flow.id} className="bg-gray-900/50 p-6 rounded-xl border border-gray-700/50 hover:border-gray-600/50 transition-all group cursor-pointer">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors">
-                  {flow.name}
-                </h3>
-                <Badge className={`${
-                  flow.status === 'active' 
-                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
-                    : 'bg-gray-500/10 text-gray-400 border-gray-500/20'
-                }`}>
-                  {flow.status === 'active' ? 'Ativo' : 'Rascunho'}
-                </Badge>
-              </div>
-              
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                {flow.description}
-              </p>
-              
-              <div className="grid grid-cols-3 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-white">{flow.executions}</div>
-                  <div className="text-xs text-gray-400">Execuções</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-white">{flow.conversion}</div>
-                  <div className="text-xs text-gray-400">Conversão</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-white">{flow.nodes}</div>
-                  <div className="text-xs text-gray-400">Nós</div>
-                </div>
-              </div>
-              
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800/30">
-                  <Eye className="w-3 h-3 mr-1" />
-                  Ver
-                </Button>
-                <Button variant="outline" size="sm" className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800/30">
-                  <Share2 className="w-3 h-3 mr-1" />
-                  Editar
-                </Button>
-              </div>
+      {/* Main Flow Builder */}
+      <FlowBuilderEnhanced />
+      
+      {/* Technical Notes */}
+      <div className="mt-6">
+        <Card className="p-4 bg-gray-50">
+          <h3 className="font-semibold text-gray-900 mb-3">🔧 Implementação Técnica</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <h4 className="font-medium text-gray-800 mb-2">Frontend Stack</h4>
+              <ul className="space-y-1 text-gray-600">
+                <li>• ReactFlow v12 + TypeScript</li>
+                <li>• Shadcn/ui components</li>
+                <li>• Tailwind CSS styling</li>
+                <li>• Context API para state</li>
+              </ul>
             </div>
-          ))}
-        </div>
-
-        <div className="bg-gray-900/30 border border-gray-700/50 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-white">Editor Visual</h2>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
-                <Download className="w-4 h-4 mr-2" />
-                Exportar
-              </Button>
+            <div>
+              <h4 className="font-medium text-gray-800 mb-2">Backend Integration</h4>
+              <ul className="space-y-1 text-gray-600">
+                <li>• Prisma schema models</li>
+                <li>• Supabase PostgreSQL</li>
+                <li>• OpenRouter API integration</li>
+                <li>• Real-time flow execution</li>
+              </ul>
             </div>
           </div>
-          
-          <div className="w-full h-[600px] bg-gray-950 rounded-lg flex items-center justify-center border border-gray-800">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <Bot className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Editor Visual de Fluxos</h3>
-              <p className="text-gray-400 mb-4">Interface baseada no Flowise para criação de agentes conversacionais</p>
-              <Button className="bg-blue-600 text-white hover:bg-blue-700">
-                Abrir Editor Completo
-              </Button>
-            </div>
-          </div>
-        </div>
+        </Card>
       </div>
     </div>
   )
