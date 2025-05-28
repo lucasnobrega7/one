@@ -58,6 +58,69 @@ const nextConfig = {
     ],
   },
 
+  // ✅ Subdomain-based routing
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Landing Page subdomain
+        {
+          source: '/:path*',
+          destination: '/landing/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'lp.agentesdeconversao.ai',
+            },
+          ],
+        },
+        // Dashboard subdomain
+        {
+          source: '/:path*',
+          destination: '/dashboard/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'dash.agentesdeconversao.ai',
+            },
+          ],
+        },
+        // Auth subdomain
+        {
+          source: '/:path*',
+          destination: '/auth/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'login.agentesdeconversao.ai',
+            },
+          ],
+        },
+        // Docs subdomain
+        {
+          source: '/:path*',
+          destination: '/docs/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'docs.agentesdeconversao.ai',
+            },
+          ],
+        },
+        // API subdomain
+        {
+          source: '/:path*',
+          destination: '/api/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'api.agentesdeconversao.ai',
+            },
+          ],
+        },
+      ],
+    }
+  },
+
   // ✅ Enhanced security headers with subdomain support
   async headers() {
     return [
@@ -66,7 +129,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN', // Changed from DENY to allow subdomain embeds
+            value: 'SAMEORIGIN',
           },
           {
             key: 'X-Content-Type-Options',
