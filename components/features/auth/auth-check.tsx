@@ -12,13 +12,14 @@ interface AuthCheckProps {
   requiredRole?: string | string[]
 }
 
-export function AuthCheck({ children, redirectTo = "/auth/login", requiredRole }: AuthCheckProps) {
+export function AuthCheck({ children, redirectTo = "https://login.agentesdeconversao.ai/signup", requiredRole }: AuthCheckProps) {
   const { user, loading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push(redirectTo)
+      // Redirect to login subdomain instead of relative path
+      window.location.href = redirectTo
     }
     
     // TODO: Add role-based access control here

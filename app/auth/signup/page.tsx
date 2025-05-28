@@ -38,7 +38,7 @@ export default function SignupPage() {
         throw new Error(supabaseError.message || "Erro ao criar conta")
       }
 
-      router.push("/dashboard")
+      router.push("https://dash.agentesdeconversao.ai/")
     } catch (error: any) {
       setError(error.message || "Ocorreu um erro ao criar sua conta.")
       setLoading(false)
@@ -52,7 +52,7 @@ export default function SignupPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`
+          redirectTo: `${window.location.origin}/auth/callback?next=https://dash.agentesdeconversao.ai/`
         }
       })
       

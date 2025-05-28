@@ -7,7 +7,7 @@ export default async function LoginPage() {
   const { data: { user } } = await supabase.auth.getUser()
   
   if (user) {
-    redirect('/dashboard')
+    redirect('https://dash.agentesdeconversao.ai/')
   }
 
   return <LoginForm />

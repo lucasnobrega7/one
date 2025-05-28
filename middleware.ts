@@ -14,6 +14,12 @@ export async function middleware(request: NextRequest) {
   
   // Subdomain routing logic
   if (hostname === 'lp.agentesdeconversao.ai') {
+    // Landing page - handle OAuth callback redirect
+    if (url.pathname === '/auth/callback' || url.searchParams.has('code')) {
+      const redirectUrl = new URL('https://login.agentesdeconversao.ai/auth/callback')
+      redirectUrl.search = url.search // Preserve query parameters
+      return NextResponse.redirect(redirectUrl)
+    }
     // Landing page - serve home page content
     return NextResponse.next()
   }
@@ -37,7 +43,13 @@ export async function middleware(request: NextRequest) {
       url.pathname = '/dashboard'
       return NextResponse.rewrite(url)
     }
-    if (!url.pathname.startsWith('/dashboard/')) {
+    // Don't rewrite auth routes - redirect them to login subdomain
+    if (url.pathname.startsWith('/auth/')) {
+      const redirectUrl = new URL(`https://login.agentesdeconversao.ai${url.pathname}${url.search}`)
+      return NextResponse.redirect(redirectUrl)
+    }
+    // Only rewrite non-dashboard paths that don't already start with /dashboard
+    if (!url.pathname.startsWith('/dashboard') && !url.pathname.startsWith('/_next')) {
       url.pathname = `/dashboard${url.pathname}`
       return NextResponse.rewrite(url)
     }
@@ -68,7 +80,12 @@ export async function middleware(request: NextRequest) {
             request,
           })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, {
+              ...options,
+              domain: '.agentesdeconversao.ai', // Share cookies across subdomains
+              secure: true,
+              sameSite: 'lax'
+            })
           )
         },
       },
@@ -85,7 +102,7 @@ export async function middleware(request: NextRequest) {
     !user &&
     (request.nextUrl.pathname.startsWith('/dashboard') ||
      request.nextUrl.pathname.startsWith('/onboarding') ||
-     hostname === 'dash.agentesdeconversao.ai')
+     (hostname === 'dash.agentesdeconversao.ai' && !request.nextUrl.pathname.startsWith('/auth/')))
   ) {
     const redirectUrl = new URL('https://login.agentesdeconversao.ai/signup')
     return NextResponse.redirect(redirectUrl)
@@ -96,7 +113,7 @@ export async function middleware(request: NextRequest) {
     user &&
     (request.nextUrl.pathname.startsWith('/auth/login') ||
      request.nextUrl.pathname.startsWith('/auth/signup') ||
-     hostname === 'login.agentesdeconversao.ai')
+     (hostname === 'login.agentesdeconversao.ai' && !request.nextUrl.pathname.startsWith('/auth/callback')))
   ) {
     const redirectUrl = new URL('https://dash.agentesdeconversao.ai/')
     return NextResponse.redirect(redirectUrl)

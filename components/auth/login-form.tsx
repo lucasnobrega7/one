@@ -39,7 +39,7 @@ export function LoginForm() {
           title: 'Login realizado!',
           description: 'Redirecionando para o dashboard...',
         })
-        router.push('/dashboard')
+        window.location.href = 'https://dash.agentesdeconversao.ai/'
         router.refresh()
       }
     } catch (error) {
@@ -93,7 +93,7 @@ export function LoginForm() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback?next=https://dash.agentesdeconversao.ai/`,
       },
     })
 
