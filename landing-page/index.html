@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentes de Conversão — A próxima revolução em vendas já começou</title>
+    <meta name="description" content="Agentes de IA que vendem 24/7. Transforme cada lead em oportunidade. A revolução das vendas já começou.">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Agentes de Conversão — A próxima revolução em vendas já começou">
+    <meta property="og:description" content="Agentes de IA que vendem 24/7. Transforme cada lead em oportunidade.">
+    <meta property="og:image" content="https://agentesdeconversao.ai/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Agentes de Conversão — A próxima revolução em vendas já começou">
+    <meta name="twitter:description" content="Agentes de IA que vendem 24/7. Transforme cada lead em oportunidade.">
+    <meta name="twitter:image" content="https://agentesdeconversao.ai/og-image.jpg">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            --secondary: #FFFFFF;
+            --accent: #10B981;
+            --text-dark: #1F2937;
+            --background: #F9FAFB;
+            --section-spacing: 120px;
+            --element-spacing: 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            background: var(--primary-gradient);
+            color: white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: var(--section-spacing) 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="gradient"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23gradient)"/></svg>') center/cover;
+            opacity: 0.3;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #4F46E5;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            margin-bottom: 60px;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 16/9;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: var(--section-spacing) 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        /* IMAGINE SECTION */
+        .imagine {
+            background: white;
+        }
+
+        .imagine-grid {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .imagine-item {
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .imagine-final {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 40px;
+            color: #4F46E5;
+        }
+
+        /* CREDIBILITY SECTION */
+        .credibility {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* MYSTERY SECTION */
+        .mystery {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 2px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #4F46E5;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(79, 70, 229, 0.1);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #4F46E5;
+        }
+
+        .feature-desc {
+            opacity: 0.8;
+        }
+
+        /* TRANSFORMATION SECTION */
+        .transformation {
+            background: #F3F4F6;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-before {
+            color: #EF4444;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .comparison-after {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .comparison-arrow {
+            font-size: 2rem;
+            margin: 20px 0;
+            opacity: 0.5;
+        }
+
+        /* MAGIC SECTION */
+        .magic {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .integrations {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .integration-badge {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* CTA SECTION */
+        .final-cta {
+            background: white;
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn-large {
+            padding: 20px 40px;
+            font-size: 1.125rem;
+            border-radius: 12px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-tagline {
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 2s steps(40) 1s forwards;
+            width: 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .integrations {
+                gap: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">Agentes de Conversão</div>
+                <div class="nav-links">
+                    <a href="#empresa" class="nav-link">Empresa</a>
+                    <a href="#produto" class="nav-link">Produto</a>
+                    <a href="#api" class="nav-link">API</a>
+                    <a href="https://dash.agentesdeconversao.ai/login" class="nav-link">Login</a>
+                    <a href="https://dash.agentesdeconversao.ai/demo" class="btn btn-primary">Demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title fade-in-up">AGENTES DE CONVERSÃO</h1>
+                <p class="hero-subtitle fade-in-up">A próxima revolução em vendas já começou</p>
+                
+                <div class="hero-cta fade-in-up">
+                    <a href="#imagine" class="btn btn-secondary btn-large">Descobrir Como</a>
+                </div>
+                
+                <div class="video-container fade-in-up">
+                    <div style="font-size: 1.5rem; opacity: 0.8;">🎥 Vídeo Demo Interativo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGINE SECTION -->
+    <section id="imagine" class="section imagine">
+        <div class="container">
+            <div class="imagine-grid">
+                <h2 class="section-title">🎯 Imagine o vendedor perfeito</h2>
+                
+                <div class="imagine-item">E se cada lead fosse atendido no momento exato?</div>
+                <div class="imagine-item">E se cada conversa se transformasse em oportunidade?</div>
+                <div class="imagine-item">E se suas vendas acontecessem enquanto você dorme?</div>
+                
+                <div class="imagine-final">Agora imagine que isso já existe.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CREDIBILITY SECTION -->
+    <section class="section credibility">
+        <div class="container">
+            <h2 class="section-title">🚀 Alguns chamam de impossível</h2>
+            <p class="section-subtitle">Nós chamamos de terça-feira</p>
+            
+            <p style="text-align: center; margin-bottom: 60px; font-size: 1.125rem;">
+                Enquanto o mundo ainda discute o futuro das vendas,<br>
+                empresas visionárias já estão vivendo nele.
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">horas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">dias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">ZERO</div>
+                    <div class="stat-label">interrupções</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">resultados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MYSTERY SECTION -->
+    <section class="section mystery">
+        <div class="container">
+            <h2 class="section-title">🔮 O segredo que poucos conhecem</h2>
+            
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px; font-size: 1.125rem;">
+                Existe uma nova espécie de vendedor. Um que nunca cansa, nunca falha, nunca para de aprender.
+            </p>
+            
+            <p style="text-align: center; font-size: 1.5rem; font-weight: 600; color: #4F46E5; margin-bottom: 60px;">
+                Não é humano. É melhor.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-title">COMPREENSÃO</div>
+                    <div class="feature-desc">Mais profunda que intuição</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">ADAPTAÇÃO</div>
+                    <div class="feature-desc">Mais rápida que reflexo</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">PRECISÃO</div>
+                    <div class="feature-desc">Mais certeira que experiência</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSFORMATION SECTION -->
+    <section class="section transformation">
+        <div class="container">
+            <h2 class="section-title">💰 A matemática do impossível</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-before">R$ 8.500</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">R$ 297</div>
+                    <p style="margin-top: 20px; opacity: 0.8;">Equipe inteira → Um agente</p>
+                </div>
+                
+                <div class="comparison-card">
+                    <div class="comparison-before">Meses de treinamento</div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-after">Minutos de config.</div>
+                    <p style="margin-top: 20px; opacity: 0.8;">Performance humana → Sobre-humana</p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 60px; font-size: 1.5rem; font-weight: 600;">
+                Como isso é possível?
+            </p>
+        </div>
+    </section>
+
+    <!-- MAGIC SECTION -->
+    <section class="section magic">
+        <div class="container">
+            <h2 class="section-title">⚡ Tecnologia indistinguível de mágica</h2>
+            
+            <p style="text-align: center; font-size: 1.25rem; margin-bottom: 40px;">
+                Cada palavra calculada.<br>
+                Cada resposta otimizada.<br>
+                Cada conversa, uma obra-prima.
+            </p>
+            
+            <div class="integrations">
+                <div class="integration-badge">WHATSAPP</div>
+                <div class="integration-badge">WEBSITE</div>
+                <div class="integration-badge">CRM</div>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.25rem; font-weight: 600;">
+                Conectado. Inteligente. Imparável.
+            </p>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="section final-cta">
+        <div class="container">
+            <h2 class="section-title">🎯 Você está pronto?</h2>
+            
+            <p style="max-width: 600px; margin: 0 auto 40px; font-size: 1.125rem; text-align: center;">
+                Alguns vão esperar que todos tenham.<br>
+                Outros vão liderar enquanto podem.
+            </p>
+            
+            <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 40px; text-align: center;">
+                O futuro não espera.<br>
+                Suas vendas também não deveriam.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="https://dash.agentesdeconversao.ai/signup" class="btn btn-primary btn-large">Começar a Revolução</a>
+                <a href="https://dash.agentesdeconversao.ai/demo" class="btn btn-secondary btn-large">Ver em Ação</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">Agentes de Conversão</div>
+            <div class="footer-tagline">Inteligência que vende. Resultados que impressionam.</div>
+            
+            <div class="footer-links">
+                <a href="#empresa" class="footer-link">Empresa</a>
+                <a href="#produto" class="footer-link">Produto</a>
+                <a href="#api" class="footer-link">API</a>
+                <a href="#suporte" class="footer-link">Suporte</a>
+                <a href="#contato" class="footer-link">Contato</a>
+                <a href="#legal" class="footer-link">Legal</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Number animation for stats
+        function animateNumbers() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = stat.textContent.includes('∞') ? '∞' : parseInt(stat.textContent);
+                if (target !== '∞' && target !== 'ZERO') {
+                    let current = 0;
+                    const increment = target / 60;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            stat.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(current);
+                        }
+                    }, 30);
+                }
+            });
+        }
+
+        // Trigger number animation when stats section is visible
+        const statsSection = document.querySelector('.credibility');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
