@@ -42,7 +42,7 @@ export function HeroSection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Button size="lg" className="border border-white bg-white text-black hover:bg-white/90" asChild>
-                <Link href="/auth/signup">Começar Gratuitamente</Link>
+                <a href="https://login.agentesdeconversao.ai/signup">Começar Gratuitamente</a>
               </Button>
               <Button
                 variant="outline"

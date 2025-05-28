@@ -52,11 +52,11 @@ export function HeroSection() {
             size="lg" 
             className="bg-gradient-to-r from-[#39ff14] to-green-500 hover:from-green-400 hover:to-[#39ff14] text-black font-bold px-8 py-4 text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(57,255,20,0.3)] hover:shadow-[0_0_50px_rgba(57,255,20,0.5)]"
           >
-            <Link href="https://dash.agentesdeconversao.ai" className="flex items-center">
+            <a href="https://login.agentesdeconversao.ai/signup" className="flex items-center">
               <Zap className="w-5 h-5 mr-2" />
               Começar Agora
               <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
+            </a>
           </Button>
           
           <Button 
@@ -65,7 +65,7 @@ export function HeroSection() {
             size="lg"
             className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-8 py-4 text-lg transition-all duration-300"
           >
-            <Link href="https://docs.agentesdeconversao.ai">
+            <Link href="/docs">
               Ver Documentação
             </Link>
           </Button>

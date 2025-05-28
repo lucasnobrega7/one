@@ -169,3 +169,5 @@ export default function KnowledgeBasePage() {
     </MainLayout>
   )
 }
+
+export const dynamic = 'force-dynamic'

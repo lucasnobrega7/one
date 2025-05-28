@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 export function CTASection() {
   return (
@@ -16,9 +15,9 @@ export function CTASection() {
           size="lg" 
           className="bg-gradient-to-r from-[#39ff14] to-green-500 hover:from-green-400 hover:to-[#39ff14] text-black font-bold px-8 py-4 text-lg"
         >
-          <Link href="https://dash.agentesdeconversao.ai">
+          <a href="https://login.agentesdeconversao.ai/signup">
             Começar Agora
-          </Link>
+          </a>
         </Button>
       </div>
     </section>

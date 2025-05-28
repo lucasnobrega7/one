@@ -29,15 +29,15 @@ export default function DocsPage() {
 
           {/* Right Navigation */}
           <div className="flex items-center gap-4">
-            <Link href="/auth/login" className="text-sm text-white/70 hover:text-white transition-colors">
+            <a href="https://login.agentesdeconversao.ai/login" className="text-sm text-white/70 hover:text-white transition-colors">
               Entrar
-            </Link>
-            <Link 
-              href="/auth/signup"
+            </a>
+            <a 
+              href="https://login.agentesdeconversao.ai/signup"
               className="bg-gradient-to-r from-[#46B2E0] via-[#8A53D2] to-[#E056A0] text-white px-4 py-2 rounded-lg text-sm hover:opacity-90 transition-all duration-200"
             >
               Cadastrar
-            </Link>
+            </a>
           </div>
         </div>
       </header>

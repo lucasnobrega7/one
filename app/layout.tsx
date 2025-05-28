@@ -5,7 +5,7 @@ import { Toaster as SonnerToaster } from "sonner"
 import SupabaseProvider from "@/components/supabase-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
-import { Inter } from "next/font/google"
+import { Inter, Open_Sans } from "next/font/google"
 import "./globals.css"
 
 const defaultUrl = process.env.VERCEL_URL
@@ -21,6 +21,13 @@ export const metadata = {
 const inter = Inter({
   display: "swap",
   subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const openSans = Open_Sans({
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-open-sans",
 });
 
 export default function RootLayout({
@@ -29,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={inter.className} suppressHydrationWarning>
-      <body className="bg-black text-white min-h-screen font-sans antialiased">
+    <html lang="pt-BR" className={`${inter.variable} ${openSans.variable}`} suppressHydrationWarning>
+      <body className="bg-black text-white min-h-screen font-inter antialiased">
         <ErrorBoundary>
           <SupabaseProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
