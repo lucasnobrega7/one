@@ -48,10 +48,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       active: pathname.startsWith("/dashboard/agents"),
     },
     {
-      label: "AgentStudio",
-      href: "/dashboard/studio",
+      label: "Flow Builder",
+      href: "/dashboard/flows",
       icon: Workflow,
-      active: pathname.startsWith("/dashboard/studio"),
+      active: pathname.startsWith("/dashboard/flows"),
     },
     {
       label: "Bases de Conhecimento",
