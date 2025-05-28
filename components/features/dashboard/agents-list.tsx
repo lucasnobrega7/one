@@ -53,28 +53,28 @@ export function AgentsList() {
   }
 
   return (
-    <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+    <div className="bg-[#1a1a1d] border border-[#27272a] rounded-lg overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-slate-50">
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">Nome</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
+            <tr className="bg-[#0e0e10] border-b border-[#27272a]">
+              <th className="px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider">Nome</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider">
                 Conversas
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider">
                 Taxa de Conversão
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider">
                 Criado em
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-slate-600 uppercase tracking-wider">Ações</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-white/70 uppercase tracking-wider">Ações</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200 bg-white">
+          <tbody className="divide-y divide-[#27272a] bg-[#1a1a1d]">
             {agents.map((agent) => (
-              <tr key={agent.id} className="hover:bg-slate-50">
+              <tr key={agent.id} className="hover:bg-[#27272a]/50 transition-colors">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">

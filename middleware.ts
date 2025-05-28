@@ -4,19 +4,50 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   // Handle domain redirects first
   const hostname = request.headers.get('host') || ''
+  const url = new URL(request.url)
   
-  // Redirect Vercel preview URLs to main domain
+  // Redirect Vercel preview URLs to landing page  
   if (hostname.includes('vercel.app') && !hostname.includes('localhost')) {
-    const url = new URL(request.url)
-    url.hostname = 'agentesdeconversao.ai'
-    return NextResponse.redirect(url, 301)
+    const redirectUrl = new URL('https://lp.agentesdeconversao.ai' + url.pathname + url.search)
+    return NextResponse.redirect(redirectUrl, 301)
   }
   
-  // Redirect www to non-www
-  if (hostname === 'www.agentesdeconversao.ai') {
-    const url = new URL(request.url)
-    url.hostname = 'agentesdeconversao.ai'
-    return NextResponse.redirect(url, 301)
+  // Subdomain routing logic
+  if (hostname === 'lp.agentesdeconversao.ai') {
+    // Landing page - serve home page content
+    return NextResponse.next()
+  }
+  
+  if (hostname === 'login.agentesdeconversao.ai') {
+    // Auth subdomain - rewrite to auth routes
+    if (url.pathname === '/' || url.pathname === '') {
+      url.pathname = '/auth/signup'
+      return NextResponse.rewrite(url)
+    }
+    if (!url.pathname.startsWith('/auth/')) {
+      url.pathname = `/auth${url.pathname}`
+      return NextResponse.rewrite(url)
+    }
+    return NextResponse.next()
+  }
+  
+  if (hostname === 'dash.agentesdeconversao.ai') {
+    // Dashboard subdomain - rewrite to dashboard routes
+    if (url.pathname === '/' || url.pathname === '') {
+      url.pathname = '/dashboard'
+      return NextResponse.rewrite(url)
+    }
+    if (!url.pathname.startsWith('/dashboard/')) {
+      url.pathname = `/dashboard${url.pathname}`
+      return NextResponse.rewrite(url)
+    }
+    return NextResponse.next()
+  }
+  
+  // Redirect main domain to landing page
+  if (hostname === 'agentesdeconversao.ai' || hostname === 'www.agentesdeconversao.ai') {
+    const redirectUrl = new URL('https://lp.agentesdeconversao.ai' + url.pathname + url.search)
+    return NextResponse.redirect(redirectUrl, 301)
   }
   
   let supabaseResponse = NextResponse.next({
@@ -49,26 +80,26 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protect dashboard routes
+  // Protect dashboard routes - redirect to login subdomain
   if (
     !user &&
     (request.nextUrl.pathname.startsWith('/dashboard') ||
-     request.nextUrl.pathname.startsWith('/onboarding'))
+     request.nextUrl.pathname.startsWith('/onboarding') ||
+     hostname === 'dash.agentesdeconversao.ai')
   ) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
-    return NextResponse.redirect(url)
+    const redirectUrl = new URL('https://login.agentesdeconversao.ai/signup')
+    return NextResponse.redirect(redirectUrl)
   }
 
-  // Redirect authenticated users away from auth pages
+  // Redirect authenticated users to dashboard subdomain
   if (
     user &&
     (request.nextUrl.pathname.startsWith('/auth/login') ||
-     request.nextUrl.pathname.startsWith('/auth/signup'))
+     request.nextUrl.pathname.startsWith('/auth/signup') ||
+     hostname === 'login.agentesdeconversao.ai')
   ) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+    const redirectUrl = new URL('https://dash.agentesdeconversao.ai/')
+    return NextResponse.redirect(redirectUrl)
   }
 
   return supabaseResponse
