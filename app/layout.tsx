@@ -5,7 +5,6 @@ import { Toaster as SonnerToaster } from "sonner"
 import SupabaseProvider from "@/components/supabase-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
-import { Footer } from "@/components/ui/footer"
 import { Inter } from "next/font/google"
 import "./globals.css"
 
