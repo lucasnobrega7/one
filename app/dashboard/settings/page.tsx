@@ -2,6 +2,8 @@ import { AuthCheck } from "@/components/features/auth/auth-check"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
 import { SettingsForm } from "@/components/features/dashboard/settings-form"
 
+export const dynamic = 'force-dynamic'
+
 export default function SettingsPage() {
   return (
     <div className="space-y-6">
@@ -13,5 +15,3 @@ export default function SettingsPage() {
     </div>
   )
 }
--e 
-export const dynamic = "force-dynamic"

@@ -71,5 +71,6 @@ export default function FormsPage() {
       )}
     </div>
   );
-}-e 
-export const dynamic = "force-dynamic"
+}
+
+export const dynamic = 'force-dynamic'

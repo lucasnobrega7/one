@@ -58,3 +58,5 @@ export default function KnowledgeBasePage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

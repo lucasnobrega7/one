@@ -17,3 +17,5 @@ export default function HelpPage() {
     </AuthCheck>
   )
 }
+
+export const dynamic = 'force-dynamic'

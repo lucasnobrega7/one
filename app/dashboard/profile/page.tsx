@@ -22,3 +22,5 @@ export default function ProfilePage() {
     </AuthCheck>
   )
 }
+
+export const dynamic = 'force-dynamic'

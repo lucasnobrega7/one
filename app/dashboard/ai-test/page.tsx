@@ -435,5 +435,6 @@ export default function AITestPage() {
       </Tabs>
     </div>
   )
-}-e 
-export const dynamic = "force-dynamic"
+}
+
+export const dynamic = 'force-dynamic'

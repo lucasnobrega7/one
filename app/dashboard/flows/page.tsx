@@ -38,3 +38,5 @@ export default function FlowsPage() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
