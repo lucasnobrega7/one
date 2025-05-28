@@ -71,3 +71,5 @@ export default function AuthError() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

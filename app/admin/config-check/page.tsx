@@ -180,3 +180,5 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret`
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'
