@@ -3,12 +3,6 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
-  "domains": [
-    "agentesdeconversao.ai",
-    "www.agentesdeconversao.ai",
-    "lp.agentesdeconversao.ai",
-    "dash.agentesdeconversao.ai"
-  ],
   "redirects": [
     {
       "source": "/(.*)",
