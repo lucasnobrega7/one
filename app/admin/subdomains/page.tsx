@@ -144,16 +144,16 @@ export default function SubdomainsPage() {
   }
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
-            <Globe className="w-8 h-8 text-blue-500" />
+          <h1 className="text-3xl font-bold flex items-center gap-3 text-white">
+            <Globe className="w-8 h-8 text-[#46B2E0]" />
             Gerenciamento de Subdomínios
           </h1>
-          <p className="text-gray-600 mt-2">
-            Configure e monitore os subdomínios do agentesdeconversao.ai
+          <p className="text-white/70 mt-2">
+            Configure e monitore os subdomínios do agentesdeconversao.com.br
           </p>
         </div>
         
@@ -162,6 +162,7 @@ export default function SubdomainsPage() {
             variant="outline"
             onClick={fetchSubdomainStatus}
             disabled={loading}
+            className="border-[#27272a] bg-[#1a1a1d] text-white hover:bg-[#27272a]/30"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Atualizar
@@ -170,7 +171,7 @@ export default function SubdomainsPage() {
           <Button
             onClick={fixMainDomain}
             disabled={fixingDomain || loading}
-            className="bg-red-600 hover:bg-red-700"
+            className="bg-red-600 hover:bg-red-700 text-white"
           >
             {fixingDomain ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -183,7 +184,7 @@ export default function SubdomainsPage() {
           <Button
             onClick={deployAllSubdomains}
             disabled={deploying || loading}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] hover:from-[#46B2E0]/80 hover:to-[#8A53D2]/80 text-white"
           >
             {deploying ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -196,49 +197,50 @@ export default function SubdomainsPage() {
       </div>
 
       {/* Subdomains List */}
-      <Card>
+      <Card className="bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="w-5 h-5" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Settings className="w-5 h-5 text-[#46B2E0]" />
             Status dos Subdomínios
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-white/70">
             Monitor em tempo real do status de todos os subdomínios
           </CardDescription>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-              <span className="ml-2">Carregando status...</span>
+              <Loader2 className="w-8 h-8 animate-spin text-[#46B2E0]" />
+              <span className="ml-2 text-white/70">Carregando status...</span>
             </div>
           ) : data ? (
             <div className="space-y-4">
               {data.subdomains.map((subdomain) => (
                 <div
                   key={subdomain.subdomain}
-                  className="flex items-center justify-between p-4 border rounded-lg"
+                  className="flex items-center justify-between p-4 border border-[#27272a] rounded-lg bg-[#0e0e10]/50 hover:bg-[#27272a]/20 transition-colors"
                 >
                   <div className="flex items-center gap-4">
                     {getStatusIcon(subdomain.status)}
                     <div>
-                      <h4 className="font-medium">
-                        {subdomain.subdomain}.agentesdeconversao.ai
+                      <h4 className="font-medium text-white">
+                        {subdomain.subdomain}.agentesdeconversao.com.br
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-white/60">
                         {subdomain.error || `${subdomain.responseTime}ms`}
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-3">
-                    <Badge>
+                    <Badge className="bg-[#27272a] text-white border-[#27272a]">
                       {subdomain.status}
                     </Badge>
                     <Button
                       variant="outline"
                       size="sm"
                       asChild
+                      className="border-[#27272a] bg-[#1a1a1d] text-white hover:bg-[#27272a]/30"
                     >
                       <a
                         href={subdomain.url}
@@ -256,7 +258,7 @@ export default function SubdomainsPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-500">Falha ao carregar dados dos subdomínios</p>
+              <p className="text-white/50">Falha ao carregar dados dos subdomínios</p>
             </div>
           )}
         </CardContent>

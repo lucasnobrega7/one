@@ -31,10 +31,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={inter.className} suppressHydrationWarning>
-      <body className="bg-white text-slate-900 min-h-screen font-sans antialiased">
+      <body className="bg-black text-white min-h-screen font-sans antialiased">
         <ErrorBoundary>
           <SupabaseProvider>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
               <GlobalErrorHandler>
                 {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
                 <div className="flex flex-col min-h-screen">
@@ -47,7 +47,7 @@ export default function RootLayout({
 
               <Toaster />
               <SonnerToaster 
-                theme="light"
+                theme="dark"
                 position="top-right"
                 richColors
                 closeButton

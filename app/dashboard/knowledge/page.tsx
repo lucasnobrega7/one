@@ -4,22 +4,19 @@ import { KnowledgeBaseList } from "@/components/features/dashboard/knowledge-bas
 
 export default function KnowledgeBasePage() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      <AuthCheck>
-        <DashboardLayout>
-          <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-white mb-2">Conhecimentos</h1>
-                <p className="text-gray-400">Adicione dados e documentos para treinar seus agentes</p>
-              </div>
-              <a
-                href="/dashboard/knowledge/new"
-                className="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-100 transition-all font-medium"
-              >
-                + Adicionar Conhecimento
-              </a>
-            </div>
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white/90 mb-2">Conhecimentos</h1>
+          <p className="text-white/70">Adicione dados e documentos para treinar seus agentes</p>
+        </div>
+        <a
+          href="/dashboard/knowledge/new"
+          className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white px-6 py-3 rounded-lg hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 transition-all font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+        >
+          + Adicionar Conhecimento
+        </a>
+      </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Cards de tipos de conhecimento */}
@@ -57,10 +54,7 @@ export default function KnowledgeBasePage() {
               </div>
             </div>
 
-            <KnowledgeBaseList />
-          </div>
-        </DashboardLayout>
-      </AuthCheck>
+      <KnowledgeBaseList />
     </div>
   )
 }

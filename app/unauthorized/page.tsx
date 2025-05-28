@@ -1,35 +1,44 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { ShieldX } from "lucide-react"
 
 export default function UnauthorizedPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-destructive">Acesso Negado</CardTitle>
-          <CardDescription>
-            Você não tem permissão para acessar esta página.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="text-center space-y-4">
-          <p className="text-sm text-muted-foreground">
-            Entre em contato com o administrador do sistema se você acredita que isso é um erro.
-          </p>
-          <div className="space-y-2">
-            <Button asChild className="w-full">
-              <Link href="/dashboard">
-                Voltar ao Dashboard
-              </Link>
-            </Button>
-            <Button variant="outline" asChild className="w-full">
-              <Link href="/">
-                Página Inicial
-              </Link>
-            </Button>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center px-4">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl mx-auto mb-6 flex items-center justify-center">
+            <ShieldX className="w-8 h-8 text-white" />
           </div>
-        </CardContent>
-      </Card>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Acesso Não Autorizado
+          </h2>
+          <p className="text-gray-400">
+            Você não tem permissão para acessar esta página
+          </p>
+        </div>
+
+        <Card className="bg-white/5 backdrop-blur-sm border-white/10">
+          <CardContent className="pt-6">
+            <div className="text-center space-y-6">
+              <p className="text-gray-300">
+                Entre em contato com o administrador do sistema se você acredita que isso é um erro.
+              </p>
+              
+              <div className="space-y-3">
+                <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+                  <Link href="/dashboard">Voltar ao Dashboard</Link>
+                </Button>
+
+                <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/5">
+                  <Link href="/">Ir para Página Inicial</Link>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

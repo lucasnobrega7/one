@@ -7,9 +7,9 @@ import { SubdomainLink } from "@/components/ui/subdomain-link"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-hidden font-sans antialiased">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-xl border-b border-white/10">
+      <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-8">

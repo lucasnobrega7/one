@@ -3,10 +3,59 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
+  "domains": [
+    "agentesdeconversao.ai",
+    "www.agentesdeconversao.ai",
+    "lp.agentesdeconversao.ai",
+    "dash.agentesdeconversao.ai"
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://agentesdeconversao.ai/$1",
+      "statusCode": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "one-2wow7l0ne-agentesdeconversao.vercel.app"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://agentesdeconversao.ai/$1",
+      "statusCode": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "(.+)\\.vercel\\.app"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
     }
   ]
 }

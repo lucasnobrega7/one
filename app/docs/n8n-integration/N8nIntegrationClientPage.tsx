@@ -9,35 +9,35 @@ import { Info } from "lucide-react"
 export default function N8nIntegrationClientPage() {
   return (
     <div className="space-y-6">
-      <p className="text-lg text-gray-700">
+      <p className="text-lg text-white/70">
         A integração com o N8N permite que você automatize fluxos de trabalho envolvendo a plataforma Agentes de
         Conversão.
       </p>
 
-      <Alert>
-        <Info className="h-4 w-4" />
-        <AlertTitle>Dica</AlertTitle>
-        <AlertDescription>
+      <Alert className="bg-[#1a1a1d] border-[#27272a]">
+        <Info className="h-4 w-4 text-[#46B2E0]" />
+        <AlertTitle className="text-white/90">Dica</AlertTitle>
+        <AlertDescription className="text-white/70">
           O N8N é uma ferramenta de automação de fluxo de trabalho que permite conectar diferentes aplicativos e
           serviços. Saiba mais em {"https://n8n.io"}.
         </AlertDescription>
       </Alert>
 
-      <Card>
+      <Card className="bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle>Configuração Inicial</CardTitle>
-          <CardDescription>Como configurar a integração com o N8N</CardDescription>
+          <CardTitle className="text-white/90">Configuração Inicial</CardTitle>
+          <CardDescription className="text-white/70">Como configurar a integração com o N8N</CardDescription>
         </CardHeader>
         <CardContent>
-          <h4 className="mb-2 font-medium">Pré-requisitos</h4>
-          <ul className="list-disc pl-5 mb-4">
+          <h4 className="mb-2 font-medium text-white/90">Pré-requisitos</h4>
+          <ul className="list-disc pl-5 mb-4 text-white/70">
             <li className="mb-1">Uma instância do N8N em execução</li>
             <li className="mb-1">Uma conta na plataforma Agentes de Conversão</li>
             <li>Chave de API dos Agentes de Conversão</li>
           </ul>
 
-          <h4 className="mb-2 font-medium">Passos para Configuração</h4>
-          <ol className="list-decimal pl-5">
+          <h4 className="mb-2 font-medium text-white/90">Passos para Configuração</h4>
+          <ol className="list-decimal pl-5 text-white/70">
             <li className="mb-1">Acesse sua instância do N8N</li>
             <li className="mb-1">Crie um novo fluxo de trabalho</li>
             <li className="mb-1">Adicione um nó HTTP Request ou use nosso nó personalizado (veja abaixo)</li>
@@ -47,22 +47,22 @@ export default function N8nIntegrationClientPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle>Nó Personalizado</CardTitle>
-          <CardDescription>Como instalar e usar o nó personalizado dos Agentes de Conversão</CardDescription>
+          <CardTitle className="text-white/90">Nó Personalizado</CardTitle>
+          <CardDescription className="text-white/70">Como instalar e usar o nó personalizado dos Agentes de Conversão</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="mb-4">
+          <p className="mb-4 text-white/70">
             Oferecemos um nó personalizado para o N8N que facilita a integração com nossa plataforma. Este nó fornece
             uma interface amigável para todas as operações da API.
           </p>
 
-          <h4 className="mb-2 font-medium">Instalação</h4>
-          <pre className="rounded bg-gray-100 p-4">{`npm install n8n-nodes-agentes-conversao`}</pre>
+          <h4 className="mb-2 font-medium text-white/90">Instalação</h4>
+          <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#46B2E0] text-sm mb-4">{`npm install n8n-nodes-agentes-conversao`}</pre>
 
-          <h4 className="mb-2 mt-4 font-medium">Recursos do Nó</h4>
-          <ul className="list-disc pl-5">
+          <h4 className="mb-2 mt-4 font-medium text-white/90">Recursos do Nó</h4>
+          <ul className="list-disc pl-5 text-white/70">
             <li className="mb-1">Operações para gerenciar agentes</li>
             <li className="mb-1">Operações para gerenciar conversas</li>
             <li className="mb-1">Operações para gerenciar bases de conhecimento</li>
@@ -73,26 +73,26 @@ export default function N8nIntegrationClientPage() {
       </Card>
 
       <Tabs defaultValue="agents">
-        <TabsList>
-          <TabsTrigger value="agents">Fluxos de Agentes</TabsTrigger>
-          <TabsTrigger value="conversations">Fluxos de Conversas</TabsTrigger>
-          <TabsTrigger value="knowledge">Fluxos de Conhecimento</TabsTrigger>
+        <TabsList className="bg-[#1a1a1d] border-[#27272a]">
+          <TabsTrigger value="agents" className="data-[state=active]:bg-[#27272a] data-[state=active]:text-white text-white/70">Fluxos de Agentes</TabsTrigger>
+          <TabsTrigger value="conversations" className="data-[state=active]:bg-[#27272a] data-[state=active]:text-white text-white/70">Fluxos de Conversas</TabsTrigger>
+          <TabsTrigger value="knowledge" className="data-[state=active]:bg-[#27272a] data-[state=active]:text-white text-white/70">Fluxos de Conhecimento</TabsTrigger>
         </TabsList>
 
         <TabsContent value="agents" className="space-y-4 pt-4">
-          <Card>
+          <Card className="bg-[#1a1a1d] border-[#27272a]">
             <CardHeader>
-              <CardTitle>Exemplo: Criar Agente Automaticamente</CardTitle>
-              <CardDescription>Fluxo para criar um novo agente quando um formulário é preenchido</CardDescription>
+              <CardTitle className="text-white/90">Exemplo: Criar Agente Automaticamente</CardTitle>
+              <CardDescription className="text-white/70">Fluxo para criar um novo agente quando um formulário é preenchido</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">
+              <p className="mb-4 text-white/70">
                 Este exemplo mostra como criar um novo agente automaticamente quando um formulário é preenchido em seu
                 site.
               </p>
 
-              <h4 className="mb-2 font-medium">Configuração do Fluxo</h4>
-              <ol className="list-decimal pl-5">
+              <h4 className="mb-2 font-medium text-white/90">Configuração do Fluxo</h4>
+              <ol className="list-decimal pl-5 text-white/70 mb-4">
                 <li className="mb-1">Adicione um nó de gatilho Webhook para receber dados do formulário</li>
                 <li className="mb-1">Adicione um nó Agentes de Conversão</li>
                 <li className="mb-1">Selecione a operação &quot;Criar Agente&quot;</li>
@@ -100,8 +100,8 @@ export default function N8nIntegrationClientPage() {
                 <li>Adicione um nó de notificação por e-mail para confirmar a criação</li>
               </ol>
 
-              <h4 className="mb-2 mt-4 font-medium">Código JSON do Fluxo</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 mt-4 font-medium text-white/90">Código JSON do Fluxo</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#46B2E0] text-sm overflow-x-auto">
                 {`{
   "nodes": [
     {
@@ -119,9 +119,9 @@ export default function N8nIntegrationClientPage() {
       "position": [500, 300],
       "parameters": {
         "operation": "create",
-        "name": "={{$node[\"1\"].json[\"agent_name\"]}}",
-        "description": "={{$node[\"1\"].json[\"agent_description\"]}}",
-        "knowledge_base_ids": "={{$node[\"1\"].json[\"knowledge_base_ids\"]}}"
+        "name": "={{$node[\\"1\\"].json[\\"agent_name\\"]}}",
+        "description": "={{$node[\\"1\\"].json[\\"agent_description\\"]}}",
+        "knowledge_base_ids": "={{$node[\\"1\\"].json[\\"knowledge_base_ids\\"]}}"
       }
     },
     {
@@ -129,9 +129,9 @@ export default function N8nIntegrationClientPage() {
       "type": "n8n-nodes-base.emailSend",
       "position": [750, 300],
       "parameters": {
-        "to": "={{$node[\"1\"].json[\"email\"]}}",
+        "to": "={{$node[\\"1\\"].json[\\"email\\"]}}",
         "subject": "Agente Criado com Sucesso",
-        "text": "Seu agente {{$node[\"2\"].json[\"name\"]}} foi criado com sucesso!"
+        "text": "Seu agente {{$node[\\"2\\"].json[\\"name\\"]}} foi criado com sucesso!"
       }
     }
   ],
@@ -166,18 +166,18 @@ export default function N8nIntegrationClientPage() {
         </TabsContent>
 
         <TabsContent value="conversations" className="space-y-4 pt-4">
-          <Card>
+          <Card className="bg-[#1a1a1d] border-[#27272a]">
             <CardHeader>
-              <CardTitle>Exemplo: Notificação de Novas Conversas</CardTitle>
-              <CardDescription>Fluxo para notificar sobre novas conversas</CardDescription>
+              <CardTitle className="text-white/90">Exemplo: Notificação de Novas Conversas</CardTitle>
+              <CardDescription className="text-white/70">Fluxo para notificar sobre novas conversas</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">
+              <p className="mb-4 text-white/70">
                 Este exemplo mostra como enviar notificações para o Slack quando uma nova conversa é iniciada.
               </p>
 
-              <h4 className="mb-2 font-medium">Configuração do Fluxo</h4>
-              <ol className="list-decimal pl-5">
+              <h4 className="mb-2 font-medium text-white/90">Configuração do Fluxo</h4>
+              <ol className="list-decimal pl-5 text-white/70 mb-4">
                 <li className="mb-1">Adicione um nó de gatilho Webhook para receber eventos de webhook</li>
                 <li className="mb-1">Adicione um nó If para filtrar apenas eventos de conversa.created</li>
                 <li className="mb-1">Adicione um nó Agentes de Conversão para obter detalhes da conversa</li>
@@ -185,8 +185,8 @@ export default function N8nIntegrationClientPage() {
                 <li>Configure a mensagem do Slack com os detalhes da conversa</li>
               </ol>
 
-              <h4 className="mb-2 mt-4 font-medium">Código JSON do Fluxo</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 mt-4 font-medium text-white/90">Código JSON do Fluxo</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#8A53D2] text-sm overflow-x-auto">
                 {`{
   "nodes": [
     {
@@ -206,7 +206,7 @@ export default function N8nIntegrationClientPage() {
         "conditions": {
           "string": [
             {
-              "value1": "={{$node[\"1\"].json[\"event\"]}}",
+              "value1": "={{$node[\\"1\\"].json[\\"event\\"]}}",
               "operation": "equals",
               "value2": "conversation.created"
             }
@@ -220,7 +220,7 @@ export default function N8nIntegrationClientPage() {
       "position": [750, 300],
       "parameters": {
         "operation": "get",
-        "id": "={{$node[\"1\"].json[\"data\"][\"id\"]}}"
+        "id": "={{$node[\\"1\\"].json[\\"data\\"][\\"id\\"]}}"
       }
     },
     {
@@ -229,7 +229,7 @@ export default function N8nIntegrationClientPage() {
       "position": [1000, 300],
       "parameters": {
         "channel": "#notifications",
-        "text": "Nova conversa iniciada!\\nID: {{$node[\"3\"].json[\"id\"]}}\\nAgente: {{$node[\"3\"].json[\"agent_name\"]}}\\nUsuário: {{$node[\"3\"].json[\"user_name\"]}}"
+        "text": "Nova conversa iniciada!\\nID: {{$node[\\"3\\"].json[\\"id\\"]}}\\nAgente: {{$node[\\"3\\"].json[\\"agent_name\\"]}}\\nUsuário: {{$node[\\"3\\"].json[\\"user_name\\"]}}"
       }
     }
   ],
@@ -275,21 +275,21 @@ export default function N8nIntegrationClientPage() {
         </TabsContent>
 
         <TabsContent value="knowledge" className="space-y-4 pt-4">
-          <Card>
+          <Card className="bg-[#1a1a1d] border-[#27272a]">
             <CardHeader>
-              <CardTitle>Exemplo: Atualização Automática de Base de Conhecimento</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-white/90">Exemplo: Atualização Automática de Base de Conhecimento</CardTitle>
+              <CardDescription className="text-white/70">
                 Fluxo para atualizar a base de conhecimento quando um documento é modificado
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">
+              <p className="mb-4 text-white/70">
                 Este exemplo mostra como atualizar automaticamente a base de conhecimento quando um documento é
                 modificado no Google Drive.
               </p>
 
-              <h4 className="mb-2 font-medium">Configuração do Fluxo</h4>
-              <ol className="list-decimal pl-5">
+              <h4 className="mb-2 font-medium text-white/90">Configuração do Fluxo</h4>
+              <ol className="list-decimal pl-5 text-white/70 mb-4">
                 <li className="mb-1">Adicione um nó de gatilho Google Drive para monitorar alterações em documentos</li>
                 <li className="mb-1">Adicione um nó Google Drive para baixar o documento atualizado</li>
                 <li className="mb-1">Adicione um nó Agentes de Conversão</li>
@@ -297,8 +297,8 @@ export default function N8nIntegrationClientPage() {
                 <li>Configure para enviar o documento baixado para a base de conhecimento</li>
               </ol>
 
-              <h4 className="mb-2 mt-4 font-medium">Código JSON do Fluxo</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 mt-4 font-medium text-white/90">Código JSON do Fluxo</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#E056A0] text-sm overflow-x-auto">
                 {`{
   "nodes": [
     {
@@ -318,7 +318,7 @@ export default function N8nIntegrationClientPage() {
       "position": [500, 300],
       "parameters": {
         "operation": "download",
-        "fileId": "={{$node[\"1\"].json[\"fileId\"]}}"
+        "fileId": "={{$node[\\"1\\"].json[\\"fileId\\"]}}"
       }
     },
     {
@@ -328,10 +328,10 @@ export default function N8nIntegrationClientPage() {
       "parameters": {
         "operation": "updateDocument",
         "knowledgeBaseId": "your_knowledge_base_id",
-        "documentId": "={{$node[\"1\"].json[\"name\"]}}",
+        "documentId": "={{$node[\\"1\\"].json[\\"name\\"]}}",
         "binaryPropertyName": "data",
         "additionalFields": {
-          "title": "={{$node[\"1\"].json[\"name\"]}}",
+          "title": "={{$node[\\"1\\"].json[\\"name\\"]}}",
           "description": "Documento atualizado automaticamente via N8N"
         }
       }
@@ -368,74 +368,76 @@ export default function N8nIntegrationClientPage() {
         </TabsContent>
       </Tabs>
 
-      <Card>
+      <Card className="bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle>Melhores Práticas</CardTitle>
-          <CardDescription>Recomendações para integração eficiente com o N8N</CardDescription>
+          <CardTitle className="text-white/90">Melhores Práticas</CardTitle>
+          <CardDescription className="text-white/70">Recomendações para integração eficiente com o N8N</CardDescription>
         </CardHeader>
         <CardContent>
-          <ul className="list-disc pl-5">
+          <ul className="list-disc pl-5 text-white/70">
             <li className="mb-2">
-              <strong>Use webhooks para eventos em tempo real</strong> - Configure webhooks para receber notificações de
+              <strong className="text-white/90">Use webhooks para eventos em tempo real</strong> - Configure webhooks para receber notificações de
               eventos em tempo real, em vez de fazer polling periódico.
             </li>
             <li className="mb-2">
-              <strong>Implemente tratamento de erros</strong> - Adicione nós de tratamento de erros para lidar com
+              <strong className="text-white/90">Implemente tratamento de erros</strong> - Adicione nós de tratamento de erros para lidar com
               falhas na API ou problemas de conexão.
             </li>
             <li className="mb-2">
-              <strong>Armazene credenciais com segurança</strong> - Use o gerenciador de credenciais do N8N para
+              <strong className="text-white/90">Armazene credenciais com segurança</strong> - Use o gerenciador de credenciais do N8N para
               armazenar sua chave de API com segurança.
             </li>
             <li className="mb-2">
-              <strong>Teste seus fluxos</strong> - Use o modo de teste do N8N para verificar se seus fluxos estão
+              <strong className="text-white/90">Teste seus fluxos</strong> - Use o modo de teste do N8N para verificar se seus fluxos estão
               funcionando corretamente antes de ativá-los.
             </li>
             <li className="mb-2">
-              <strong>Monitore o uso da API</strong> - Fique atento aos limites de taxa da API para evitar problemas de
+              <strong className="text-white/90">Monitore o uso da API</strong> - Fique atento aos limites de taxa da API para evitar problemas de
               throttling.
             </li>
           </ul>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-[#1a1a1d] border-[#27272a]">
         <CardHeader>
-          <CardTitle>Solução de Problemas</CardTitle>
-          <CardDescription>Problemas comuns e suas soluções</CardDescription>
+          <CardTitle className="text-white/90">Solução de Problemas</CardTitle>
+          <CardDescription className="text-white/70">Problemas comuns e suas soluções</CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Problema</TableHead>
-                <TableHead>Possível Causa</TableHead>
-                <TableHead>Solução</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>Erro de Autenticação</TableCell>
-                <TableCell>Chave de API inválida ou expirada</TableCell>
-                <TableCell>Verifique e atualize sua chave de API nas credenciais do N8N</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Webhook não recebe eventos</TableCell>
-                <TableCell>URL do webhook incorreta ou não registrada</TableCell>
-                <TableCell>Verifique se a URL do webhook está corretamente configurada na plataforma</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Erro 429 (Too Many Requests)</TableCell>
-                <TableCell>Limite de taxa excedido</TableCell>
-                <TableCell>Adicione atrasos entre as requisições ou reduza a frequência de execução do fluxo</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Dados incorretos ou ausentes</TableCell>
-                <TableCell>Mapeamento de dados incorreto</TableCell>
-                <TableCell>Verifique o mapeamento de dados entre os nós e use o depurador do N8N</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-[#27272a]">
+                  <TableHead className="text-white/90">Problema</TableHead>
+                  <TableHead className="text-white/90">Possível Causa</TableHead>
+                  <TableHead className="text-white/90">Solução</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow className="border-[#27272a]">
+                  <TableCell className="text-white/70">Erro de Autenticação</TableCell>
+                  <TableCell className="text-white/70">Chave de API inválida ou expirada</TableCell>
+                  <TableCell className="text-white/70">Verifique e atualize sua chave de API nas credenciais do N8N</TableCell>
+                </TableRow>
+                <TableRow className="border-[#27272a]">
+                  <TableCell className="text-white/70">Webhook não recebe eventos</TableCell>
+                  <TableCell className="text-white/70">URL do webhook incorreta ou não registrada</TableCell>
+                  <TableCell className="text-white/70">Verifique se a URL do webhook está corretamente configurada na plataforma</TableCell>
+                </TableRow>
+                <TableRow className="border-[#27272a]">
+                  <TableCell className="text-white/70">Erro 429 (Too Many Requests)</TableCell>
+                  <TableCell className="text-white/70">Limite de taxa excedido</TableCell>
+                  <TableCell className="text-white/70">Adicione atrasos entre as requisições ou reduza a frequência de execução do fluxo</TableCell>
+                </TableRow>
+                <TableRow className="border-[#27272a]">
+                  <TableCell className="text-white/70">Dados incorretos ou ausentes</TableCell>
+                  <TableCell className="text-white/70">Mapeamento de dados incorreto</TableCell>
+                  <TableCell className="text-white/70">Verifique o mapeamento de dados entre os nós e use o depurador do N8N</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

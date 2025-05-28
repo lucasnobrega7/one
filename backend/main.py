@@ -11,12 +11,27 @@ from datetime import datetime, timedelta
 import redis.asyncio as redis
 import json
 from supabase import create_client, Client
+from contextlib import asynccontextmanager
+
+# Importar módulo AI
+from api.ai_integration import include_ai_router, cleanup_ai
+
+# Lifespan manager para AI cleanup
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    print("🚀 Starting AgentForge API with AI Integration...")
+    yield
+    # Shutdown
+    print("🔧 Cleaning up AI connections...")
+    await cleanup_ai()
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="AgentForge API",
-    description="API for managing AI agents and conversations",
-    version="1.0.0",
+    title="AgentForge API + AI Integration",
+    description="API for managing AI agents and conversations with OpenRouter integration",
+    version="2.0.0",
+    lifespan=lifespan
 )
 
 # Add CORS middleware
@@ -751,6 +766,30 @@ async def get_analytics(
             "active_users": int(conversations_count * 0.7),  # Mock data
         },
         "time_series": time_series
+    }
+
+# Incluir router AI
+include_ai_router(app)
+
+# Health check atualizado
+@app.get("/health")
+async def health_check():
+    """Health check com status AI"""
+    from api.ai_integration import ai_router
+    
+    ai_status = await ai_router.get_providers_status()
+    
+    return {
+        "status": "healthy",
+        "version": "2.0.0",
+        "features": {
+            "agents": True,
+            "conversations": True,
+            "ai_integration": True,
+            "openrouter": ai_status["openrouter"]["healthy"],
+            "fallback_openai": ai_status["openai"]["healthy"]
+        },
+        "ai_providers": ai_status
     }
 
 # Run the application with uvicorn

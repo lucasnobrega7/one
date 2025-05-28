@@ -2,6 +2,23 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  // Handle domain redirects first
+  const hostname = request.headers.get('host') || ''
+  
+  // Redirect Vercel preview URLs to main domain
+  if (hostname.includes('vercel.app') && !hostname.includes('localhost')) {
+    const url = new URL(request.url)
+    url.hostname = 'agentesdeconversao.ai'
+    return NextResponse.redirect(url, 301)
+  }
+  
+  // Redirect www to non-www
+  if (hostname === 'www.agentesdeconversao.ai') {
+    const url = new URL(request.url)
+    url.hostname = 'agentesdeconversao.ai'
+    return NextResponse.redirect(url, 301)
+  }
+  
   let supabaseResponse = NextResponse.next({
     request,
   })

@@ -28,20 +28,20 @@ export default function FormsPage() {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Forms</h1>
-        <p className="text-gray-600">
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold text-white/90 mb-2">Forms</h1>
+        <p className="text-white/70">
           Create and manage forms for lead capture, feedback, and onboarding.
         </p>
       </div>
 
       {showTemplates ? (
         <div>
-          <Card className="mb-8">
+          <Card className="bg-[#1a1a1d] border-[#27272a] mb-8">
             <CardHeader>
-              <CardTitle>Choose a Template</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-white/90">Choose a Template</CardTitle>
+              <CardDescription className="text-white/60">
                 Select a pre-built template to get started quickly, or create a form from scratch.
               </CardDescription>
             </CardHeader>

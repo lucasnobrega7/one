@@ -17,74 +17,71 @@ export default function DashboardClient({ session }: DashboardClientProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
-      <main className="max-w-6xl mx-auto px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-12">
-        <div className="relative overflow-hidden rounded-lg border border-[--openai-gray-200] bg-gradient-to-r from-[--openai-blue]/5 to-[--openai-gray-100] p-8">
-          <div className="absolute inset-0 bg-gradient-to-r from-[--openai-blue]/3 to-transparent"></div>
-          <div className="relative z-10">
-            <h2 className="sohne-heading text-4xl font-normal mb-3 text-[--openai-gray-900]">
-              Bem-vindo, {session.user?.name || session.user?.email?.split('@')[0]}
-            </h2>
-            <p className="text-lg text-[--openai-gray-600] mb-6 max-w-2xl">
-              Acompanhe o desempenho dos seus agentes com OpenRouter e métricas de conversão em tempo real.
-            </p>
-            <div className="flex items-center gap-3">
-              <Badge className="bg-[--openai-blue]/10 text-[--openai-blue] border border-[--openai-blue]/20 px-3 py-1">
-                87% Margem ativa
-              </Badge>
-              <Badge className="bg-green-50 text-green-700 border border-green-200 px-3 py-1">
-                Sistema Online
-              </Badge>
-            </div>
+    <div className="space-y-8">
+      {/* Welcome Section */}
+      <div className="relative overflow-hidden rounded-xl border border-[#27272a] bg-gradient-to-r from-[#1a1a1d] to-[#0e0e10] p-8">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#46B2E0]/5 to-[#8A53D2]/5"></div>
+        <div className="relative z-10">
+          <h2 className="text-4xl font-bold mb-3 text-white/90">
+            Bem-vindo, {session.user?.name || session.user?.email?.split('@')[0]}
+          </h2>
+          <p className="text-lg text-white/70 mb-6 max-w-2xl">
+            Acompanhe o desempenho dos seus agentes com OpenRouter e métricas de conversão em tempo real.
+          </p>
+          <div className="flex items-center gap-3">
+            <Badge className="bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 text-[#46B2E0] border border-[#27272a] px-3 py-1">
+              87% Margem ativa
+            </Badge>
+            <Badge className="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1">
+              Sistema Online
+            </Badge>
           </div>
         </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid md:grid-cols-4 gap-6 mb-16">
-        <Card className="openai-card-light group p-6 hover:shadow-openai-light-md transition-all duration-200">
+        <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-semibold text-[--openai-gray-900] group-hover:text-[--openai-blue] transition-colors duration-200">3</div>
-              <div className="text-sm text-[--openai-gray-600]">Agentes criados</div>
+              <div className="text-2xl font-semibold text-white/90 group-hover:text-[#46B2E0] transition-colors duration-200">3</div>
+              <div className="text-sm text-white/60">Agentes criados</div>
             </div>
-            <div className="w-12 h-12 bg-[--openai-blue]/10 rounded-lg flex items-center justify-center group-hover:bg-[--openai-blue]/15 transition-colors duration-200">
-              <Bot className="w-5 h-5 text-[--openai-blue]" />
+            <div className="w-12 h-12 bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 rounded-lg flex items-center justify-center group-hover:from-[#46B2E0]/30 group-hover:to-[#8A53D2]/30 transition-colors duration-200">
+              <Bot className="w-5 h-5 text-[#46B2E0]" />
             </div>
           </div>
         </Card>
 
-        <Card className="openai-card-light group p-6 hover:shadow-openai-light-md transition-all duration-200">
+        <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-semibold text-[--openai-gray-900] group-hover:text-[--openai-blue] transition-colors duration-200">847</div>
-              <div className="text-sm text-[--openai-gray-600]">Mensagens este mês</div>
+              <div className="text-2xl font-semibold text-white/90 group-hover:text-[#46B2E0] transition-colors duration-200">847</div>
+              <div className="text-sm text-white/60">Mensagens este mês</div>
             </div>
-            <div className="w-12 h-12 bg-[--openai-blue]/10 rounded-lg flex items-center justify-center group-hover:bg-[--openai-blue]/15 transition-colors duration-200">
-              <TrendingUp className="w-5 h-5 text-[--openai-blue]" />
+            <div className="w-12 h-12 bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 rounded-lg flex items-center justify-center group-hover:from-[#46B2E0]/30 group-hover:to-[#8A53D2]/30 transition-colors duration-200">
+              <TrendingUp className="w-5 h-5 text-[#46B2E0]" />
             </div>
           </div>
         </Card>
 
-        <Card className="openai-card-light group p-6 hover:shadow-openai-light-md transition-all duration-200">
+        <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-semibold text-[--openai-gray-900] group-hover:text-[--openai-blue] transition-colors duration-200">300+</div>
-              <div className="text-sm text-[--openai-gray-600]">Modelos AI</div>
+              <div className="text-2xl font-semibold text-white/90 group-hover:text-[#46B2E0] transition-colors duration-200">300+</div>
+              <div className="text-sm text-white/60">Modelos AI</div>
             </div>
-            <Badge className="bg-[--openai-blue]/10 text-[--openai-blue] border border-[--openai-blue]/20 px-2 py-1 text-xs">OpenRouter</Badge>
+            <Badge className="bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 text-[#46B2E0] border border-[#27272a] px-2 py-1 text-xs">OpenRouter</Badge>
           </div>
         </Card>
 
-        <Card className="openai-card-light group p-6 hover:shadow-openai-light-md transition-all duration-200">
+        <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-semibold text-[--openai-gray-900] group-hover:text-green-600 transition-colors duration-200">87%</div>
-              <div className="text-sm text-[--openai-gray-600]">Margem de lucro</div>
+              <div className="text-2xl font-semibold text-green-400 group-hover:text-green-300 transition-colors duration-200">87%</div>
+              <div className="text-sm text-white/60">Margem de lucro</div>
             </div>
-            <Badge className="bg-green-50 text-green-700 border border-green-200 px-2 py-1 text-xs">Economia ativa</Badge>
+            <Badge className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 text-xs">Economia ativa</Badge>
           </div>
         </Card>
       </div>
@@ -92,8 +89,8 @@ export default function DashboardClient({ session }: DashboardClientProps) {
       {/* Agents Section */}
       <div className="mb-16">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="sohne-heading text-2xl font-normal text-[--openai-gray-900]">Seus Agentes Conversacionais</h3>
-            <Button className="btn-openai-primary-light">
+            <h3 className="text-2xl font-bold text-white/90">Seus Agentes Conversacionais</h3>
+            <Button className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
               <Plus className="w-4 h-4 mr-2" />
               Criar Agente
             </Button>
@@ -101,42 +98,42 @@ export default function DashboardClient({ session }: DashboardClientProps) {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {agents.map((agent) => (
-              <Card key={agent.id} className="openai-card-light group p-6 hover:shadow-openai-light-lg transition-all duration-200">
+              <Card key={agent.id} className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[--openai-blue] to-[--openai-blue]/80 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#46B2E0] to-[#8A53D2] rounded-lg flex items-center justify-center">
                       <Bot className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-medium text-[--openai-gray-900]">{agent.name}</h4>
+                      <h4 className="font-medium text-white/90">{agent.name}</h4>
                       <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${agent.status === 'online' ? 'bg-green-500' : 'bg-[--openai-gray-400]'}`}></div>
-                        <span className="text-sm text-[--openai-gray-600] capitalize">{agent.status}</span>
+                        <div className={`w-2 h-2 rounded-full ${agent.status === 'online' ? 'bg-green-400' : 'bg-white/30'}`}></div>
+                        <span className="text-sm text-white/60 capitalize">{agent.status}</span>
                       </div>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-[--openai-gray-500] hover:text-[--openai-gray-700]">
+                  <Button variant="ghost" size="sm" className="text-white/50 hover:text-white/90 hover:bg-[#27272a]/30">
                     <MoreHorizontal className="w-4 h-4" />
                   </Button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-5">
                   <div>
-                    <div className="text-lg font-semibold text-[--openai-gray-900]">{agent.conversations}</div>
-                    <div className="text-xs text-[--openai-gray-600]">Conversas</div>
+                    <div className="text-lg font-semibold text-white/90">{agent.conversations}</div>
+                    <div className="text-xs text-white/60">Conversas</div>
                   </div>
                   <div>
-                    <div className="text-lg font-semibold text-[--openai-blue]">{agent.rate}%</div>
-                    <div className="text-xs text-[--openai-gray-600]">Conversão</div>
+                    <div className="text-lg font-semibold text-[#46B2E0]">{agent.rate}%</div>
+                    <div className="text-xs text-white/60">Conversão</div>
                   </div>
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1 border-[--openai-gray-300] text-[--openai-gray-700] hover:bg-[--openai-gray-50] hover:border-[--openai-gray-400]">
+                  <Button variant="outline" size="sm" className="flex-1 border-[#27272a] text-white/70 hover:bg-[#27272a]/30 hover:text-white hover:border-[#46B2E0]/30">
                     {agent.status === 'online' ? <Pause className="w-3 h-3 mr-1" /> : <Play className="w-3 h-3 mr-1" />}
                     {agent.status === 'online' ? 'Pausar' : 'Ativar'}
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1 border-[--openai-gray-300] text-[--openai-gray-700] hover:bg-[--openai-gray-50] hover:border-[--openai-gray-400]">
+                  <Button variant="outline" size="sm" className="flex-1 border-[#27272a] text-white/70 hover:bg-[#27272a]/30 hover:text-white hover:border-[#46B2E0]/30">
                     Ver Chat
                   </Button>
                 </div>
@@ -147,34 +144,33 @@ export default function DashboardClient({ session }: DashboardClientProps) {
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-6">
-          <Card className="openai-card-light group p-6 hover:shadow-openai-light-lg transition-all duration-200">
-            <div className="w-14 h-14 bg-[--openai-blue]/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-[--openai-blue]/15 transition-colors duration-200">
-              <Plus className="w-6 h-6 text-[--openai-blue]" />
+          <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 hover:bg-[#1a1a1d]/80 transform hover:scale-[1.02] transition-all duration-200">
+            <div className="w-14 h-14 bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 rounded-lg flex items-center justify-center mb-5 group-hover:from-[#46B2E0]/30 group-hover:to-[#8A53D2]/30 transition-colors duration-200">
+              <Plus className="w-6 h-6 text-[#46B2E0]" />
             </div>
-            <h4 className="font-semibold text-[--openai-gray-900] mb-2">Criar Agente</h4>
-            <p className="text-[--openai-gray-600] text-sm mb-5">Configure um novo agente personalizado para seu negócio.</p>
-            <Button className="btn-openai-primary-light w-full">Começar</Button>
+            <h4 className="font-semibold text-white/90 mb-2">Criar Agente</h4>
+            <p className="text-white/60 text-sm mb-5">Configure um novo agente personalizado para seu negócio.</p>
+            <Button className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 w-full">Começar</Button>
           </Card>
 
-          <Card className="openai-card-light group p-6 hover:shadow-openai-light-lg transition-all duration-200">
-            <div className="w-14 h-14 bg-[--openai-blue]/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-[--openai-blue]/15 transition-colors duration-200">
-              <Bot className="w-6 h-6 text-[--openai-blue]" />
+          <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 hover:bg-[#1a1a1d]/80 transform hover:scale-[1.02] transition-all duration-200">
+            <div className="w-14 h-14 bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 rounded-lg flex items-center justify-center mb-5 group-hover:from-[#46B2E0]/30 group-hover:to-[#8A53D2]/30 transition-colors duration-200">
+              <Bot className="w-6 h-6 text-[#46B2E0]" />
             </div>
-            <h4 className="font-semibold text-[--openai-gray-900] mb-2">Treinar IA</h4>
-            <p className="text-[--openai-gray-600] text-sm mb-5">Melhore as respostas e performance dos seus agentes.</p>
-            <Button variant="outline" className="w-full border-[--openai-gray-300] text-[--openai-gray-700] hover:bg-[--openai-gray-50] hover:border-[--openai-gray-400]">Treinar</Button>
+            <h4 className="font-semibold text-white/90 mb-2">Treinar IA</h4>
+            <p className="text-white/60 text-sm mb-5">Melhore as respostas e performance dos seus agentes.</p>
+            <Button variant="outline" className="w-full border-[#27272a] text-white/70 hover:bg-[#27272a]/30 hover:text-white hover:border-[#46B2E0]/30">Treinar</Button>
           </Card>
 
-          <Card className="openai-card-light group p-6 hover:shadow-openai-light-lg transition-all duration-200">
-            <div className="w-14 h-14 bg-[--openai-blue]/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-[--openai-blue]/15 transition-colors duration-200">
-              <TrendingUp className="w-6 h-6 text-[--openai-blue]" />
+          <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 hover:bg-[#1a1a1d]/80 transform hover:scale-[1.02] transition-all duration-200">
+            <div className="w-14 h-14 bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 rounded-lg flex items-center justify-center mb-5 group-hover:from-[#46B2E0]/30 group-hover:to-[#8A53D2]/30 transition-colors duration-200">
+              <TrendingUp className="w-6 h-6 text-[#46B2E0]" />
             </div>
-            <h4 className="font-semibold text-[--openai-gray-900] mb-2">Ver Analytics</h4>
-            <p className="text-[--openai-gray-600] text-sm mb-5">Analise performance e otimize suas conversões.</p>
-            <Button variant="outline" className="w-full border-[--openai-gray-300] text-[--openai-gray-700] hover:bg-[--openai-gray-50] hover:border-[--openai-gray-400]">Analisar</Button>
+            <h4 className="font-semibold text-white/90 mb-2">Ver Analytics</h4>
+            <p className="text-white/60 text-sm mb-5">Analise performance e otimize suas conversões.</p>
+            <Button variant="outline" className="w-full border-[#27272a] text-white/70 hover:bg-[#27272a]/30 hover:text-white hover:border-[#46B2E0]/30">Analisar</Button>
           </Card>
         </div>
-      </main>
     </div>
   )
 }

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 export default function ApiReferenceClientPage() {
   return (
     <div className="space-y-6">
-      <p className="text-lg text-gray-700">
+      <p className="text-lg text-white/70">
         Nossa API RESTful permite que você integre os recursos dos Agentes de Conversão diretamente em seus aplicativos.
         Abaixo você encontrará a documentação completa de todos os endpoints disponíveis.
       </p>
@@ -28,7 +28,7 @@ export default function ApiReferenceClientPage() {
               <CardDescription>Retorna uma lista de todos os agentes disponíveis</CardDescription>
             </CardHeader>
             <CardContent>
-              <h4 className="mb-2 font-medium">Parâmetros de Consulta</h4>
+              <h4 className="mb-2 font-medium text-white/90">Parâmetros de Consulta</h4>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -51,8 +51,8 @@ export default function ApiReferenceClientPage() {
                 </TableBody>
               </Table>
 
-              <h4 className="mb-2 mt-4 font-medium">Resposta</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 mt-4 font-medium text-white/90">Resposta</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#46B2E0] text-sm overflow-x-auto">
                 {`{
   "agents": [
     {
@@ -77,8 +77,8 @@ export default function ApiReferenceClientPage() {
               <CardDescription>Cria um novo agente</CardDescription>
             </CardHeader>
             <CardContent>
-              <h4 className="mb-2 font-medium">Corpo da Requisição</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 font-medium text-white/90">Corpo da Requisição</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#8A53D2] text-sm overflow-x-auto">
                 {`{
   "name": "Novo Agente",
   "description": "Descrição do novo agente",
@@ -90,8 +90,8 @@ export default function ApiReferenceClientPage() {
 }`}
               </pre>
 
-              <h4 className="mb-2 mt-4 font-medium">Resposta</h4>
-              <pre className="rounded bg-gray-100 p-4">
+              <h4 className="mb-2 mt-4 font-medium text-white/90">Resposta</h4>
+              <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#46B2E0] text-sm overflow-x-auto">
                 {`{
   "id": "agent_789",
   "name": "Novo Agente",
@@ -115,7 +115,7 @@ export default function ApiReferenceClientPage() {
               <CardDescription>Retorna uma lista de conversas</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Documentação para endpoints de conversas...</p>
+              <p className="text-white/70">Documentação para endpoints de conversas...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -127,7 +127,7 @@ export default function ApiReferenceClientPage() {
               <CardDescription>Retorna uma lista de bases de conhecimento</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Documentação para endpoints de base de conhecimento...</p>
+              <p className="text-white/70">Documentação para endpoints de base de conhecimento...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -139,7 +139,7 @@ export default function ApiReferenceClientPage() {
               <CardDescription>Retorna dados analíticos</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Documentação para endpoints de analytics...</p>
+              <p className="text-white/70">Documentação para endpoints de analytics...</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -151,10 +151,10 @@ export default function ApiReferenceClientPage() {
           <CardDescription>Como autenticar suas requisições à API</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="mb-4">Todas as requisições à API devem incluir sua chave de API no cabeçalho de autorização:</p>
-          <pre className="rounded bg-gray-100 p-4">{`Authorization: Bearer sua_chave_api_aqui`}</pre>
+          <p className="mb-4 text-white/70">Todas as requisições à API devem incluir sua chave de API no cabeçalho de autorização:</p>
+          <pre className="rounded bg-[#0e0e10] border border-[#27272a] p-4 text-[#E056A0] text-sm">{`Authorization: Bearer sua_chave_api_aqui`}</pre>
 
-          <p className="mt-4">
+          <p className="mt-4 text-white/70">
             Você pode obter sua chave de API no painel de controle, na seção de configurações da API.
           </p>
         </CardContent>

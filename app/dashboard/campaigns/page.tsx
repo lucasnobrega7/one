@@ -76,22 +76,21 @@ export default function CampaignsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Campanhas</h1>
-            <p className="text-gray-400">
-              Crie e gerencie campanhas de mensagens para seus agentes
-            </p>
-          </div>
-          
-          <Button className="bg-white text-black hover:bg-gray-100">
-            <Plus className="h-4 w-4 mr-2" />
-            Nova Campanha
-          </Button>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-white/90 mb-2">Campanhas</h1>
+          <p className="text-white/70">
+            Crie e gerencie campanhas de mensagens para seus agentes
+          </p>
         </div>
+        
+        <Button className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
+          <Plus className="h-4 w-4 mr-2" />
+          Nova Campanha
+        </Button>
+      </div>
 
         {/* Stats */}
         <div className="grid gap-6 md:grid-cols-4 mb-8">
@@ -215,7 +214,6 @@ export default function CampaignsPage() {
             </div>
           ))}
         </div>
-      </div>
     </div>
   )
 }

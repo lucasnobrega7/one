@@ -4,16 +4,12 @@ import { SettingsForm } from "@/components/features/dashboard/settings-form"
 
 export default function SettingsPage() {
   return (
-    <AuthCheck>
-      <DashboardLayout>
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold mb-6">Configurações</h1>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold text-white/90">Configurações</h1>
 
-          <div className="bg-gray-800 rounded-lg p-6">
-            <SettingsForm />
-          </div>
-        </div>
-      </DashboardLayout>
-    </AuthCheck>
+      <div className="bg-[#1a1a1d] border border-[#27272a] rounded-lg p-6">
+        <SettingsForm />
+      </div>
+    </div>
   )
 }
