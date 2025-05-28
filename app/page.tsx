@@ -28,20 +28,18 @@ export default function HomePage() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <SubdomainLink 
-                subdomain="login" 
-                path="/login" 
+              <a 
+                href="https://login.agentesdeconversao.ai/login" 
                 className="text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Entrar
-              </SubdomainLink>
-              <SubdomainLink 
-                subdomain="login" 
-                path="/signup" 
+              </a>
+              <a 
+                href="https://login.agentesdeconversao.ai/signup"
                 className="bg-white text-black hover:bg-gray-100 px-6 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
               >
                 Começar agora
-              </SubdomainLink>
+              </a>
             </div>
           </div>
         </div>
@@ -92,13 +90,13 @@ export default function HomePage() {
               </h3>
             </div>
 
-            <Link 
-              href="/auth/signup"
+            <a 
+              href="https://login.agentesdeconversao.ai/signup"
               className="inline-flex items-center bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-2xl"
             >
               Descobrir como
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            </a>
           </div>
         </section>
 
@@ -286,13 +284,13 @@ export default function HomePage() {
             </h3>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link 
-                href="/auth/signup"
+              <a 
+                href="https://login.agentesdeconversao.ai/signup"
                 className="bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 flex items-center shadow-2xl"
               >
                 Começar agora
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+              </a>
               <Link 
                 href="/demo"
                 className="bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 backdrop-blur-sm flex items-center"
