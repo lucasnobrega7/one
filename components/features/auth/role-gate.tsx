@@ -13,7 +13,8 @@ interface RoleGateProps {
  * Componente que renderiza seu conteúdo apenas se o usuário tiver o role especificado
  */
 export function RoleGate({ role, children, fallback }: RoleGateProps) {
-  const { data: session } = // TODO: Replace with Supabase auth()
+  // TODO: Replace with Supabase auth()
+  const session = null
 
   // Se não houver sessão, não renderizar nada
   if (!session) {

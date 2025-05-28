@@ -8,7 +8,9 @@ import { Badge } from "@/components/ui/badge"
 import { Loader2, User, Shield, Settings } from "lucide-react"
 
 export default function AuthDebug() {
-  const { data: session, status } = // TODO: Replace with Supabase auth()
+  // TODO: Replace with Supabase auth()
+  const session = null
+  const status = 'loading'
   const [healthCheck, setHealthCheck] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

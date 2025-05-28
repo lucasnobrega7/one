@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react"
 
 export function AuthHealthCheck() {
-  const { data: session, status } = // TODO: Replace with Supabase auth()
+  // TODO: Replace with Supabase auth()
+  const session = null
+  const status = 'loading'
   const [apiHealth, setApiHealth] = useState<{ status: string; error?: string } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 

@@ -18,7 +18,9 @@ interface ProtectedRouteProps {
  * ou para acesso negado se não tiver permissão
  */
 export function ProtectedRoute({ children, permission, redirectTo = "/auth/login" }: ProtectedRouteProps) {
-  const { data: session, status } = // TODO: Replace with Supabase auth()
+  // TODO: Replace with Supabase auth()
+  const session = null
+  const status = 'loading'
   const router = useRouter()
 
   useEffect(() => {

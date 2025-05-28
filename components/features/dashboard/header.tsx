@@ -16,12 +16,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bell, Menu, User, Settings, LogOut } from "lucide-react"
 
 export function DashboardHeader() {
-  const { data: session } = // TODO: Replace with Supabase auth()
+  // TODO: Replace with Supabase auth()
+  const session = null
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
-    await // TODO: Replace with supabase.auth.signOut({ callbackUrl: "/" })
+    // TODO: Replace with supabase.auth.signOut({ callbackUrl: "/" })
+    console.log('Sign out clicked')
   }
 
   return (
