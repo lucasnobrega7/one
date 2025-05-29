@@ -303,17 +303,17 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-16">
+      <footer className="bg-slate-900 border-t border-slate-800 py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">Agentes de Conversão</h2>
-            <p className="text-gray-400">O futuro das vendas. Disponível hoje.</p>
+            <p className="text-slate-400">Disponível hoje.</p>
           </div>
           
           <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-16 mb-12">
             <div className="text-center">
               <h4 className="font-semibold mb-4 text-white">Produto</h4>
-              <ul className="space-y-2 text-gray-400">
+              <ul className="space-y-2 text-slate-400">
                 <li><a href="https://dash.agentesdeconversao.ai/" className="hover:text-white transition-colors">Dashboard</a></li>
                 <li><a href="https://docs.agentesdeconversao.ai/" className="hover:text-white transition-colors">Documentação</a></li>
                 <li><a href="https://api.agentesdeconversao.ai/" className="hover:text-white transition-colors">API</a></li>
@@ -322,7 +322,7 @@ export default function HomePage() {
             
             <div className="text-center">
               <h4 className="font-semibold mb-4 text-white">Empresa</h4>
-              <ul className="space-y-2 text-gray-400">
+              <ul className="space-y-2 text-slate-400">
                 <li><Link href="/about" className="hover:text-white transition-colors">Sobre</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition-colors">Contato</Link></li>
                 <li><Link href="/status" className="hover:text-white transition-colors">Status</Link></li>
@@ -330,8 +330,8 @@ export default function HomePage() {
             </div>
           </div>
           
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400">
-            <p>© 2024 Agentes de Conversão.</p>
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-400">
+            <p>© 2025 Agentes de Conversão.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="hover:text-white transition-colors">Privacidade</Link>
               <Link href="/terms" className="hover:text-white transition-colors">Termos</Link>
