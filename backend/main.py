@@ -13,24 +13,35 @@ import json
 from supabase import create_client, Client
 from contextlib import asynccontextmanager
 
-# Importar módulo AI
+# Importar módulos
 from api.ai_integration import include_ai_router, cleanup_ai
+from api.background import router as background_router
+from api.webhooks import router as webhooks_router
+from core.background_tasks import task_manager
+from core.webhooks import webhook_manager
 
-# Lifespan manager para AI cleanup
+# Lifespan manager para AI, Background Tasks e Webhooks cleanup
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    print("🚀 Starting AgentForge API with AI Integration...")
+    print("🚀 Starting AgentForge API with AI Integration, Background Tasks and Webhooks...")
+    await task_manager.initialize()
+    print("✅ Background Task Manager initialized")
+    await webhook_manager.initialize()
+    print("✅ Webhook Manager initialized")
     yield
     # Shutdown
-    print("🔧 Cleaning up AI connections...")
+    print("🔧 Cleaning up AI connections, Background Tasks and Webhooks...")
     await cleanup_ai()
+    await task_manager.close()
+    await webhook_manager.close()
+    print("✅ Cleanup completed")
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="AgentForge API + AI Integration",
-    description="API for managing AI agents and conversations with OpenRouter integration",
-    version="2.0.0",
+    title="AgentForge API + AI Integration + Background Tasks + Webhooks",
+    description="API for managing AI agents, conversations with OpenRouter integration, asynchronous background processing, and webhook integrations with N8N",
+    version="2.2.0",
     lifespan=lifespan
 )
 
@@ -768,28 +779,74 @@ async def get_analytics(
         "time_series": time_series
     }
 
-# Incluir router AI
+# Incluir routers
 include_ai_router(app)
+app.include_router(background_router)
+app.include_router(webhooks_router, prefix="/api/webhooks", tags=["webhooks"])
 
 # Health check atualizado
 @app.get("/health")
 async def health_check():
-    """Health check com status AI"""
+    """Health check com status AI, Background Tasks e Webhooks"""
     from api.ai_integration import ai_router
     
     ai_status = await ai_router.get_providers_status()
     
+    # Verificar status do Background Task Manager
+    bg_status = "healthy"
+    queue_stats = {}
+    try:
+        queue_stats = await task_manager.get_queue_stats()
+        if task_manager.redis_client:
+            await task_manager.redis_client.ping()
+    except Exception:
+        bg_status = "unhealthy"
+    
+    # Verificar status do Webhook Manager
+    webhook_status = "healthy"
+    webhook_stats = {}
+    try:
+        if webhook_manager.redis_client:
+            high_queue = await webhook_manager.redis_client.llen("webhook_queue:high")
+            normal_queue = await webhook_manager.redis_client.llen("webhook_queue:normal") 
+            retry_queue = await webhook_manager.redis_client.zcard("webhook_retry_queue")
+            
+            webhook_stats = {
+                "high_priority_queue": high_queue,
+                "normal_priority_queue": normal_queue,
+                "retry_queue": retry_queue,
+                "processing_tasks": len(webhook_manager.processing_tasks),
+                "n8n_integration": "active" if webhook_manager.n8n_client else "inactive"
+            }
+    except Exception:
+        webhook_status = "unhealthy"
+    
+    overall_status = "healthy"
+    if bg_status != "healthy" or webhook_status != "healthy":
+        overall_status = "degraded"
+    
     return {
-        "status": "healthy",
-        "version": "2.0.0",
+        "status": overall_status,
+        "version": "2.2.0",
         "features": {
             "agents": True,
             "conversations": True,
             "ai_integration": True,
+            "background_tasks": bg_status == "healthy",
+            "webhooks": webhook_status == "healthy",
+            "n8n_integration": webhook_manager.n8n_client is not None,
             "openrouter": ai_status["openrouter"]["healthy"],
             "fallback_openai": ai_status["openai"]["healthy"]
         },
-        "ai_providers": ai_status
+        "ai_providers": ai_status,
+        "background_tasks": {
+            "status": bg_status,
+            "queue_stats": queue_stats
+        },
+        "webhooks": {
+            "status": webhook_status,
+            "webhook_stats": webhook_stats
+        }
     }
 
 # Run the application with uvicorn

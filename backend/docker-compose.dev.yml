@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Redis para Background Tasks
+  redis:
+    image: redis:7-alpine
+    container_name: agentes_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # API Principal
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentes_api
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL}
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Background Task Worker
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: agentes_worker
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL}
+      - WORKER_MAX_CONCURRENT=5
+      - LOG_LEVEL=INFO
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  # Worker adicional para alta disponibilidade (opcional)
+  worker-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: agentes_worker_2
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL}
+      - WORKER_MAX_CONCURRENT=5
+      - LOG_LEVEL=INFO
+      # Processar apenas filas de alta prioridade
+      - WORKER_QUEUES=queue:critical,queue:high
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    profiles:
+      - high-availability
+
+volumes:
+  redis_data:
+    driver: local
