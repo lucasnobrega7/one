@@ -115,7 +115,7 @@ model Datastore {
   id              String        @id @default(uuid())
   name            String
   description     String?
-  type            DatastoreType @default(supabase_vector)
+  type            DatastoreType @default(text)
   config          Json?
   organization_id String
   created_at      DateTime      @default(now())
@@ -207,19 +207,14 @@ enum AgentModelName {
   claude_3_haiku
   claude_3_sonnet
   claude_3_opus
-  claude_3_5_sonnet
-  mixtral_8x7b
-  mixtral_8x22b
-  gemini_pro
-  gemini_flash_1_5
-  llama_3_8b_instruct
-  llama_3_70b_instruct
 }
 
 enum DatastoreType {
-  qdrant
-  pinecone
-  supabase_vector
+  text
+  qa
+  web_page
+  web_site
+  file
 }
 
 enum DatasourceType {
@@ -227,18 +222,6 @@ enum DatasourceType {
   web_page
   web_site
   text
-  pdf
-  docx
-  pptx
-  xlsx
-  csv
-  google_drive_file
-  google_drive_folder
-  notion
-  notion_page
-  qa
-  youtube_video
-  youtube_bulk
 }
 
 enum DatasourceStatus {
