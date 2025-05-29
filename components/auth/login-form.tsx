@@ -29,11 +29,20 @@ export function LoginForm() {
       })
 
       if (error) {
-        toast({
-          title: 'Erro ao fazer login',
-          description: error.message,
-          variant: 'destructive',
-        })
+        // Handle rate limit errors specifically
+        if (error.message.includes('rate limit') || error.message.includes('429')) {
+          toast({
+            title: 'Muitas tentativas de login',
+            description: 'Aguarde alguns minutos antes de tentar novamente. Se o problema persistir, tente fazer login pelo Google.',
+            variant: 'destructive',
+          })
+        } else {
+          toast({
+            title: 'Erro ao fazer login',
+            description: error.message,
+            variant: 'destructive',
+          })
+        }
       } else {
         toast({
           title: 'Login realizado!',
@@ -45,7 +54,7 @@ export function LoginForm() {
     } catch (error) {
       toast({
         title: 'Erro',
-        description: 'Algo deu errado. Tente novamente.',
+        description: 'Algo deu errado. Tente novamente em alguns minutos.',
         variant: 'destructive',
       })
     } finally {
@@ -67,11 +76,20 @@ export function LoginForm() {
       })
 
       if (error) {
-        toast({
-          title: 'Erro ao criar conta',
-          description: error.message,
-          variant: 'destructive',
-        })
+        // Handle rate limit errors specifically
+        if (error.message.includes('rate limit') || error.message.includes('429') || error.message.includes('Email rate limit exceeded')) {
+          toast({
+            title: 'Limite de emails atingido',
+            description: 'Muitas tentativas de cadastro. Aguarde uma hora ou tente fazer login pelo Google.',
+            variant: 'destructive',
+          })
+        } else {
+          toast({
+            title: 'Erro ao criar conta',
+            description: error.message,
+            variant: 'destructive',
+          })
+        }
       } else {
         toast({
           title: 'Conta criada!',
