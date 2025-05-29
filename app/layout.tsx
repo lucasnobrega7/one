@@ -6,6 +6,7 @@ import SupabaseProvider from "@/components/supabase-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
 import { Footer } from "@/components/ui/footer"
+import { ClaudeMemoryProvider } from "@/components/claude-memory-silent"
 import { Inter } from "next/font/google"
 import "./globals.css"
 
@@ -35,23 +36,25 @@ export default function RootLayout({
         <ErrorBoundary>
           <SupabaseProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-              <GlobalErrorHandler>
-                {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
-                <div className="flex flex-col min-h-screen">
-                  <main className="flex-1 relative">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-              </GlobalErrorHandler>
+              <ClaudeMemoryProvider>
+                <GlobalErrorHandler>
+                  {/* Main Container - removing restrictive wrapper for OpenAI-style layout */}
+                  <div className="flex flex-col min-h-screen">
+                    <main className="flex-1 relative">
+                      {children}
+                    </main>
+                    <Footer />
+                  </div>
+                </GlobalErrorHandler>
 
-              <Toaster />
-              <SonnerToaster 
-                theme="dark"
-                position="top-right"
-                richColors
-                closeButton
-              />
+                <Toaster />
+                <SonnerToaster 
+                  theme="dark"
+                  position="top-right"
+                  richColors
+                  closeButton
+                />
+              </ClaudeMemoryProvider>
             </ThemeProvider>
           </SupabaseProvider>
         </ErrorBoundary>

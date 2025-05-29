@@ -1,0 +1,24 @@
+# Dockerfile para N8N
+FROM n8nio/n8n:latest
+
+# Configurar usuário e diretórios
+USER root
+
+# Criar diretório de dados
+RUN mkdir -p /app/.n8n && chown node:node /app/.n8n
+
+# Configurar variáveis de ambiente padrão
+ENV N8N_USER_FOLDER=/app/.n8n
+ENV N8N_PORT=8080
+ENV N8N_HOST=0.0.0.0
+ENV N8N_PROTOCOL=http
+ENV GENERIC_TIMEZONE=America/Sao_Paulo
+
+# Voltar para usuário node
+USER node
+
+# Expor porta
+EXPOSE 8080
+
+# Comando de inicialização
+CMD ["n8n", "start"]

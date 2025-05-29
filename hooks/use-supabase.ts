@@ -1,13 +1,16 @@
 "use client"
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createBrowserClient } from "@supabase/ssr"
 import { useEffect, useState } from "react"
 import type { Database } from "@/types/supabase"
 
 export function useSupabase() {
   const { data: session } = // TODO: Replace with Supabase auth()
   const [isReady, setIsReady] = useState(false)
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 
   useEffect(() => {
     const setupSupabase = async () => {

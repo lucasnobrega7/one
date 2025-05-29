@@ -1,6 +1,6 @@
 /**
  * Smart AI Client - Sistema inteligente com fallback automático
- * Integração OpenRouter (87% margem) + OpenAI (fallback)
+ * Integração OpenRouter + OpenAI (fallback)
  */
 
 import OpenAI from 'openai';
@@ -94,7 +94,7 @@ export class SmartAIClient {
   async createChatCompletion(params: ChatParams): Promise<AIResponse> {
     const defaultModel = params.model || 'openai/gpt-4o-mini';
     
-    // Tentar OpenRouter primeiro (87% margem)
+    // Tentar OpenRouter primeiro (custo-efetivo)
     if (this.openrouter) {
       const openrouterResult = await this.openrouter.createChatCompletion({
         ...params,

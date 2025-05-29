@@ -2,7 +2,7 @@
 
 /**
  * Componente de Teste Unificado - OpenRouter Integration
- * Sistema completo com 300+ modelos e 87% margem
+ * Sistema completo com 300+ modelos e custos otimizados
  */
 
 import { useState, useEffect } from 'react';
@@ -167,11 +167,11 @@ export function AITestUnified() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Margem</p>
-                    <p className="text-sm text-gray-500">Otimizada</p>
+                    <p className="font-medium">Custos</p>
+                    <p className="text-sm text-gray-500">Otimizados</p>
                   </div>
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
-                    87%
+                    Eficiente
                   </Badge>
                 </div>
               </CardContent>

@@ -1,6 +1,6 @@
 /**
  * OpenRouter Provider - Universal AI Models Access
- * Integração com 300+ modelos de IA com 87% margem de lucro
+ * Integração com 300+ modelos de IA com custos otimizados
  */
 
 import OpenAI from 'openai';

@@ -1,6 +1,6 @@
 /**
  * Hook Unificado para IA - Integração OpenRouter + Sistema Existente
- * Chaves configuradas para 87% margem de lucro
+ * Chaves configuradas para custos otimizados
  */
 
 import { useState, useCallback, useEffect, useMemo } from 'react';

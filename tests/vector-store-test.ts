@@ -44,7 +44,7 @@ const SAMPLE_DOCUMENTS: AppDocument<ChunkMetadata>[] = [
     }
   },
   {
-    pageContent: "OpenRouter oferece acesso a múltiplos modelos de IA com preços competitivos, permitindo economia de até 85% em custos de inferência.",
+    pageContent: "OpenRouter oferece acesso a múltiplos modelos de IA com preços competitivos, proporcionando custos otimizados para inferência.",
     metadata: {
       chunk_hash: 'hash3',
       datasource_id: TEST_DATASOURCE_ID, 

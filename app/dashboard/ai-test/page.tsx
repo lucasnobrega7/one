@@ -95,16 +95,16 @@ export default function AITestPage() {
   const calculateCostSavings = (usage: any) => {
     if (!usage) return null
     
-    // Estimativa: OpenRouter = 87% margem vs OpenAI direto
+    // Estimativa: OpenRouter - custos otimizados vs OpenAI direto
     const openaiCost = usage.total_tokens * 0.00003 // Estimativa OpenAI
-    const openrouterCost = openaiCost * 0.13 // 13% do custo original = 87% economia
+    const openrouterCost = openaiCost * 0.4 // Custo reduzido via OpenRouter
     const savings = openaiCost - openrouterCost
     
     return {
       openaiCost: openaiCost.toFixed(6),
       openrouterCost: openrouterCost.toFixed(6),
       savings: savings.toFixed(6),
-      savingsPercent: 87
+      savingsPercent: 'Significativa'
     }
   }
 
@@ -114,7 +114,7 @@ export default function AITestPage() {
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-white/90">AI Test Center</h1>
         <p className="text-white/70">
-          Sistema completo: Frontend direto + Backend API com OpenRouter (87% margem)
+          Sistema completo: Frontend direto + Backend API com OpenRouter (custos otimizados)
         </p>
       </div>
 
@@ -306,7 +306,7 @@ export default function AITestPage() {
                         </div>
                         <div className="text-center p-2 bg-green-500/10 border border-green-500/20 rounded">
                           <div className="text-lg font-bold text-green-400">
-                            87%
+                            Ótima
                           </div>
                           <div className="text-xs text-white/60">Economia</div>
                         </div>
@@ -338,7 +338,7 @@ export default function AITestPage() {
                                 </div>
                                 <div className="flex justify-between font-bold border-t border-green-500/20 pt-1">
                                   <span>Economia:</span>
-                                  <span className="text-green-400">${costAnalysis.savings} (87%)</span>
+                                  <span className="text-green-400">${costAnalysis.savings}</span>
                                 </div>
                               </>
                             )

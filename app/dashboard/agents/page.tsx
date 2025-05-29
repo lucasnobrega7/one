@@ -1,7 +1,7 @@
 import { PermissionGate } from "@/components/features/auth/permission-gate"
 import { Permission } from "@/lib/auth/permissions"
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
+import { Plus, Workflow } from "lucide-react"
 import Link from "next/link"
 import { AgentsList } from "@/components/features/dashboard/agents-list"
 
@@ -15,14 +15,25 @@ export default function AgentsPage() {
             <p className="text-white/70">Gerencie seus agentes conversacionais e configure suas funcionalidades</p>
           </div>
 
-          <PermissionGate permission={Permission.CreateAgent}>
-            <Button className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" asChild>
-              <Link href="/dashboard/agents/new">
-                <Plus className="mr-2 h-4 w-4" />
-                Criar Agente
-              </Link>
-            </Button>
-          </PermissionGate>
+          <div className="flex gap-3">
+            <PermissionGate permission={Permission.CreateAgent}>
+              <Button className="bg-gradient-to-r from-[#E056A0] to-[#46B2E0] text-white hover:from-[#E056A0]/90 hover:to-[#46B2E0]/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" asChild>
+                <Link href="/dashboard/agentstudio">
+                  <Workflow className="mr-2 h-4 w-4" />
+                  AgentStudio
+                </Link>
+              </Button>
+            </PermissionGate>
+
+            <PermissionGate permission={Permission.CreateAgent}>
+              <Button className="bg-gradient-to-r from-[#46B2E0] to-[#8A53D2] text-white hover:from-[#46B2E0]/90 hover:to-[#8A53D2]/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200" asChild>
+                <Link href="/dashboard/agents/new">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Criar Agente
+                </Link>
+              </Button>
+            </PermissionGate>
+          </div>
         </div>
 
         <AgentsList />

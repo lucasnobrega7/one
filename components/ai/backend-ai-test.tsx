@@ -2,7 +2,7 @@
 
 /**
  * Componente de Teste - Integração Backend AI
- * Conecta frontend com backend usando OpenRouter (87% margem)
+ * Conecta frontend com backend usando OpenRouter (custos otimizados)
  */
 
 import { useState, useEffect } from 'react';

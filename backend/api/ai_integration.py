@@ -1,6 +1,6 @@
 """
 AI Integration API - OpenRouter + Fallback System
-Sistema unificado para 300+ modelos com 87% margem
+Sistema unificado para 300+ modelos com custos otimizados
 """
 
 import httpx
@@ -68,7 +68,7 @@ class AIProvider:
         await self.client.aclose()
 
 class OpenRouterProvider(AIProvider):
-    """Provider OpenRouter - 300+ modelos com 87% margem"""
+    """Provider OpenRouter - 300+ modelos com custos otimizados"""
     
     BASE_URL = "https://openrouter.ai/api/v1"
     
@@ -177,8 +177,8 @@ class OpenRouterProvider(AIProvider):
         # Estimativa OpenAI (preço médio)
         openai_cost = total_tokens * 0.00003
         
-        # OpenRouter (87% margem = 13% do custo original)
-        openrouter_cost = openai_cost * 0.13
+        # OpenRouter (custos reduzidos)
+        openrouter_cost = openai_cost * 0.4
         
         savings = openai_cost - openrouter_cost
         
@@ -186,8 +186,8 @@ class OpenRouterProvider(AIProvider):
             "openai_estimated_cost": round(openai_cost, 6),
             "openrouter_cost": round(openrouter_cost, 6),
             "savings": round(savings, 6),
-            "savings_percent": 87,
-            "profit_margin": 87
+            "cost_reduction": "Significativa",
+            "optimization_level": "Alta"
         }
     
     def _supports_tools(self, model_id: str) -> bool:
@@ -344,7 +344,7 @@ class SmartAIRouter:
     async def create_chat_completion(self, request: ChatRequest) -> ChatResponse:
         """Cria chat completion com fallback inteligente"""
         
-        # Tentar OpenRouter primeiro (87% margem)
+        # Tentar OpenRouter primeiro (custos otimizados)
         response = await self.openrouter.create_chat_completion(request)
         
         if response.success:

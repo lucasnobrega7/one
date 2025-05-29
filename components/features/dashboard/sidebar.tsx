@@ -5,7 +5,7 @@ import type React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, MessageSquare, Database, BarChart2, Users, Settings, HelpCircle } from "lucide-react"
+import { LayoutDashboard, MessageSquare, Database, BarChart2, Users, Settings, HelpCircle, Workflow } from "lucide-react"
 import { Permission } from "@/lib/auth/permissions"
 import { PermissionGate } from "@/components/features/auth/permission-gate"
 
@@ -52,6 +52,13 @@ export function DashboardSidebar() {
         <SidebarItem href="/dashboard" icon={LayoutDashboard} label="Dashboard" />
 
         <SidebarItem href="/dashboard/agents" icon={MessageSquare} label="Agentes" />
+
+        <SidebarItem 
+          href="/dashboard/agentstudio" 
+          icon={Workflow} 
+          label="AgentStudio" 
+          permission={Permission.CreateAgent}
+        />
 
         <SidebarItem
           href="/dashboard/knowledge"

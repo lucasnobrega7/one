@@ -30,7 +30,7 @@ export default function DashboardClient({ session }: DashboardClientProps) {
           </p>
           <div className="flex items-center gap-3">
             <Badge className="bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 text-[#46B2E0] border border-[#27272a] px-3 py-1">
-              87% Margem ativa
+              Custos Otimizados
             </Badge>
             <Badge className="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1">
               Sistema Online
@@ -78,8 +78,8 @@ export default function DashboardClient({ session }: DashboardClientProps) {
         <Card className="bg-[#1a1a1d] border-[#27272a] group p-6 hover:shadow-lg hover:border-[#46B2E0]/20 transition-all duration-200">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-semibold text-green-400 group-hover:text-green-300 transition-colors duration-200">87%</div>
-              <div className="text-sm text-white/60">Margem de lucro</div>
+              <div className="text-2xl font-semibold text-green-400 group-hover:text-green-300 transition-colors duration-200">Ótima</div>
+              <div className="text-sm text-white/60">Eficiência</div>
             </div>
             <Badge className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-1 text-xs">Economia ativa</Badge>
           </div>

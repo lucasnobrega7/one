@@ -39,12 +39,11 @@ function DashboardContent() {
                 Bem-vindo, {user?.user_metadata?.name || user?.email?.split('@')[0]}
               </h1>
               <p className="text-white/70 text-lg max-w-2xl">
-                Gerencie seus agentes de conversão com 87% de margem de lucro usando OpenRouter
+                Gerencie seus Agentes de Conversão
               </p>
             </div>
             <div className="flex items-center gap-3">
               <Badge className="bg-gradient-to-r from-[#46B2E0]/20 to-[#8A53D2]/20 text-[#46B2E0] border border-[#27272a] px-3 py-1">
-                87% Margem ativa
               </Badge>
               <Badge className="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1">
                 Sistema Online
@@ -132,7 +131,7 @@ function DashboardContent() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-400 group-hover:text-green-300 transition-colors duration-200">87%</div>
+            <div className="text-2xl font-bold text-green-400 group-hover:text-green-300 transition-colors duration-200">Ótima</div>
             <p className="text-xs text-white/50">
               OpenRouter ativo
             </p>
@@ -184,7 +183,7 @@ function DashboardContent() {
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span className="text-sm text-white/70">OpenRouter (87% margem)</span>
+              <span className="text-sm text-white/70">OpenRouter (custos otimizados)</span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
