@@ -6,7 +6,7 @@ python-dotenv==1.0.0
 redis==5.0.1
 supabase==2.0.3
 celery==5.3.1
-python-multipart==0.0.6
+python-multipart==0.0.18
 aiofiles==23.2.0
 asyncpg==0.28.0
 passlib==1.7.4
