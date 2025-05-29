@@ -5,7 +5,6 @@ import { Toaster as SonnerToaster } from "sonner"
 import SupabaseProvider from "@/components/supabase-provider"
 import { GlobalErrorHandler } from "@/components/error-handler-global"
 import { ErrorBoundary } from "@/components/ui/error-boundary"
-import { Footer } from "@/components/ui/footer"
 import { ClaudeMemoryProvider } from "@/components/claude-memory-silent"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -43,7 +42,6 @@ export default function RootLayout({
                     <main className="flex-1 relative">
                       {children}
                     </main>
-                    <Footer />
                   </div>
                 </GlobalErrorHandler>
 
