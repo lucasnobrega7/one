@@ -20,23 +20,19 @@ Uma plataforma empresarial completa para criação e gerenciamento de agentes co
 ```
 one/
 ├── app/                      # Next.js App Router
-│   ├── dashboard/           # Área administrativa
-│   │   ├── agents/         # Gerenciamento de agentes
-│   │   ├── agentstudio/    # Flow builder visual (AgentStudio)
-│   │   ├── analytics/      # Dashboard de análise
-│   │   └── ...
-│   ├── api/                # API Routes Next.js
-│   └── auth/               # Páginas de autenticação
+│   ├── (public)/            # Rotas públicas
+│   ├── (auth)/              # Autenticação
+│   ├── (dashboard)/         # Dashboard principal
+│   ├── (widget)/            # Widget de chat
+│   ├── admin/               # Rotas administrativas
+│   └── api/                 # API Routes Next.js
 ├── components/              # Componentes React
-├── lib/                    # Utilitários e configurações
-├── backend/                # API FastAPI Python
-├── prisma/                 # Schema do banco de dados
-├── supabase/              # Configurações Supabase
-└── _archive/              # Arquivos arquivados (ignorado pelo git)
+├── lib/                     # Utilitários e configurações
+├── backend/                 # API FastAPI Python
+├── prisma/                  # Schema do banco de dados
+├── supabase/                # Configurações Supabase
+└── _archive/                # Arquivos arquivados (ignorado pelo git)
 ```
-
-## 🌐 Arquitetura de Domínios
-
 - `agentesdeconversao.ai` - Domínio principal
 - `lp.agentesdeconversao.ai` - Landing page
 - `dash.agentesdeconversao.ai` - Dashboard administrativo
@@ -107,6 +103,7 @@ Este script arquivará automaticamente:
 
 - [Documentação Completa](https://docs.agentesdeconversao.ai)
 - [API Reference](https://api.agentesdeconversao.ai/docs)
+- [Estrutura Final do Projeto](./docs/FINAL_PROJECT_STRUCTURE.md)
 - [Guia de Contribuição](./docs/CONTRIBUTING.md)
 
 ## 🤝 Contribuindo
